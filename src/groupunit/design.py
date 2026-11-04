@@ -61,10 +61,11 @@ class DesignSummary:
         lines.append(f"pairing ratio of sizes with annotation profiles = {self.pairing_ratio:.2f}")
         if self.pairing_ratio > 1.1:
             lines.append("UNUSUAL PAIRING: large groups carry atypical profiles, so size-weighted group "
-                         "permutation tests are liberal here; use exchangeable weights.")
+                         "permutation tests (weights='size', cca_test, estimator_test) are liberal here; "
+                         "keep the default exchangeable weights.")
         elif self.pairing_ratio < 0.8:
             lines.append("UNUSUAL PAIRING: size-weighted group permutation tests are conservative here; "
-                         "exchangeable weights recover power.")
+                         "the default exchangeable weights recover power.")
         if self.single_group:
             names = self.annotation_names or list(range(self.q))
             flagged = ", ".join(str(names[j]) for j in self.single_group)

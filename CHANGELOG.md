@@ -19,7 +19,12 @@ of correlation, PLS and CCA with group-level variables*.
   standardised pattern tests, distance similarities.
 - Inference: group permutation of fixed scores with max-T correction,
   sequential refitted tests of PLS and CCA, permutation within strata, tests of
-  any scikit-learn style estimator or user-defined pipeline.
+  any scikit-learn style estimator or user-defined pipeline. `pls_test` and
+  `correlation_test` weight groups so that their terms are exchangeable by
+  default (`weights="exchangeable"`), which keeps them valid with unequal group
+  sizes; `weights="size"` gives the size-weighted tests. Family-wise
+  p-values use max-T or, with `correction="min-p"`, Westfall–Young min-p, for
+  families whose cells differ in null spread.
 - Validation: leave-one-group-out prediction against a mean baseline, with
   nested selection.
 - Simulation helpers, and the paper's simulation study in `simulations/`.

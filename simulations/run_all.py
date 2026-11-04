@@ -18,6 +18,7 @@ import s5_dominance
 import s6_weighting
 import s7_similarity
 import s8_validation
+import s9_plsr
 
 OUTCOMES = {
     "s1": (s1_false_positives, 500),
@@ -28,6 +29,7 @@ OUTCOMES = {
     "s6": (s6_weighting, 2000),
     "s7": (s7_similarity, 500),
     "s8": (s8_validation, 300),
+    "s9": (s9_plsr, 200),         # needs scikit-learn
 }
 
 if __name__ == "__main__":

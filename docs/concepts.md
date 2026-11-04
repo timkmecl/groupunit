@@ -96,7 +96,8 @@ weighted statistic, group m enters through a term of variance
 high-variance terms, as when a large group has an unusual profile and size
 weights are used, the observed assignment is atypical among reassignments.
 The test is then liberal. `pairing_ratio` measures this from the annotation
-table and group sizes alone, and `exchangeable_weights` gives every term the
+table and group sizes alone. `exchangeable_weights`, the default weighting
+of `pls_test` and `correlation_test`, gives every term the
 same variance. See [Testing and validation](testing.md).
 
 ## Typicality and pattern

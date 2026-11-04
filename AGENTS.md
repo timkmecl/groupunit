@@ -26,7 +26,7 @@ drafts/          drafts of paper text produced alongside the code
 ```
 
 Module dependencies go one way: `core` → `scores`, `diagnostics`, `methods` →
-`weights`, `inference` → `design`, `similarity`; `validation` stands alone.
+`weights` → `inference` → `design`, `similarity`; `validation` stands alone.
 Keep it acyclic.
 
 ## Commands
@@ -95,8 +95,11 @@ https://timkmecl.github.io/groupunit/.
 - Accept a vector or a matrix of components where it is cheap (`(M,)` or `(M, k)`), and
   return the matching shape.
 - Randomness takes an `rng` argument passed to `np.random.default_rng`.
-- Permutation p-values use `inference.p_value` (counts ties, adds one), and family-wise
-  correction uses max-T (`max_t_p_value`).
+- Permutation p-values use `inference.p_value` (counts ties, adds one). Family-wise
+  correction is max-T (`max_t_p_value`, the default) or min-p (`min_p_value`), chosen with
+  `correction=`. Max-T loses power when the cells' null spreads differ, such as selection
+  statistics or components concentrated on different numbers of groups; don't present
+  it as the only option.
 - Raise a clear `ValueError` when a quantity is undefined for the design (e.g. `cca_test`
   at κ = 1, `variance_components` with saturated annotations) rather than return a
   meaningless number.
@@ -119,9 +122,11 @@ https://timkmecl.github.io/groupunit/.
   of the annotations through CCA is meaningless.
 - **Unequal group sizes.** Group permutation is exact only if every group's term in
   the statistic is equally variable under the null. With size weights, a large group
-  with an atypical profile makes tests badly liberal. `pairing_ratio` detects this;
-  `exchangeable_weights` fixes it. Don't describe group permutation as unconditionally
-  valid in docs or docstrings.
+  with an atypical profile makes tests badly liberal, more so with more groups.
+  `pairing_ratio` detects this; exchangeable weights fix it and are the default of
+  `pls_test` and `correlation_test` (`permutation_weights`). Simulations that study
+  size-weighted tests must pass `weights="size"` explicitly. Don't describe group
+  permutation as unconditionally valid in docs or docstrings.
 - **Invalid procedures** (resampling individuals, holding refitted components fixed)
   exist only in `simulations/procedures.py`, for comparison. Never add them to the package.
 - **SVD shapes in deflation.** Sequential tests must deflate with full SVDs

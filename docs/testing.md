@@ -38,6 +38,33 @@ The family-wise p-values already account for reporting the most extreme
 cell. Each score's η is unchanged by permutation, so the test concerns the
 group-level correlations.
 
+### Max-T or min-p
+
+`correlation_test`, `permutation_test` and `estimator_test` take a
+`correction`. Both corrections control family-wise error. They differ in power
+when the cells' null distributions differ:
+
+- **`correction="max-t"`** (the default) compares each cell with the largest
+  statistic over all cells in each permutation. It suits a family of the same
+  statistic with similar null spread: correlations of balanced scores, one
+  statistic across many annotations.
+- **`correction="min-p"`** first turns each cell into a p-value against its
+  own null, then compares with the smallest p-value over the family. It suits
+  cells whose nulls differ. One example is selection statistics, such as each
+  component's best |r| over many annotations. Another is components
+  concentrated on different numbers of groups, which you can see from
+  `group_shares(...).m_eff`. Under max-T, the cell with the widest null sets
+  the bar for all of them.
+
+In the package's tests, with one cell being a best-of-30 statistic, max-T
+detected a real relation in the other cell 22% of the time and min-p 55%.
+Choose the correction before looking at the results, from the kind of family
+you have, not from which gives the smaller p-value. Min-p p-values are
+discrete with floor 1/(n_perm + 1), so large families need more permutations.
+
+`pls_test` and `cca_test` are not affected. They test each component against
+its own null and step down sequentially.
+
 ### Refitted components, tested sequentially
 
 ```python
@@ -91,20 +118,35 @@ gu.pairing_ratio(Y, n, weights=np.ones(len(n)), tau2=vc.tau2, sigma2_w=vc.sigma2
 
 The ratio is the expected squared loading under the null for the observed
 assignment, divided by its average over reassignments. In the paper's
-simulations, tests held their level at ratios of 0.9–1.1. Equal-weight PLS and
-Mantel tests were liberal from about 1.1, and size-weighted PLS from about 1.3.
-Both reached about 60% false positives at a ratio of 2. A profile only 1.5
-times as far out as the others, on the largest group, was enough for 33%.
-Below 0.9 the tests were conservative. `describe` warns outside 0.8–1.1.
+simulations, tests held their level at ratios of 0.9–1.1 and were conservative
+below. Above 1.1 they were liberal, and more groups made it worse. With 20
+groups, false-positive rates reached about 60% at a ratio of 2. With 50
+groups, ratios of 1.1–1.35 already gave 27–67%. A profile only 1.5 times as
+far out as the others, on the largest group, was enough for 33% (20 groups)
+and 60% (50 groups). `describe` warns outside 0.8–1.1.
 
-The remedy is to weight every group's term equally:
+The remedy is to weight groups so that every term is equally variable, and
+`pls_test` and `correlation_test` do this by default (`weights="exchangeable"`).
+They estimate τ² and σ²_w under the null, pooled over the features (or
+scores), and weight groups ∝ 1/√(τ² + σ²_w / n_m). With equal group sizes these
+are equal weights, so nothing changes. Report the pairing ratio as a
+description of the design.
 
 ```python
-vc = gu.pooled_variance_components(X, groups)          # τ² and σ²_w, averaged over features
-w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)   # ∝ 1 / sqrt(τ² + σ²_w / n_m)
-gu.pls_test(X, groups, Y, weights=w)
-gu.correlation_test(scores, groups, Y, weights=w)
+gu.pls_test(X, groups, Y)                        # exchangeable weights (default)
+gu.pls_test(X, groups, Y, weights="size")        # size weights: liberal if the ratio is above 1.1
+gu.pls_test(X, groups, Y, weights=my_weights)    # any weights, one per group
+
+vc = gu.pooled_variance_components(X, groups)    # the same weights by hand
+w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)
 ```
+
+With the default, `pls_test(...).fit` is the PLS fit with exchangeable
+weights, and `correlation_test(...).r` holds weighted group-level
+correlations. For a size-weighted description of the data, such as loadings
+and group shares that describe the individuals, fit `gu.pls(X, groups, Y)`
+separately, or pass `weights="size"` to `correlation_test` to get
+individual-level correlations.
 
 These weights change the statistic, not the hypothesis: under the null of no
 association, any weighting is a valid statistic, and these make the

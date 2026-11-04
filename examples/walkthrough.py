@@ -23,20 +23,17 @@ Y3, explained = gu.reduce_annotations(Y, n, 3, standardise=True)
 print(f"   variance held: {np.round(explained, 2)}; kappa now {3 / (len(n) - 1):.2f}\n")
 
 print("3. PLS with a sequential test over groups, refitting in every permutation")
+print("   (groups weighted so that their terms are exchangeable, the default)")
 test = gu.pls_test(X, groups, Y3, n_perm=999, rng=0)
-for c, (s, p) in enumerate(zip(test.strength, test.p_value), 1):
-    print(f"   component {c}: singular value {s:8.1f}   p = {p:.3f}")
-print()
-
-print("   Are size-weighted permutation tests trustworthy here?")
+for c, p in enumerate(test.p_value, 1):
+    print(f"   component {c}: p = {p:.3f}")
 vc = gu.pooled_variance_components(X, groups)
 ratio = gu.pairing_ratio(Y3, n, tau2=vc.tau2, sigma2_w=vc.sigma2_w)
-w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)
-p_exchangeable = gu.pls_test(X, groups, Y3, n_perm=999, rng=0, weights=w).p_value[0]
-print(f"   pairing ratio {ratio:.2f} (near 1 is fine); with exchangeable weights, component 1: p = {p_exchangeable:.3f}\n")
+p_size = gu.pls_test(X, groups, Y3, n_components=1, n_perm=999, rng=0, weights="size").p_value[0]
+print(f"   pairing ratio of the design {ratio:.2f}; the size-weighted test of component 1 gives p = {p_size:.3f}\n")
 
 print("4. Which groups carry the first component?")
-fit = test.fit
+fit = gu.pls(X, groups, Y3)                        # size-weighted fit, describing the individuals
 shares = gu.group_shares(fit.group_scores[:, 0], Y3, n)
 top = shares.top(3)
 print(f"   largest shares: groups {top.tolist()} with {np.round(shares.share[top], 2).tolist()}")

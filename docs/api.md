@@ -2,8 +2,9 @@
 
 Functions are importable from the top-level package, for example
 `groupunit.pls`. The result classes (such as `Components` or `GroupShares`)
-and the permutation helpers `p_value`, `max_t_p_value`, `draw_permutations`
-and `paired_score_correlation` are imported from their modules, for example
+and the permutation helpers `p_value`, `max_t_p_value`, `min_p_value`,
+`draw_permutations`, `permutation_weights` and `paired_score_correlation` are
+imported from their modules, for example
 `from groupunit.inference import p_value`. Modules are listed in the order of
 the paper.
 
@@ -56,7 +57,7 @@ This page is generated from the docstrings when the site is built
 
 ::: groupunit.inference
     options:
-      members: [correlation_test, CorrelationTest, pls_test, cca_test, SequentialTest, estimator_test, paired_score_correlation, permutation_test, PermutationResult, pairing_ratio, draw_permutations, p_value, max_t_p_value]
+      members: [correlation_test, CorrelationTest, pls_test, cca_test, SequentialTest, estimator_test, paired_score_correlation, permutation_test, PermutationResult, pairing_ratio, permutation_weights, draw_permutations, p_value, max_t_p_value, min_p_value]
 
 ## Validation
 

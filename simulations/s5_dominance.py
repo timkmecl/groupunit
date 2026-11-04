@@ -18,8 +18,8 @@ TESTS = ["corr: size", "corr: exchangeable", "PLS: size", "PLS: equal", "PLS: ex
          "CCA: size", "Mantel: equal"]
 
 
-def cells(n_perm):
-    return [(Design(M=20, kappa=0.5, h=h, structure="extreme", extreme_at=at, extremity=x, signal=s),
+def cells(n_perm, M=20):
+    return [(Design(M=M, kappa=0.5, h=h, structure="extreme", extreme_at=at, extremity=x, signal=s),
              {"n_perm": n_perm})
             for x in (1.5, 2.0, 3.0, 4.0) for at in ("random", "largest", "smallest")
             for h in (1, 10) for s in (0.0, 0.3)]
@@ -35,7 +35,7 @@ def replicate(d, rng, n_perm):
     fit = gu.pls(X, groups, Y, n_components=1)
     shares = gu.group_shares(fit.group_scores[:, 0], Y, n)
     p = [
-        gu.correlation_test(pcs, groups, Y, n_perm, rng).p_fwer.min(),
+        gu.correlation_test(pcs, groups, Y, n_perm, rng, weights="size").p_fwer.min(),
         gu.correlation_test(pcs, groups, Y, n_perm, rng, weights=w).p_fwer.min(),
         pr.pls_groups_refit(X, groups, Y, n_perm, rng),
         gu.pls_test(X, groups, Y, 1, n_perm, rng, weights=np.ones(d.M)).p_value[0],
@@ -55,10 +55,11 @@ def summarise(df):
     return descriptive.groupby(keys).median().join((df[TESTS] < ALPHA).groupby(keys).mean())
 
 
-def main(reps=300, n_perm=199, seed=5):
-    df = run(replicate, cells(n_perm), reps, seed)
-    save(df, summarise(df), "s5_dominance")
+def main(reps=300, n_perm=199, seed=5, M=20):
+    df = run(replicate, cells(n_perm, M), reps, seed)
+    save(df, summarise(df), "s5_dominance" if M == 20 else f"s5_dominance_M{M}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(M=int(sys.argv[1]) if len(sys.argv) > 1 else 20)   # python s5_dominance.py 50

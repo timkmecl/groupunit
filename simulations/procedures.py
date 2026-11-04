@@ -27,8 +27,8 @@ def corr_individuals(scores, G, Y, n, n_perm, rng):
 
 
 def corr_groups(scores, groups, Y, n_perm, rng):
-    """The valid test: max-T over cells, annotation rows permuted among groups."""
-    return gu.correlation_test(scores, groups, Y, n_perm, rng).p_fwer.min()
+    """The valid test with size weights: max-T over cells, annotation rows permuted among groups."""
+    return gu.correlation_test(scores, groups, Y, n_perm, rng, weights="size").p_fwer.min()
 
 
 def corr_parametric(scores, groups, Y):
@@ -62,7 +62,7 @@ def pls_groups_fixed(X, groups, Y, n, n_perm, rng):
 
 
 def pls_groups_refit(X, groups, Y, n_perm, rng):
-    return gu.pls_test(X, groups, Y, n_components=1, n_perm=n_perm, rng=rng).p_value[0]
+    return gu.pls_test(X, groups, Y, n_components=1, n_perm=n_perm, rng=rng, weights="size").p_value[0]
 
 
 # ---------------------------------------------------------------- CCA, first canonical correlation

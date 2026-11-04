@@ -10,6 +10,7 @@ pip install -e ".[simulations]"
 python simulations/run_all.py            # the full study, about 20 minutes on 8 cores
 python simulations/run_all.py --quick    # a tenth of the replicates and 99 permutations
 python simulations/run_all.py s1 s5      # selected outcomes
+python simulations/s5_dominance.py 50     # outcome 5 with 50 groups instead of 20
 ```
 
 | Script                    | Outcome                                                                       |
@@ -22,6 +23,7 @@ python simulations/run_all.py s1 s5      # selected outcomes
 | `s6_weighting.py`         | size, equal and optimal weights; accuracy of the effective-number formulas     |
 | `s7_similarity.py`        | typicality and pattern: false positives and power of the pattern test          |
 | `s8_validation.py`        | optimism of individual-split versus group-split cross-validation               |
+| `s9_plsr.py`              | PLS regression (as in Suresh et al.): tests of its R² and its cross-validation; needs scikit-learn |
 
 The design is in `simulations/common.py` (`Design`). Within-group variance is
 fixed at σ²_w = 1, and the heterogeneity ratio h = τ² / (σ²_w / n̄) sets τ².

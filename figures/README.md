@@ -7,11 +7,12 @@ other figures (1–5) are built by the paper's own figure scripts.
 | Script | Output | Content |
 | --- | --- | --- |
 | `fig6_typicality.py` | `figure6_typicality.svg`, `.png` | Typicality and pattern, with distance similarities and standardised residuals (replaces the original Figure 6). |
-| `fig7_pairing.py` | `figure7_pairing.svg`, `.png` | False-positive rate of group permutation tests against the pairing ratio, from simulation outcome 5. |
+| `fig7_pairing.py` | `figure7_pairing.svg`, `.png` | False-positive rate of group permutation tests against the pairing ratio, from simulation outcome 5 at M = 20 and 50. |
 
 ```bash
 python figures/fig6_typicality.py
-python simulations/run_all.py s5      # once, if simulations/results/ is missing
+python simulations/run_all.py s5          # once, if simulations/results/ is missing
+python simulations/s5_dominance.py 50     # the M = 50 run
 python figures/fig7_pairing.py
 ```
 

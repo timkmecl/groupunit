@@ -126,8 +126,12 @@ See [Testing and validation](testing.md). In short:
 gu.correlation_test(scores, groups, Y)       # scores built without Y: held fixed
 gu.pls_test(X, groups, Y3)                   # PLS: refitted, sequential
 gu.cca_test(X, groups, Y3)                   # CCA: refitted, sequential; refuses κ = 1
-gu.pairing_ratio(Y3, n)                      # are size-weighted tests trustworthy here?
+gu.pairing_ratio(Y3, n)                      # how unusual the design is; report it
 ```
+
+`correlation_test` and `pls_test` weight groups so that their terms are
+exchangeable, which keeps them valid with unequal group sizes. CCA always
+weights groups by size; with a pairing ratio well above 1, prefer PLS.
 
 ## 8. Validate on new groups
 

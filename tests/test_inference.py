@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 import groupunit as gu
-from groupunit.inference import draw_permutations, p_value
+from groupunit.inference import draw_permutations, min_p_value, p_value
 
 
 def test_permutations_stay_within_strata():
@@ -14,6 +14,52 @@ def test_permutations_stay_within_strata():
 def test_p_value_counts_ties():
     assert p_value(1.0, np.ones(99)) == 1.0
     assert p_value(2.0, np.ones(99)) == pytest.approx(0.01)
+
+
+def test_min_p_matches_brute_force():
+    rng = np.random.default_rng(19)
+    observed, null = rng.standard_normal(3) + [0, 1, 2], rng.standard_normal((30, 3)) * [1, 2, 4]
+    values = np.vstack([observed, null])
+    B1 = len(values)
+    p_all = np.array([[np.sum(values[:, j] >= values[a, j]) / B1 for j in range(3)] for a in range(B1)])
+    expected = [np.sum(p_all.min(1) <= p_all[0, j]) / B1 for j in range(3)]
+    np.testing.assert_allclose(min_p_value(observed, null), expected)
+
+
+def test_min_p_of_one_cell_is_the_uncorrected_p_value():
+    rng = np.random.default_rng(20)
+    observed, null = rng.standard_normal(1), rng.standard_normal((99, 1))
+    np.testing.assert_allclose(min_p_value(observed, null), p_value(observed, null))
+
+
+def test_min_p_keeps_power_when_one_cell_has_a_wide_null():
+    """Cell 1: one score against one annotation. Cell 2: another score's best |r| over 30 annotations (wide null)."""
+    rng = np.random.default_rng(21)
+    M, w = 20, np.ones(20)
+    rejections = {"max-t": 0, "min-p": 0}
+    false = {"max-t": 0, "min-p": 0}
+    for _ in range(100):
+        Y = rng.standard_normal((M, 31))
+        other = rng.standard_normal(M)
+        for signal, counts in ((True, rejections), (False, false)):
+            score = 0.6 * Y[:, 0] + rng.standard_normal(M) if signal else rng.standard_normal(M)
+
+            def statistic(Yp, score=score):
+                return np.array([abs(gu.weighted_corr(score, Yp[:, 0], w)),
+                                 np.abs(gu.weighted_corr(other, Yp[:, 1:], w)).max()])
+
+            for correction in counts:
+                res = gu.permutation_test(statistic, Y, n_perm=199, rng=rng, correction=correction)
+                counts[correction] += res.p_fwer[0] < 0.05
+    assert false["max-t"] / 100 < 0.1 and false["min-p"] / 100 < 0.1
+    assert rejections["min-p"] > rejections["max-t"] + 10
+
+
+def test_correction_is_validated_and_recorded(design):
+    X, groups, Y, _ = design
+    assert gu.correlation_test(X[:, :2], groups, Y, n_perm=19, rng=0, correction="min-p").correction == "min-p"
+    with pytest.raises(ValueError):
+        gu.correlation_test(X[:, :2], groups, Y, n_perm=19, rng=0, correction="bonferroni")
 
 
 def test_correlation_test_finds_real_relation(design):
@@ -56,10 +102,33 @@ def test_exchangeable_weights_restore_level_when_large_group_is_atypical():
         X, groups, Y = gu.simulate(n, p=4, Y=Y, tau2=tau2, sigma2_w=sigma2_w, rng=rng)
         vc = gu.pooled_variance_components(X, groups)
         w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)
-        rejections["size"] += gu.pls_test(X, groups, Y, 1, n_perm=99, rng=rng).p_value[0] < 0.05
+        rejections["size"] += gu.pls_test(X, groups, Y, 1, n_perm=99, rng=rng, weights="size").p_value[0] < 0.05
         rejections["exchangeable"] += gu.pls_test(X, groups, Y, 1, n_perm=99, rng=rng, weights=w).p_value[0] < 0.05
     assert rejections["size"] / 80 > 0.3
     assert rejections["exchangeable"] / 80 < 0.12
+
+
+def test_default_weights_are_exchangeable(design):
+    X, groups, Y, n = design
+    vc = gu.pooled_variance_components(X, groups)
+    w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)
+    np.testing.assert_allclose(gu.pls_test(X, groups, Y, 2, n_perm=49, rng=0).p_value,
+                               gu.pls_test(X, groups, Y, 2, n_perm=49, rng=0, weights=w).p_value)
+    vc_scores = gu.pooled_variance_components(X[:, :2], groups)    # correlation_test uses the scores
+    w_scores = gu.exchangeable_weights(n, vc_scores.tau2, vc_scores.sigma2_w)
+    np.testing.assert_allclose(gu.correlation_test(X[:, :2], groups, Y, n_perm=49, rng=0).p_fwer,
+                               gu.correlation_test(X[:, :2], groups, Y, n_perm=49, rng=0, weights=w_scores).p_fwer)
+    with pytest.raises(ValueError):
+        gu.pls_test(X, groups, Y, weights="equal")
+
+
+def test_default_equals_size_weights_when_groups_are_equal():
+    rng = np.random.default_rng(18)
+    X, groups, Y = gu.simulate([25] * 10, p=4, q=3, beta=0.5, rng=rng)
+    for test in (gu.pls_test, gu.correlation_test):
+        args = (X, groups, Y) if test is gu.pls_test else (X[:, :2], groups, Y)
+        default, size = test(*args, n_perm=49, rng=0), test(*args, n_perm=49, rng=0, weights="size")
+        np.testing.assert_allclose(getattr(default, "p_value"), getattr(size, "p_value"))
 
 
 def test_exchangeable_correlation_test_holds_level_for_fixed_scores():
