@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=77"]   # for the SPDX `license` field
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "groupunit"
+dynamic = ["version"]   # set in src/groupunit/__init__.py
+description = "Correlation, PLS, CCA and similarity analyses when annotations exist only for groups"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Tim Kmecl", email = "tim.kmecl.tk@gmail.com" }]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["group-level variables", "pseudoreplication", "permutation test", "PLS", "CCA",
+            "representational similarity"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Operating System :: OS Independent",
+]
+dependencies = ["numpy>=1.22", "scipy>=1.8"]
+
+# TODO: fill in once the GitHub repository exists
+# [project.urls]
+# Homepage = "https://github.com/<user>/groupunit"
+# Documentation = "https://<user>.github.io/groupunit/"
+# Issues = "https://github.com/<user>/groupunit/issues"
+
+[project.optional-dependencies]
+test = ["pytest>=7", "scikit-learn>=1.2"]
+docs = ["mkdocs-material>=9", "mkdocstrings[python]>=0.24"]
+simulations = ["pandas>=1.5", "tabulate>=0.9"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "groupunit.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

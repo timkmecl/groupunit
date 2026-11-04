@@ -1,0 +1,13 @@
+scenario,similarity,M,mantel,typicality,pattern raw,pattern standardised
+pattern,correlation,10,0.86,0.268,0.906,0.818
+pattern,correlation,20,0.996,0.38,1.0,0.996
+pattern,correlation,50,1.0,0.568,1.0,1.0
+pattern,distance,10,0.898,0.556,0.936,0.836
+pattern,distance,20,0.998,0.854,1.0,0.998
+pattern,distance,50,1.0,0.996,1.0,1.0
+typicality,correlation,10,0.73,0.742,0.15,0.116
+typicality,correlation,20,0.98,0.982,0.284,0.342
+typicality,correlation,50,1.0,1.0,0.74,0.884
+typicality,distance,10,0.924,0.926,0.13,0.066
+typicality,distance,20,0.998,0.998,0.178,0.072
+typicality,distance,50,1.0,1.0,0.222,0.05

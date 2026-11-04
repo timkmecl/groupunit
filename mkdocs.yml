@@ -1,0 +1,42 @@
+site_name: groupunit
+site_description: Correlation, PLS, CCA and similarity analyses when annotations exist only for groups
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - content.code.copy
+nav:
+  - Home: index.md
+  - Concepts: concepts.md
+  - User guide:
+      - Workflow: guide.md
+      - Testing and validation: testing.md
+      - Similarity designs: similarity.md
+      - Published results: published.md
+      - Other models and scores: other-models.md
+  - Simulations: simulations.md
+  - API reference: api.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            members_order: source
+            heading_level: 3
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
