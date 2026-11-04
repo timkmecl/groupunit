@@ -3,6 +3,11 @@
 Annotation 1 drives features 1-2 (group-level R² = 0.3 or 0.6). Within groups, a
 strong direction unrelated to groups (a "length" direction) dominates the
 first principal component.
+
+A second part fixes the population (τ² and the relation β) and varies the
+mean number of individuals per group with the number of groups: more
+individuals sharpen each group mean, but add no observations of the
+annotations, so power should level off in n̄ and keep rising with M.
 """
 import numpy as np
 
@@ -42,9 +47,42 @@ def summarise(df):
     return df[["eta2 PC1", "eta2 LD1"]].groupby(keys).mean().join(rates)
 
 
+# ---------------------------------------------------------------- power against group size
+
+TAU2 = 0.02        # the reference scenario's τ² (h = 1 at n̄ = 50)
+R2_POP = 0.5       # group-level R² of the population means, fixed across n̄
+SIZE_TESTS = ["PLS: exchangeable", "PLS: size weights", "CCA: refit"]
+
+
+def size_cells(n_perm):
+    grid = []
+    for M in (10, 20, 50, 100):
+        for nbar in (10, 25, 50, 100, 250, 1000):
+            # Design sets β from the R² of the observed means (τ² + 1/n̄ around βᵀỹ);
+            # convert so that β, and the R² of the population means, stay fixed.
+            odds = R2_POP / (1 - R2_POP) * TAU2 / (TAU2 + 1 / nbar)
+            grid.append((Design(M=M, nbar=nbar, h=TAU2 * nbar, signal=odds / (1 + odds)), {"n_perm": n_perm}))
+    return grid
+
+
+def size_replicate(d, rng, n_perm):
+    X, groups, Y, n = d.draw(rng)
+    return dict(zip(SIZE_TESTS, [
+        gu.pls_test(X, groups, Y, n_components=1, n_perm=n_perm, rng=rng).p_value[0],
+        pr.pls_groups_refit(X, groups, Y, n_perm, rng),
+        pr.cca_groups_refit(X, groups, Y, n_perm, rng),
+    ]))
+
+
+def size_summarise(df):
+    return (df[SIZE_TESTS] < ALPHA).groupby([df.M, df.nbar]).mean()
+
+
 def main(reps=300, n_perm=199, seed=2):
     df = run(replicate, cells(n_perm), reps, seed)
     save(df, summarise(df), "s2_power")
+    df = run(size_replicate, size_cells(n_perm), reps, seed + 100)
+    save(df, size_summarise(df), "s2_group_size")
 
 
 if __name__ == "__main__":

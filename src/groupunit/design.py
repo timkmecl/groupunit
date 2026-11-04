@@ -121,6 +121,12 @@ def r2_null(r, M):
 
     Beta(r/2, (M-1-r)/2), with mean r/(M-1). Returns a frozen ``scipy.stats``
     distribution. At r = M - 1 the distribution collapses to 1 for every score.
+
+    It assumes the weighted group means point in a random direction, which
+    `groupunit.weights.optimal_weights` achieve. With size weights and unequal
+    group sizes the largest groups dominate both the score and the
+    annotations, and the null R² is larger, about r / M_eff for small r
+    (Kish's number); treat this distribution as a lower bound there.
     """
     if not 0 < r < M - 1:
         raise ValueError(f"need 0 < r < M - 1; at r = M - 1 every score has R² = 1 (r={r}, M={M})")

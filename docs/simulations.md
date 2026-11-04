@@ -16,7 +16,7 @@ python simulations/s5_dominance.py 50     # outcome 5 with 50 groups instead of 
 | Script                    | Outcome                                                                       |
 | ------------------------- | ----------------------------------------------------------------------------- |
 | `s1_false_positives.py`   | false-positive rates: resampling individuals vs permuting groups, with and without refitting |
-| `s2_power.py`             | power of the valid tests at realistic numbers of groups                       |
+| `s2_power.py`             | power of the valid tests at realistic numbers of groups, and power against the number of individuals per group |
 | `s3_saturation.py`        | indifference of saturated CCA, and the Beta null of R²                         |
 | `s4_lens.py`              | how closely null PLS loadings follow the lens; agreement between null analyses |
 | `s5_dominance.py`         | one group with an extreme profile: shares, pairing ratio and test validity     |

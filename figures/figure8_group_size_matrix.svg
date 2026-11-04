@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 500" width="1400" height="500">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d5966"/></marker></defs>
+<rect width="1400" height="500" fill="#ffffff"/>
+<text x="20.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">a</text>
+<text x="46.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Power grows with groups, not individuals</text>
+<text x="46.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">PLS test, exchangeable weights</text>
+<text x="110.0" y="145.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">100</text>
+<rect x="120.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(207,216,224)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="152.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.22</text>
+<text x="152.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="186.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(153,172,187)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="218.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.49</text>
+<text x="218.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="183.0" y="107.0" width="70.0" height="66.0" rx="8" fill="none" fill-opacity="1.00" stroke="#E69F00" stroke-width="3.5"/>
+<rect x="252.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(85,116,140)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="284.0" y="142.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.76</text>
+<text x="284.0" y="157.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="318.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(45,83,112)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="319.5" y="111.5" width="61.0" height="57.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="350.0" y="142.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.92</text>
+<text x="350.0" y="157.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 10,000</text>
+<rect x="384.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(23,65,97)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="385.5" y="111.5" width="61.0" height="57.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="416.0" y="142.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.99</text>
+<text x="416.0" y="157.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 25,000</text>
+<rect x="450.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(22,64,96)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="451.5" y="111.5" width="61.0" height="57.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="482.0" y="142.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">1.00</text>
+<text x="482.0" y="157.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 100,000</text>
+<text x="110.0" y="207.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">50</text>
+<rect x="120.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(223,229,235)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="152.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.13</text>
+<text x="152.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="186.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(201,211,220)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="218.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.26</text>
+<text x="218.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,250</text>
+<rect x="252.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(151,170,185)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="284.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<text x="284.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="318.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(112,138,159)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="350.0" y="204.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.66</text>
+<text x="350.0" y="219.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="384.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(73,106,131)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="385.5" y="173.5" width="61.0" height="57.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="416.0" y="204.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.81</text>
+<text x="416.0" y="219.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 12,500</text>
+<rect x="450.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(52,89,117)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="451.5" y="173.5" width="61.0" height="57.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="482.0" y="204.0" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.89</text>
+<text x="482.0" y="219.0" font-size="9.5" fill="#dfe7ee" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 50,000</text>
+<text x="110.0" y="269.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">20</text>
+<rect x="120.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(233,238,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="152.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.05</text>
+<text x="152.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 200</text>
+<rect x="186.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(225,231,237)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="218.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.11</text>
+<text x="218.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="252.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(206,215,223)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="284.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.23</text>
+<text x="284.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="318.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(196,207,216)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="350.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.28</text>
+<text x="350.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,000</text>
+<rect x="384.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(183,197,208)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="416.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.35</text>
+<text x="416.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="450.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(151,170,185)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="482.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.50</text>
+<text x="482.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 20,000</text>
+<rect x="447.0" y="231.0" width="70.0" height="66.0" rx="8" fill="none" fill-opacity="1.00" stroke="#E69F00" stroke-width="3.5"/>
+<text x="110.0" y="331.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">10</text>
+<rect x="120.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(234,238,243)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="152.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.04</text>
+<text x="152.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 100</text>
+<rect x="186.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(226,232,237)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="218.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.11</text>
+<text x="218.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 250</text>
+<rect x="252.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(222,229,235)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="284.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.13</text>
+<text x="284.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="318.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(216,224,231)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="350.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.17</text>
+<text x="350.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="384.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(200,211,219)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="416.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.26</text>
+<text x="416.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="450.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(190,202,212)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="482.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.31</text>
+<text x="482.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 10,000</text>
+<text x="152.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">10</text>
+<text x="218.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">25</text>
+<text x="284.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">50</text>
+<text x="350.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">100</text>
+<text x="416.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">250</text>
+<text x="482.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">1,000</text>
+<text x="318.0" y="396.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">individuals per group n̄</text>
+<text transform="rotate(-90 76 234.0)" x="76.0" y="234.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">number of groups M</text>
+<text x="660.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">b</text>
+<text x="686.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Size weights waste the extra individuals</text>
+<text x="686.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">the same test with size weights</text>
+<text x="750.0" y="145.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">100</text>
+<rect x="760.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(221,228,234)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="792.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.14</text>
+<text x="792.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="826.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(209,218,225)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="858.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.21</text>
+<text x="858.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="892.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(197,209,218)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="924.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.27</text>
+<text x="924.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="958.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(196,207,217)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="990.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.28</text>
+<text x="990.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 10,000</text>
+<rect x="1024.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(187,200,210)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1056.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.33</text>
+<text x="1056.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 25,000</text>
+<rect x="1090.0" y="110.0" width="64.0" height="60.0" rx="0" fill="rgb(192,204,214)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1122.0" y="142.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.30</text>
+<text x="1122.0" y="157.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 100,000</text>
+<text x="750.0" y="207.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">50</text>
+<rect x="760.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(226,232,238)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="792.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.10</text>
+<text x="792.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="826.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(223,230,236)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="858.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.12</text>
+<text x="858.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,250</text>
+<rect x="892.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(216,224,231)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="924.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.17</text>
+<text x="924.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="958.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(208,217,225)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="990.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.22</text>
+<text x="990.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="1024.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(215,223,230)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1056.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.18</text>
+<text x="1056.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 12,500</text>
+<rect x="1090.0" y="172.0" width="64.0" height="60.0" rx="0" fill="rgb(214,222,229)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1122.0" y="204.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.18</text>
+<text x="1122.0" y="219.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 50,000</text>
+<text x="750.0" y="269.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">20</text>
+<rect x="760.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(230,235,240)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="792.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.08</text>
+<text x="792.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 200</text>
+<rect x="826.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(233,238,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="858.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.05</text>
+<text x="858.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="892.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(227,233,238)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="924.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.10</text>
+<text x="924.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="958.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(226,232,237)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="990.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.11</text>
+<text x="990.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,000</text>
+<rect x="1024.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(224,230,236)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1056.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.12</text>
+<text x="1056.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 5,000</text>
+<rect x="1090.0" y="234.0" width="64.0" height="60.0" rx="0" fill="rgb(229,234,239)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1122.0" y="266.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.09</text>
+<text x="1122.0" y="281.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 20,000</text>
+<text x="750.0" y="331.0" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">10</text>
+<rect x="760.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(232,237,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="792.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.06</text>
+<text x="792.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 100</text>
+<rect x="826.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(228,234,239)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="858.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.09</text>
+<text x="858.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 250</text>
+<rect x="892.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(231,236,241)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="924.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.07</text>
+<text x="924.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 500</text>
+<rect x="958.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(230,236,240)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="990.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.07</text>
+<text x="990.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 1,000</text>
+<rect x="1024.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(232,237,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1056.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.06</text>
+<text x="1056.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 2,500</text>
+<rect x="1090.0" y="296.0" width="64.0" height="60.0" rx="0" fill="rgb(230,236,240)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1122.0" y="328.0" font-size="13" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">0.07</text>
+<text x="1122.0" y="343.0" font-size="9.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">N = 10,000</text>
+<text x="792.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">10</text>
+<text x="858.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">25</text>
+<text x="924.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">50</text>
+<text x="990.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">100</text>
+<text x="1056.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">250</text>
+<text x="1122.0" y="374.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">1,000</text>
+<text x="958.0" y="396.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">individuals per group n̄</text>
+<text transform="rotate(-90 716 234.0)" x="716.0" y="234.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">number of groups M</text>
+<rect x="1290.0" y="310.0" width="16.0" height="2.2" rx="0" fill="rgb(238,242,246)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="308.0" width="16.0" height="2.2" rx="0" fill="rgb(237,241,245)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="306.0" width="16.0" height="2.2" rx="0" fill="rgb(236,240,245)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="304.0" width="16.0" height="2.2" rx="0" fill="rgb(235,240,244)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="302.0" width="16.0" height="2.2" rx="0" fill="rgb(234,239,243)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="300.0" width="16.0" height="2.2" rx="0" fill="rgb(233,238,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="298.0" width="16.0" height="2.2" rx="0" fill="rgb(232,237,242)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="296.0" width="16.0" height="2.2" rx="0" fill="rgb(231,236,241)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="294.0" width="16.0" height="2.2" rx="0" fill="rgb(229,235,240)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="292.0" width="16.0" height="2.2" rx="0" fill="rgb(228,234,239)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="290.0" width="16.0" height="2.2" rx="0" fill="rgb(227,232,238)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="288.0" width="16.0" height="2.2" rx="0" fill="rgb(225,231,237)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="286.0" width="16.0" height="2.2" rx="0" fill="rgb(224,230,236)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="284.0" width="16.0" height="2.2" rx="0" fill="rgb(222,229,235)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="282.0" width="16.0" height="2.2" rx="0" fill="rgb(221,228,234)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="280.0" width="16.0" height="2.2" rx="0" fill="rgb(219,226,233)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="278.0" width="16.0" height="2.2" rx="0" fill="rgb(217,225,231)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="276.0" width="16.0" height="2.2" rx="0" fill="rgb(216,223,230)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="274.0" width="16.0" height="2.2" rx="0" fill="rgb(214,222,229)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="272.0" width="16.0" height="2.2" rx="0" fill="rgb(212,221,228)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="270.0" width="16.0" height="2.2" rx="0" fill="rgb(210,219,227)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="268.0" width="16.0" height="2.2" rx="0" fill="rgb(209,218,226)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="266.0" width="16.0" height="2.2" rx="0" fill="rgb(207,216,224)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="264.0" width="16.0" height="2.2" rx="0" fill="rgb(205,215,223)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="262.0" width="16.0" height="2.2" rx="0" fill="rgb(203,213,222)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="260.0" width="16.0" height="2.2" rx="0" fill="rgb(201,212,220)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="258.0" width="16.0" height="2.2" rx="0" fill="rgb(200,210,219)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="256.0" width="16.0" height="2.2" rx="0" fill="rgb(198,209,218)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="254.0" width="16.0" height="2.2" rx="0" fill="rgb(196,207,216)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="252.0" width="16.0" height="2.2" rx="0" fill="rgb(194,205,215)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="250.0" width="16.0" height="2.2" rx="0" fill="rgb(192,204,214)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="248.0" width="16.0" height="2.2" rx="0" fill="rgb(190,202,212)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="246.0" width="16.0" height="2.2" rx="0" fill="rgb(188,200,211)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="244.0" width="16.0" height="2.2" rx="0" fill="rgb(186,199,210)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="242.0" width="16.0" height="2.2" rx="0" fill="rgb(184,197,208)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="240.0" width="16.0" height="2.2" rx="0" fill="rgb(182,195,207)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="238.0" width="16.0" height="2.2" rx="0" fill="rgb(180,194,205)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="236.0" width="16.0" height="2.2" rx="0" fill="rgb(177,192,204)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="234.0" width="16.0" height="2.2" rx="0" fill="rgb(175,190,202)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="232.0" width="16.0" height="2.2" rx="0" fill="rgb(173,188,201)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="230.0" width="16.0" height="2.2" rx="0" fill="rgb(171,187,199)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="228.0" width="16.0" height="2.2" rx="0" fill="rgb(169,185,198)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="226.0" width="16.0" height="2.2" rx="0" fill="rgb(167,183,196)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="224.0" width="16.0" height="2.2" rx="0" fill="rgb(164,181,195)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="222.0" width="16.0" height="2.2" rx="0" fill="rgb(162,179,193)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="220.0" width="16.0" height="2.2" rx="0" fill="rgb(160,178,192)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="218.0" width="16.0" height="2.2" rx="0" fill="rgb(158,176,190)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="216.0" width="16.0" height="2.2" rx="0" fill="rgb(155,174,189)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="214.0" width="16.0" height="2.2" rx="0" fill="rgb(153,172,187)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="212.0" width="16.0" height="2.2" rx="0" fill="rgb(151,170,185)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="210.0" width="16.0" height="2.2" rx="0" fill="rgb(149,168,184)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="208.0" width="16.0" height="2.2" rx="0" fill="rgb(146,166,182)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="206.0" width="16.0" height="2.2" rx="0" fill="rgb(144,164,181)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="204.0" width="16.0" height="2.2" rx="0" fill="rgb(142,162,179)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="202.0" width="16.0" height="2.2" rx="0" fill="rgb(139,161,177)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="200.0" width="16.0" height="2.2" rx="0" fill="rgb(137,159,176)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="198.0" width="16.0" height="2.2" rx="0" fill="rgb(135,157,174)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="196.0" width="16.0" height="2.2" rx="0" fill="rgb(132,155,172)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="194.0" width="16.0" height="2.2" rx="0" fill="rgb(130,153,171)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="192.0" width="16.0" height="2.2" rx="0" fill="rgb(127,151,169)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="190.0" width="16.0" height="2.2" rx="0" fill="rgb(125,149,167)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="188.0" width="16.0" height="2.2" rx="0" fill="rgb(122,147,166)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="186.0" width="16.0" height="2.2" rx="0" fill="rgb(120,145,164)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="184.0" width="16.0" height="2.2" rx="0" fill="rgb(117,143,162)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="182.0" width="16.0" height="2.2" rx="0" fill="rgb(115,141,160)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="180.0" width="16.0" height="2.2" rx="0" fill="rgb(112,138,159)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="178.0" width="16.0" height="2.2" rx="0" fill="rgb(110,136,157)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="176.0" width="16.0" height="2.2" rx="0" fill="rgb(107,134,155)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="174.0" width="16.0" height="2.2" rx="0" fill="rgb(105,132,153)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="172.0" width="16.0" height="2.2" rx="0" fill="rgb(102,130,152)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="170.0" width="16.0" height="2.2" rx="0" fill="rgb(100,128,150)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="168.0" width="16.0" height="2.2" rx="0" fill="rgb(97,126,148)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="166.0" width="16.0" height="2.2" rx="0" fill="rgb(95,124,146)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="164.0" width="16.0" height="2.2" rx="0" fill="rgb(92,122,145)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="162.0" width="16.0" height="2.2" rx="0" fill="rgb(90,120,143)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="160.0" width="16.0" height="2.2" rx="0" fill="rgb(87,117,141)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="158.0" width="16.0" height="2.2" rx="0" fill="rgb(84,115,139)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="156.0" width="16.0" height="2.2" rx="0" fill="rgb(82,113,137)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="154.0" width="16.0" height="2.2" rx="0" fill="rgb(79,111,135)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="152.0" width="16.0" height="2.2" rx="0" fill="rgb(76,109,134)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="150.0" width="16.0" height="2.2" rx="0" fill="rgb(74,107,132)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="148.0" width="16.0" height="2.2" rx="0" fill="rgb(71,104,130)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="146.0" width="16.0" height="2.2" rx="0" fill="rgb(68,102,128)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="144.0" width="16.0" height="2.2" rx="0" fill="rgb(66,100,126)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="142.0" width="16.0" height="2.2" rx="0" fill="rgb(63,98,124)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="140.0" width="16.0" height="2.2" rx="0" fill="rgb(60,96,122)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="138.0" width="16.0" height="2.2" rx="0" fill="rgb(58,93,121)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="136.0" width="16.0" height="2.2" rx="0" fill="rgb(55,91,119)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="134.0" width="16.0" height="2.2" rx="0" fill="rgb(52,89,117)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="132.0" width="16.0" height="2.2" rx="0" fill="rgb(49,87,115)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="130.0" width="16.0" height="2.2" rx="0" fill="rgb(47,84,113)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="128.0" width="16.0" height="2.2" rx="0" fill="rgb(44,82,111)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="126.0" width="16.0" height="2.2" rx="0" fill="rgb(41,80,109)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="124.0" width="16.0" height="2.2" rx="0" fill="rgb(38,77,107)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="122.0" width="16.0" height="2.2" rx="0" fill="rgb(36,75,105)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="120.0" width="16.0" height="2.2" rx="0" fill="rgb(33,73,103)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="118.0" width="16.0" height="2.2" rx="0" fill="rgb(30,70,101)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="116.0" width="16.0" height="2.2" rx="0" fill="rgb(27,68,99)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="114.0" width="16.0" height="2.2" rx="0" fill="rgb(24,66,97)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<rect x="1290.0" y="112.0" width="16.0" height="2.2" rx="0" fill="rgb(22,64,96)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="1312.0" y="314.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">0</text>
+<text x="1312.0" y="116.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">1</text>
+<text x="1290.0" y="100.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">power</text>
+<rect x="1290.0" y="332.0" width="16.0" height="16.0" rx="0" fill="none" fill-opacity="1.00" stroke="#1b2128" stroke-width="2"/>
+<text x="1312.0" y="344.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">≥ 0.8</text>
+<text x="82.0" y="428.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Orange: equal power (about 0.5) with 20 groups of 1,000 and with 100 groups of 25, eight times fewer individuals.</text>
+<text x="82.0" y="446.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Simulated data with a fixed population: groups differ by τ² = 0.02, and their population means relate to the annotations with R² = 0.5 (κ = 0.5, Kish 40%).</text>
+<text x="82.0" y="464.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">7,200 data sets, 300 per cell (standard error at most 0.03). N: individuals in total.</text>
+</svg>
