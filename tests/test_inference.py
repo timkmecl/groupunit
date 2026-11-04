@@ -62,6 +62,21 @@ def test_exchangeable_weights_restore_level_when_large_group_is_atypical():
     assert rejections["exchangeable"] / 80 < 0.12
 
 
+def test_exchangeable_correlation_test_holds_level_for_fixed_scores():
+    rng = np.random.default_rng(17)
+    n = np.array([300] + [10] * 11)
+    rejections = 0
+    for _ in range(80):
+        Y = rng.standard_normal((12, 4))
+        Y[0] *= 4
+        X, groups, Y = gu.simulate(n, p=4, Y=Y, tau2=0.5, sigma2_w=1.0, rng=rng)
+        vc = gu.pooled_variance_components(X, groups)
+        scores = X @ np.eye(4)[:, :2]                 # chosen in advance, not from the data
+        w = gu.exchangeable_weights(n, vc.tau2, vc.sigma2_w)
+        rejections += gu.correlation_test(scores, groups, Y, n_perm=99, rng=rng, weights=w).p_fwer.min() < 0.05
+    assert rejections / 80 < 0.12
+
+
 def test_pairing_ratio():
     rng = np.random.default_rng(15)
     n = np.array([300] + [10] * 11)

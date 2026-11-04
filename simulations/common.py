@@ -29,6 +29,7 @@ class Design:
     nbar: int = 50                     # mean group size
     structure: str = "independent"     # "independent", "correlated" or "extreme"
     extreme_at: str = "largest"        # for "extreme": the "largest", "smallest" or a "random" group
+    extremity: float = 4.0             # for "extreme": how many times as far out that profile is
     p: int = 10                        # features
     signal: float = 0.0                # group-level R² of features 1-2 on annotation 1; 0 is the null
     length_var: float = 0.0            # variance of a within-group direction unrelated to groups
@@ -65,9 +66,9 @@ class Design:
             lag = np.abs(np.subtract.outer(np.arange(self.q), np.arange(self.q)))
             Y = Y @ np.linalg.cholesky(0.8**lag).T
         elif self.structure == "extreme":
-            # one group's profile is four times as far out; groups are ordered largest first
+            # one group's profile is `extremity` times as far out; groups are ordered largest first
             m = {"largest": 0, "smallest": self.M - 1}.get(self.extreme_at)
-            Y[rng.integers(self.M) if m is None else m] *= 4
+            Y[rng.integers(self.M) if m is None else m] *= self.extremity
         elif self.structure != "independent":
             raise ValueError(self.structure)
         return Y

@@ -92,10 +92,10 @@ gu.pairing_ratio(Y, n, weights=np.ones(len(n)), tau2=vc.tau2, sigma2_w=vc.sigma2
 The ratio is the expected squared loading under the null for the observed
 assignment, divided by its average over reassignments. In the paper's
 simulations, tests held their level at ratios of 0.9–1.1. Equal-weight PLS and
-Mantel tests were liberal from about 1.1 (17–36% false positives at 1.1–1.5).
-Size-weighted PLS was liberal from about 1.5, with about 75% false positives
-near 4. Below 0.9 the tests were conservative. `describe` warns outside
-0.8–1.1.
+Mantel tests were liberal from about 1.1, and size-weighted PLS from about 1.3.
+Both reached about 60% false positives at a ratio of 2. A profile only 1.5
+times as far out as the others, on the largest group, was enough for 33%.
+Below 0.9 the tests were conservative. `describe` warns outside 0.8–1.1.
 
 The remedy is to weight every group's term equally:
 
@@ -111,7 +111,14 @@ association, any weighting is a valid statistic, and these make the
 permutation distribution correct. In the simulations they held the nominal
 rate in every configuration and were also more powerful than size weights.
 They are not the optimal weights for estimation (`optimal_weights`, the
-square of these). CCA weights groups by
+square of these).
+
+The scores must not bring the size weighting back in. Principal components
+computed over individuals line up with the largest groups' means, so those
+groups' terms come out extreme. In the simulations, exchangeable-weight
+correlations of such components were still at 11% for the most extreme
+pairing, against 3.5% for fixed projections. Prefer scores chosen in advance,
+or computed from group means with the same weights. CCA weights groups by
 size internally and has no such option. When the ratio is far from 1, test
 with PLS or correlations instead.
 

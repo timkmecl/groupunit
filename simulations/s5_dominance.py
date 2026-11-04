@@ -1,6 +1,7 @@
 """Outcome 5: dominant groups. One group has an extreme annotation profile.
 
-The extreme group is the largest, the smallest, or a random one. We record its
+The extreme group is the largest, the smallest, or a random one, and its
+profile is 1.5 to 4 times as far out as the others'. We record its
 share of the first PLS component and the effective number of groups behind
 the component, the pairing ratio of the design, and the rejection rates of the
 group-level tests with size weights, equal weights and exchangeable weights
@@ -18,8 +19,10 @@ TESTS = ["corr: size", "corr: exchangeable", "PLS: size", "PLS: equal", "PLS: ex
 
 
 def cells(n_perm):
-    return [(Design(M=20, kappa=0.5, h=h, structure="extreme", extreme_at=at, signal=s), {"n_perm": n_perm})
-            for at in ("random", "largest", "smallest") for h in (1, 10) for s in (0.0, 0.3)]
+    return [(Design(M=20, kappa=0.5, h=h, structure="extreme", extreme_at=at, extremity=x, signal=s),
+             {"n_perm": n_perm})
+            for x in (1.5, 2.0, 3.0, 4.0) for at in ("random", "largest", "smallest")
+            for h in (1, 10) for s in (0.0, 0.3)]
 
 
 def replicate(d, rng, n_perm):
@@ -47,7 +50,7 @@ def replicate(d, rng, n_perm):
 
 
 def summarise(df):
-    keys = [df.extreme_at, df.h, df.signal]
+    keys = [df.extremity, df.extreme_at, df.h, df.signal]
     descriptive = df[["share of extreme group", "M_eff,c", "pairing ratio (size)", "pairing ratio (equal)"]]
     return descriptive.groupby(keys).median().join((df[TESTS] < ALPHA).groupby(keys).mean())
 

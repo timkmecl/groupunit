@@ -197,22 +197,33 @@ def correlation_test(scores, groups, Y, n_perm=5000, rng=None, strata=None, weig
     group-level correlations r_n, which rest on M groups. If atypical profiles
     sit on large groups (`pairing_ratio` well above 1), the size-weighted test
     is liberal. Pass ``weights`` from `groupunit.weights.exchangeable_weights`
-    to test the weighted group-level correlations instead.
+    to test the weighted group-level correlations instead. Their p-values then
+    come from the weighted cross-product Σ w_m t̄_m y_m, scaled by quantities
+    that do not change under permutation. A correlation's denominator would
+    change with the pairing and make the test slightly liberal.
     """
     Y = np.asarray(Y, float)
     groups, n = check_groups(groups, len(Y))
     scores = np.asarray(scores, float).reshape(len(groups), -1)
     tbar = group_means(scores - scores.mean(0), groups, len(Y))
+    Y2 = Y.reshape(len(Y), -1)
     if weights is None:
-        w, scale = n, np.sqrt(np.atleast_1d(between_share(scores, groups)))
+        eta = np.sqrt(np.atleast_1d(between_share(scores, groups)))
+        r = eta[:, None] * weighted_corr(tbar, Y2, n).reshape(len(eta), -1)
+
+        def statistic(Yp):
+            return np.abs(eta[:, None] * weighted_corr(tbar, Yp, n).reshape(len(eta), -1))
     else:
-        w, scale = np.asarray(weights, float), np.ones(scores.shape[1])
+        w = np.asarray(weights, float)
+        r = weighted_corr(tbar, Y2, w).reshape(tbar.shape[1], -1)
+        wt = w[:, None] * wcentre(tbar, w)          # sums to zero, so Y needs no re-centring
+        scale = np.outer(np.sqrt((wt * wcentre(tbar, w)).sum(0)), Y2.std(0))
 
-    def corr(Yp):
-        return scale[:, None] * weighted_corr(tbar, Yp, w).reshape(len(scale), -1)
+        def statistic(Yp):
+            with np.errstate(divide="ignore", invalid="ignore"):
+                return np.abs(wt.T @ Yp / scale)
 
-    r = corr(Y)
-    result = permutation_test(lambda Yp: np.nan_to_num(np.abs(corr(Yp))), Y, n_perm, rng, strata)
+    result = permutation_test(lambda Yp: np.nan_to_num(statistic(Yp)), Y2, n_perm, rng, strata)
     return CorrelationTest(r=r, p_value=result.p_value, p_fwer=result.p_fwer)
 
 
