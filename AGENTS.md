@@ -68,8 +68,9 @@ One-time setup, done by the repository owner, not by an agent:
    with this repository, workflow `publish.yml` and the matching environment.
 3. Optional: connect the repository to Zenodo so each release gets a DOI.
 
-The package is MIT-licensed (`LICENSE`). Before the first release, `pyproject.toml`
-still needs the project URLs (marked TODO).
+The package is MIT-licensed (`LICENSE`). The repository is
+https://github.com/timkmecl/groupunit, and the docs publish to
+https://timkmecl.github.io/groupunit/.
 
 ## Conventions
 

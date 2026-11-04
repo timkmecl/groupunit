@@ -1,5 +1,9 @@
 site_name: groupunit
 site_description: Correlation, PLS, CCA and similarity analyses when annotations exist only for groups
+site_url: https://timkmecl.github.io/groupunit/
+repo_url: https://github.com/timkmecl/groupunit
+repo_name: timkmecl/groupunit
+edit_uri: edit/main/docs/
 theme:
   name: material
   features:

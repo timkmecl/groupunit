@@ -42,7 +42,8 @@ print(test.p_value, shares.m_eff, gu.pairing_ratio(Y3, n))
 
 ## Documentation
 
-The documentation is in `docs/`. Build it with `mkdocs serve`, or read the
+The documentation is published at https://timkmecl.github.io/groupunit/.
+Its source is in `docs/`; build it locally with `mkdocs serve`, or read the
 Markdown directly:
 
 - [Concepts](docs/concepts.md): the ideas behind the package, in a few pages.

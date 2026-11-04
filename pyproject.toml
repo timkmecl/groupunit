@@ -21,11 +21,10 @@ classifiers = [
 ]
 dependencies = ["numpy>=1.22", "scipy>=1.8"]
 
-# TODO: fill in once the GitHub repository exists
-# [project.urls]
-# Homepage = "https://github.com/<user>/groupunit"
-# Documentation = "https://<user>.github.io/groupunit/"
-# Issues = "https://github.com/<user>/groupunit/issues"
+[project.urls]
+Homepage = "https://github.com/timkmecl/groupunit"
+Documentation = "https://timkmecl.github.io/groupunit/"
+Issues = "https://github.com/timkmecl/groupunit/issues"
 
 [project.optional-dependencies]
 test = ["pytest>=7", "scikit-learn>=1.2"]
