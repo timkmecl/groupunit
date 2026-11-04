@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it as below, together with the
+  methods paper it accompanies.
+type: software
+title: "groupunit: correlation, PLS, CCA and similarity analyses with group-level annotations"
+abstract: >-
+  Python package for designs in which measurements of individuals are related
+  to variables that exist only for the groups they belong to. It computes the
+  between-group share, the annotation rank and ratio, PLS, CCA and LDA through
+  the group means, group shares and effective numbers of groups, the lens null,
+  the typicality-pattern decomposition, group-level permutation tests with
+  refitting and the pairing ratio, and leave-one-group-out validation.
+authors:
+  - family-names: Kmecl
+    given-names: Tim
+    affiliation: Faculty of Mathematics and Physics, University of Ljubljana
+version: 0.1.0
+date-released: "2026-11-04"
+license: MIT
+repository-code: "https://github.com/timkmecl/groupunit"
+url: "https://timkmecl.github.io/groupunit/"
+keywords:
+  - group-level variables
+  - pseudoreplication
+  - permutation test
+  - partial least squares
+  - canonical correlation analysis
+  - representational similarity
+references:
+  - type: article
+    title: "The group is the unit: limits of correlation, PLS and CCA with group-level variables"
+    authors:
+      - family-names: Kmecl
+        given-names: Tim
+    status: in-preparation
+    year: 2026

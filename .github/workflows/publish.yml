@@ -40,6 +40,7 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          skip-existing: true   # TestPyPI accepts each version once; reruns would otherwise fail
 
   pypi:
     if: github.event_name == 'release'
