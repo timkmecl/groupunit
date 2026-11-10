@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 (2026-11-10)
 
 - `pairing_terms`: the pairing ratio split exactly into one term per group,
   with each group's profile share f_m and variance ratio g_m (Result 5d), so
