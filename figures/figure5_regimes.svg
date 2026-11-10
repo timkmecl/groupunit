@@ -3,7 +3,7 @@
 <rect width="1400" height="640" fill="#ffffff"/>
 <text x="20.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">a</text>
 <text x="46.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group-level CCA: where chance alone gives large correlations</text>
-<text x="46.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">mean first canonical correlation under no association, simulated as in Section 8.1 (M = 21, size weights)</text>
+<text x="46.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">mean first canonical correlation under no association, simulated as in Section 6.1 (M = 21, size weights)</text>
 <rect x="150.0" y="518.0" width="21.0" height="21.0" rx="0" fill="rgb(195,207,216)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
 <rect x="172.0" y="518.0" width="21.0" height="21.0" rx="0" fill="rgb(163,180,194)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
 <rect x="194.0" y="518.0" width="21.0" height="21.0" rx="0" fill="rgb(138,160,177)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
@@ -375,7 +375,7 @@
 <circle cx="1197.0" cy="122.9" r="3.2" fill="#D55E00" fill-opacity="1" stroke="#ffffff"/>
 <circle cx="1218.5" cy="116.4" r="3.2" fill="#D55E00" fill-opacity="1" stroke="#ffffff"/>
 <text x="822.9" y="169.4" font-size="11" fill="#D55E00" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">simulated, size weights</text>
-<text x="822.9" y="184.4" font-size="10.5" fill="#D55E00" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">(nearer r / M_eff)</text>
+<text x="822.9" y="184.4" font-size="10.5" fill="#D55E00" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">(above κ, most at intermediate κ)</text>
 <circle cx="874.5" cy="390.5" r="6" fill="#E69F00" fill-opacity="0.95" stroke="#ffffff"/>
 <line x1="879.5" y1="395.5" x2="913.2" y2="426.8" stroke="#4d5966" stroke-width="1" stroke-opacity="1"/>
 <text x="915.4" y="430.8" font-size="11" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Suresh et al. 2026, receptors reduced to 3 PCs</text>
@@ -389,6 +389,6 @@
 <text x="1262.0" y="199.0" font-size="11" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Ballentine 2024</text>
 <text x="1262.0" y="214.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">(r = M − 1 = 51)</text>
 <text x="810.0" y="510.0" font-size="11.5" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">At κ near 1, a group-level fit explains almost all between-group variance of any score.</text>
-<text x="810.0" y="526.0" font-size="11.5" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">With size weights and unequal sizes the null mean is nearer r / M_eff than κ (dots, mean of</text>
+<text x="810.0" y="526.0" font-size="11.5" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">With size weights and unequal sizes the null mean exceeds κ (dots, mean of</text>
 <text x="810.0" y="542.0" font-size="11.5" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">1,000 data sets): the large groups dominate both the score and the annotations.</text>
 </svg>

@@ -2,7 +2,7 @@
 
 Pools every null data set of simulation outcome 5 (one group's profile 1.5-4
 times as far out as the others, on the largest, the smallest or a random group),
-at M = 20 and M = 50 groups (7,200 data sets each).
+at M = 20 and M = 50 groups (12,000 data sets each: 24 null cells of 500).
 
 Panels
   a  M = 20: each test against the pairing ratio of its own weights
@@ -58,8 +58,9 @@ class Panel:
         s.label(x0 + 20, 40, letter, title)
         s.text(x0 + 46, 62, sub, 12, INK2)
         px, py, pw, ph = self.px, self.py, self.pw, self.ph
-        s.rect(self.X(0.8), py, self.X(1.1) - self.X(0.8), ph, RULE, 0.45)       # describe(): no warning
-        s.text((self.X(0.8) + self.X(1.1)) / 2, py + 14, "no warning", 10, MUTED, anchor="middle")
+        # a reference line at ϱ = 1, not a "safe" band: where tests fail depends on M (Result 5d)
+        s.line(self.X(1), py, self.X(1), py + ph, MUTED, 1, dash="3 3")
+        s.text(self.X(1) + 4, py + 14, "ϱ = 1", 10, MUTED)
         for v in np.arange(0, YHI + 1e-9, 0.2):
             s.line(px, self.Y(v), px + pw, self.Y(v), RULE, 1, opacity=0.6)
             s.text(px - 8, self.Y(v) + 4, f"{v:.1f}", 11, INK2, anchor="end")
@@ -139,8 +140,8 @@ n_data = sum(len(d) for d in null.values())
 ny = 512
 s.text(82, ny, "Simulated null data: one group's annotation profile 1.5–4 times as far out as the others, on the "
                f"largest, the smallest or a random group ({n_data:,} data sets).", 12, INK)
-s.text(82, ny + 18, "Dashed line: the nominal rate, 0.05. Bands: 95% intervals per bin of the ratio. Grey: the range "
-                    "in which describe() gives no warning. Exchangeable weights ∝ 1/√(τ² + σ²_w / n_m).", 12, INK)
+s.text(82, ny + 18, "Dashed line: the nominal rate, 0.05. Bands: 95% intervals per bin of the ratio. Vertical line: ϱ = 1. "
+                    "Exchangeable weights ∝ 1/√(τ² + σ²_w / n_m).", 12, INK)
 s.text(82, ny + 44, "Colour: weighting (blue size, orange equal, green exchangeable). Line: test (solid PLS, dashed "
                     "correlation, dotted Mantel). In c, hollow markers: M = 20; filled: M = 50.", 11, INK2)
 

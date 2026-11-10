@@ -1,6 +1,6 @@
 """Figure 4: CCA cannot see the annotations once they span all group differences.
 
-Simulated as in Section 8.1, at the reference scenario with M = 21 groups (as
+Simulated as in Section 6.1, at the reference scenario with M = 21 groups (as
 Figure 5): log-normal group sizes with Kish's effective number at 40% of M,
 heterogeneity ratio h = 1, p = 10 features, q = M - 1 = 20 annotations. The
 first annotation drives two features (group-level R² = 0.6); the others are
@@ -101,7 +101,7 @@ def marker(x, y, kind, col, size):
 
 # panel a
 s.label(20, 40, "a", "At full rank, any annotation table gives the same CCA")
-s.text(46, 62, f"simulated as in Section 8.1: M = {M} groups, N = {N:,} individuals, p = {P} features, q = {QMAX} annotations (r = M − 1)", 12, INK2)
+s.text(46, 62, f"simulated as in Section 6.1: M = {M} groups, N = {N:,} individuals, p = {P} features, q = {QMAX} annotations (r = M − 1)", 12, INK2)
 px, py, pw, ph = 80, 100, 520, 330
 s.rect(px, py, pw, ph, "none", stroke=RULE)
 K = P

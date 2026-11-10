@@ -1,6 +1,6 @@
 """Figure 5: regimes of a design with group-level annotations.
 
-Simulated as in Section 8.1, at the reference scenario with M = 21 groups (as
+Simulated as in Section 6.1, at the reference scenario with M = 21 groups (as
 Figure 4): log-normal group sizes with Kish's effective number at 40% of M,
 heterogeneity ratio h = 1, no relation (β = 0), group means weighted by size.
 
@@ -13,9 +13,10 @@ Panels
      group-level R² of a score on the annotations (Result 3b, band and mean), and the
      simulated mean R² of the first principal component of the group means under size
      weights (dots); published designs marked. Result 3b assumes the weighted group
-     means point in a random direction. The optimal weights of Section 5 meet that
+     means point in a random direction. The optimal weights of Section 4.1 meet that
      (printed, on the line); size weights with unequal sizes do not, and the null R²
-     then exceeds kappa.
+     then exceeds kappa. It approaches r / M_eff only for small r (r = 1: 0.120 against
+     0.119), and cannot follow it once r exceeds M_eff, where r / M_eff > 1.
 
     python figures/fig5_regimes.py
 """
@@ -86,7 +87,7 @@ s = SVG(W, H)
 
 # ---------------------------------------------------------------- panel a
 s.label(20, 40, "a", "Group-level CCA: where chance alone gives large correlations")
-s.text(46, 62, f"mean first canonical correlation under no association, simulated as in Section 8.1 (M = {M}, size weights)", 12, INK2)
+s.text(46, 62, f"mean first canonical correlation under no association, simulated as in Section 6.1 (M = {M}, size weights)", 12, INK2)
 cs = 22
 gx, gy = 150, 100
 for ki in range(D):
@@ -179,7 +180,7 @@ s.path("M" + " L".join(f"{X_(r / D):.1f},{Y_(r2['size'][:, r - 1].mean()):.1f}" 
 for r in range(1, D):
     s.circle(X_(r / D), Y_(r2["size"][:, r - 1].mean()), 3.2, "#D55E00", 1, stroke="#ffffff")
 s.text(X_(0.03), Y_(0.82), "simulated, size weights", 11, "#D55E00", weight="700")
-s.text(X_(0.03), Y_(0.82) + 15, "(nearer r / M_eff)", 10.5, "#D55E00")
+s.text(X_(0.03), Y_(0.82) + 15, "(above κ, most at intermediate κ)", 10.5, "#D55E00")
 # published designs, labelled directly
 def pt(k, v):
     s.circle(X_(k), Y_(v), 6, "#E69F00", 0.95, stroke="#ffffff")
@@ -196,7 +197,7 @@ s.text(X_(1) + 22, Y_(1) + 74, "Friedman and", 11, INK)
 s.text(X_(1) + 22, Y_(1) + 89, "Ballentine 2024", 11, INK)
 s.text(X_(1) + 22, Y_(1) + 104, "(r = M − 1 = 51)", 10.5, INK2)
 s.text(px, py + ph + 70, "At κ near 1, a group-level fit explains almost all between-group variance of any score.", 11.5, INK)
-s.text(px, py + ph + 86, "With size weights and unequal sizes the null mean is nearer r / M_eff than κ (dots, mean of", 11.5, INK)
+s.text(px, py + ph + 86, "With size weights and unequal sizes the null mean exceeds κ (dots, mean of", 11.5, INK)
 s.text(px, py + ph + 102, f"{SIMS:,} data sets): the large groups dominate both the score and the annotations.", 11.5, INK)
 
 os.chdir(HERE)

@@ -6,8 +6,8 @@ the package itself so that the figures and the code cannot disagree. Figures
 
 | Script | Output | Content |
 | --- | --- | --- |
-| `fig4_cca_saturation.py` | `figure4_cca_saturation.svg`, `.png` | Saturated CCA, simulated as in §8.1 at M = 21 (replaces the original Figure 4). |
-| `fig5_regimes.py` | `figure5_regimes.svg`, `.png` | Regimes, simulated as in §8.1 at M = 21, with the Beta null under precision and size weights (replaces the original Figure 5). |
+| `fig4_cca_saturation.py` | `figure4_cca_saturation.svg`, `.png` | Saturated CCA, simulated as in §6.1 at M = 21 (replaces the original Figure 4). |
+| `fig5_regimes.py` | `figure5_regimes.svg`, `.png` | Regimes, simulated as in §6.1 at M = 21, with the Beta null under precision and size weights (replaces the original Figure 5). |
 | `fig6_typicality.py` | `figure6_typicality.svg`, `.png` | Typicality and pattern, with distance similarities and standardised residuals (replaces the original Figure 6). |
 | `fig7_pairing.py` | `figure7_pairing.svg`, `.png` | False-positive rate of group permutation tests against the pairing ratio, from simulation outcome 5 at M = 20 and 50. |
 | `fig8_group_size.py` | `figure8_group_size.svg`, `.png` | Power against individuals per group and number of groups, from simulation outcome 2 (line version). |
