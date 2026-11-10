@@ -1,4 +1,4 @@
-"""Simulated designs with group-level annotations (Section 8.1)."""
+"""Simulated designs with group-level annotations (Section 6.1)."""
 import numpy as np
 
 

@@ -167,7 +167,7 @@ def test_cca_test_refuses_saturated_design():
 
 
 def test_group_level_test_holds_nominal_rate_where_individual_level_does_not():
-    """Under the null with group heterogeneity, permuting groups is calibrated (Section 7.1)."""
+    """Under the null with group heterogeneity, permuting groups is calibrated (Section 4.2)."""
     rng = np.random.default_rng(8)
     n = [40] * 12
     p_groups, p_individuals = [], []

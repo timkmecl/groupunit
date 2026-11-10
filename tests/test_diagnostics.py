@@ -1,4 +1,4 @@
-"""Design summaries and the diagnostics of Section 6, including the numbers quoted for the paper's toy data."""
+"""Design summaries and the diagnostics of Section 5, including the numbers quoted for the paper's toy data."""
 from itertools import permutations
 
 import numpy as np
@@ -96,9 +96,18 @@ def test_describe_flags_atypical_large_group():
     Y[0] *= 4
     summary = gu.describe(groups, Y)
     assert summary.pairing_ratio > 1.1 and "liberal" in str(summary)
+    assert summary.pairing_group == 0 and "largest term: group 0" in str(summary)
     Y[0] /= 4
     Y[-1] *= 4
     assert "conservative" in str(gu.describe(groups, Y))
+
+
+def test_describe_never_declares_a_design_safe():
+    """With equal sizes the ratio is exactly 1, yet the summary still points to size_check (Result 5d)."""
+    groups = np.repeat(np.arange(8), 15)
+    Y = np.random.default_rng(3).standard_normal((8, 3))
+    text = str(gu.describe(groups, Y))
+    assert "UNUSUAL PAIRING" not in text and "size_check" in text
 
 
 def test_r2_null_mean():

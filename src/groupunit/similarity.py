@@ -1,4 +1,4 @@
-"""Comparison of group similarity matrices: typicality versus pattern (Section 4.4, Result 4)."""
+"""Comparison of group similarity matrices: typicality versus pattern (Results 4a-4c)."""
 from dataclasses import dataclass
 
 import numpy as np
@@ -38,6 +38,72 @@ def typicality_pattern(S):
     E = S - (rho[:, None] + rho[None, :]) / (M - 2) + T / ((M - 1) * (M - 2))
     np.fill_diagonal(E, 0)
     return TypicalityPattern(mean=T / (M * (M - 1)), typicality=a, pattern=E)
+
+
+@dataclass(frozen=True)
+class SimilarityDecomposition:
+    """The Mantel correlation of two similarity matrices split into typicality and pattern (Result 4a).
+
+    Attributes
+    ----------
+    mantel : r_M, the correlation of the two matrices over the M(M − 1)/2 pairs.
+    typicality_share : (2,) λ² and λ'², the share of each matrix's variation
+        over pairs that is due to typicality, (M − 2) Σ a_i² / Σ_{i<j} (s_ij − μ)².
+    r_typicality : r_a, the correlation of the two sets of group effects across groups.
+    r_pattern : r_e, the correlation of the raw (unstandardised) residuals across pairs.
+    typicality_part : sqrt(λ² λ'²) r_a, the part of r_M carried by typicality.
+    pattern_part : sqrt((1 − λ²)(1 − λ'²)) r_e, the part carried by pattern.
+        The two parts sum exactly to ``mantel``.
+    """
+
+    mantel: float
+    typicality_share: np.ndarray
+    r_typicality: float
+    r_pattern: float
+    typicality_part: float
+    pattern_part: float
+
+
+def similarity_decomposition(S1, S2):
+    """What a Mantel correlation is made of: shared typicality and shared pattern (Result 4a).
+
+    With s_ij = μ + a_i + a_j + e_ij fitted to each matrix (`typicality_pattern`),
+
+        r_M = sqrt(λ² λ'²) r_a + sqrt((1 − λ²)(1 − λ'²)) r_e,
+
+    exactly. A positive Mantel correlation can therefore come entirely from
+    groups that are unusual in both tables (the first term) without any pair
+    of groups being specifically alike (the second). The claim that "groups
+    with similar annotations have similar features" concerns r_e. This
+    function only describes; `compare_similarity` tests the parts, with the
+    pattern on standardised residuals.
+    """
+    S1, S2 = np.asarray(S1, float), np.asarray(S2, float)
+    if S1.shape != S2.shape:
+        raise ValueError(f"the matrices differ in shape: {S1.shape} and {S2.shape}")
+    M = len(S1)
+    iu = np.triu_indices(M, 1)
+    parts = [typicality_pattern(S) for S in (S1, S2)]
+    # over pairs, effects and residuals are orthogonal (residual row sums are zero), so
+    # Σ (s_ij − μ)(s'_ij − μ') = (M − 2) Σ a_i a'_i + Σ e_ij e'_ij
+    typ_ss = np.array([(M - 2) * (d.typicality**2).sum() for d in parts])
+    pat_ss = np.array([(d.pattern[iu] ** 2).sum() for d in parts])
+    if np.any(typ_ss + pat_ss == 0):
+        raise ValueError("a matrix is constant over its off-diagonal entries; its correlation is undefined")
+    with np.errstate(invalid="ignore", divide="ignore"):
+        r_a = (parts[0].typicality @ parts[1].typicality) * (M - 2) / np.sqrt(typ_ss.prod())
+        r_e = (parts[0].pattern[iu] @ parts[1].pattern[iu]) / np.sqrt(pat_ss.prod())
+    share = typ_ss / (typ_ss + pat_ss)
+    typ_part = np.sqrt(share.prod()) * np.nan_to_num(r_a)       # a part with no variation contributes 0
+    pat_part = np.sqrt((1 - share).prod()) * np.nan_to_num(r_e)
+    return SimilarityDecomposition(
+        mantel=float(np.corrcoef(S1[iu], S2[iu])[0, 1]),
+        typicality_share=share,
+        r_typicality=float(r_a),
+        r_pattern=float(r_e),
+        typicality_part=float(typ_part),
+        pattern_part=float(pat_part),
+    )
 
 
 def distance_similarity(profiles):

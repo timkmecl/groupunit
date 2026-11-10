@@ -1,4 +1,4 @@
-"""PLS correlation, CCA and LDA, written through the group means (Sections 3-4).
+"""PLS correlation, CCA and LDA, written through the group means (the identity, Results 2-3).
 
 These are plain reference implementations. They exist so that the tests in
 `groupunit.inference` can refit them under permutation, and so that each
@@ -57,7 +57,7 @@ def pls(X, groups, Y, n_components=None, weights=None):
     The weights are the singular vectors of ``XᵀY = X̄ᵀ D Ỹ`` (Result 2), so they
     depend on the group means, the annotations and the group sizes only. Pass
     ``weights`` (one per group, e.g. ``np.ones(M)``) to target the population of
-    groups instead of individuals (Section 5). The first component equals the
+    groups instead of individuals (Section 4.1). The first component equals the
     first component of PLS regression.
     """
     Y = np.asarray(Y, float)
@@ -78,7 +78,27 @@ def pls(X, groups, Y, n_components=None, weights=None):
     return Components(s, W, V, T, loadings, x_mean)
 
 
-def cca(X, groups, Y, n_components=None):
+def _cca_spaces(X, groups, Y, w):
+    """Orthonormal bases of the (row-weighted) feature and annotation spaces of CCA.
+
+    Individual i of group m gets row weight r_m = w_m / n_m, so group m carries
+    total weight w_m; w = n gives ordinary CCA. Returns the feature basis Ux of
+    R^{1/2}(X − x̄_w) with its singular values and right vectors, the weighted
+    feature mean, P = D^{1/2} Ūx and Q = `weighted_basis`(Y, w). The annotation
+    basis in individual space has entries Q_m / sqrt(n_m) whatever the weights,
+    so the canonical correlations are the singular values of Pᵀ Q.
+    """
+    n = np.bincount(groups, minlength=len(Y)).astype(float)
+    r = w / n
+    x_mean = w @ group_means(X, groups, len(Y)) / w.sum()
+    Ux, sx, Vxt = np.linalg.svd(np.sqrt(r)[groups, None] * (X - x_mean), full_matrices=False)
+    keep = _rank_cutoff(sx)
+    Ux, sx, Vxt = Ux[:, keep], sx[keep], Vxt[keep]
+    P = np.sqrt(n)[:, None] * group_means(Ux, groups, len(Y))
+    return Ux, sx, Vxt, x_mean, P, weighted_basis(Y, w)
+
+
+def cca(X, groups, Y, n_components=None, weights=None):
     """Canonical correlation analysis of individual features with group-level annotations.
 
     Canonical correlations are the cosines of the principal angles between the
@@ -86,31 +106,34 @@ def cca(X, groups, Y, n_components=None):
     annotation space is built from the group-level table, so the fit never
     forms the N × q matrix. If the annotations have rank M - 1, the result is
     the same for every annotation table of that rank and equals `lda` (Result 3c).
-    Feature scores are scaled to unit variance over individuals.
+
+    Ordinary CCA weights groups by size. ``weights`` (one per group) gives
+    row-weighted CCA instead: each individual of group m is weighted by
+    w_m / n_m, so that group m carries total weight w_m in every mean,
+    variance and covariance, on both sides. Feature and annotation scores are
+    scaled to unit weighted variance; ``y_loadings`` are weighted covariances,
+    Ỹᵀ W t̄ / Σw.
     """
     Y = np.asarray(Y, float)
     groups, n = check_groups(groups, len(Y))
     X = np.asarray(X, float)
-    N = len(groups)
-    x_mean = X.mean(0)
+    w = n.astype(float) if weights is None else np.asarray(weights, float)
+    if w.shape != n.shape or np.any(w <= 0):
+        raise ValueError(f"weights must be {len(n)} positive numbers, one per group")
+    total = w.sum()
 
-    # orthonormal basis of the feature space
-    Ux, sx, Vxt = np.linalg.svd(X - x_mean, full_matrices=False)
-    keep = _rank_cutoff(sx)
-    Ux, sx, Vxt = Ux[:, keep], sx[keep], Vxt[keep]
-    # orthonormal basis of the annotation space is G D^{-1/2} Q, so Uxᵀ(G D^{-1/2} Q) = Ūxᵀ D^{1/2} Q
-    Q = weighted_basis(Y, n)
-    C = group_means(Ux, groups, len(Y)).T @ (np.sqrt(n)[:, None] * Q)
-    A, rho, Bt = np.linalg.svd(C, full_matrices=False)
+    Ux, sx, Vxt, x_mean, P, Q = _cca_spaces(X, groups, Y, w)
+    A, rho, Bt = np.linalg.svd(P.T @ Q, full_matrices=False)
 
     k = len(rho) if n_components is None else min(len(rho), n_components)
     A, B, rho = A[:, :k], Bt[:k].T, np.clip(rho[:k], 0, 1)
-    x_weights = Vxt.T @ (A / sx[:, None]) * np.sqrt(N)
-    T = group_means(Ux @ A, groups, len(Y)) * np.sqrt(N)
-    Yc = wcentre(Y, n)
-    # minimum-norm annotation weights b with D^{1/2} Ỹ b = Q B (unit-variance annotation scores)
-    y_weights = np.linalg.pinv(np.sqrt(n)[:, None] * Yc) @ Q @ B * np.sqrt(N)
-    loadings = Yc.T @ (n[:, None] * T) / N
+    x_weights = Vxt.T @ (A / sx[:, None]) * np.sqrt(total)
+    # Ux A holds R^{1/2} t / sqrt(total); undo the row weights within each group
+    T = group_means(Ux @ A, groups, len(Y)) / np.sqrt(w / n)[:, None] * np.sqrt(total)
+    Yc = wcentre(Y, w)
+    # minimum-norm annotation weights b with W^{1/2} Ỹ b = Q B (unit-variance annotation scores)
+    y_weights = np.linalg.pinv(np.sqrt(w)[:, None] * Yc) @ Q @ B * np.sqrt(total)
+    loadings = Yc.T @ (w[:, None] * T) / total
     x_weights, y_weights, T, loadings = _fix_signs(x_weights, y_weights, T, loadings, ref=loadings)
     return Components(rho, x_weights, y_weights, T, loadings, x_mean)
 

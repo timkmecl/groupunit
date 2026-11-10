@@ -27,10 +27,25 @@ from .diagnostics import (
     lens_null,
     participation_ratio,
 )
-from .inference import cca_test, correlation_test, estimator_test, pairing_ratio, permutation_test, pls_test
+from .inference import (
+    cca_test,
+    correlation_test,
+    estimator_test,
+    pairing_ratio,
+    pairing_terms,
+    permutation_test,
+    pls_test,
+    size_check,
+)
 from .methods import cca, lda, pls
 from .scores import between_share, decompose_score, feature_between_share, group_scores
-from .similarity import compare_similarity, distance_similarity, standardised_pattern, typicality_pattern
+from .similarity import (
+    compare_similarity,
+    distance_similarity,
+    similarity_decomposition,
+    standardised_pattern,
+    typicality_pattern,
+)
 from .simulate import lognormal_sizes, simulate
 from .validation import estimator_model, leave_one_group_out, linear_model, pca_regression
 from .weights import (

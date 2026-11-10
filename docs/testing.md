@@ -3,7 +3,7 @@
 ## Permute groups, never individuals
 
 Every test reassigns rows of the annotation table among groups, keeping each
-group's individuals and size together (§7.1). Reassigning annotation values
+group's individuals and size together (§4.2). Reassigning annotation values
 among individuals breaks their constancy within groups. Such a test asks only
 whether individuals differ between groups, and it rejects almost always once
 groups differ at all (see [Simulations](simulations.md)).
@@ -117,13 +117,26 @@ gu.pairing_ratio(Y, n, weights=np.ones(len(n)), tau2=vc.tau2, sigma2_w=vc.sigma2
 ```
 
 The ratio is the expected squared loading under the null for the observed
-assignment, divided by its average over reassignments. In the paper's
-simulations, tests held their level at ratios of 0.9–1.1 and were conservative
-below. Above 1.1 they were liberal, and more groups made it worse. With 20
-groups, false-positive rates reached about 60% at a ratio of 2. With 50
-groups, ratios of 1.1–1.35 already gave 27–67%. A profile only 1.5 times as
-far out as the others, on the largest group, was enough for 33% (20 groups)
-and 60% (50 groups). `describe` warns outside 0.8–1.1.
+assignment, divided by its average over reassignments. Above 1 a test with
+those weights leans liberal, below 1 conservative, and no range of the ratio
+is safe for every design: one atypical group's share of the profile spread
+shrinks like 1/M, so the same ratio does more harm with more groups. In the
+paper's simulations, size-weighted PLS rejected a true null in 32–35% of data
+sets (20 groups) and 57–64% (50 groups) when a profile only 1.5 times as far
+out as the others sat on the largest group, with ratios of about 1.3–1.4.
+`describe` reports the ratio and the group with the largest term
+(`pairing_terms`), and flags departures from 1 of more than 0.05; a ratio near
+1 is not a guarantee. To check the level of the test you actually run, use
+`size_check`, which simulates null data with your group sizes, annotation table
+and variance components:
+
+```python
+vc = gu.pooled_variance_components(X, groups)   # around the grand mean, so possible at any κ
+check = gu.size_check(
+    lambda X, g, Y, rng: gu.pls_test(X, g, Y, n_components=1, n_perm=199, rng=rng).p_value[0],
+    n, Y, vc.tau2, vc.sigma2_w, p=X.shape[1], n_sim=400)
+check.rate, check.se                             # estimated size of the test for this design
+```
 
 The remedy is to weight groups so that every term is equally variable, and
 `pls_test` and `correlation_test` do this by default (`weights="exchangeable"`).
@@ -134,7 +147,7 @@ description of the design.
 
 ```python
 gu.pls_test(X, groups, Y)                        # exchangeable weights (default)
-gu.pls_test(X, groups, Y, weights="size")        # size weights: liberal if the ratio is above 1.1
+gu.pls_test(X, groups, Y, weights="size")        # size weights: liberal when the ratio is above 1
 gu.pls_test(X, groups, Y, weights=my_weights)    # any weights, one per group
 
 vc = gu.pooled_variance_components(X, groups)    # the same weights by hand
@@ -168,7 +181,7 @@ with PLS or correlations instead.
 
 Pass `strata` (one label per group) to permute only within levels of another
 group-level variable, such as drug class. The test then asks whether the
-annotations explain anything beyond that variable (§7.5):
+annotations explain anything beyond that variable (§4.5):
 
 ```python
 gu.pls_test(X, groups, Y, strata=drug_class)
@@ -177,7 +190,7 @@ gu.pls_test(X, groups, Y, strata=drug_class)
 ## Leave-one-group-out validation
 
 A claim that a relation holds for groups not yet studied is a prediction
-(§7.4). `leave_one_group_out` predicts each group's group-level target from
+(§4.5). `leave_one_group_out` predicts each group's group-level target from
 its annotations, fitting on the other groups. It compares the result with
 predicting the weighted mean of the other groups:
 

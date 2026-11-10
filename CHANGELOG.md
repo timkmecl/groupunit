@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased
+
+- `pairing_terms`: the pairing ratio split exactly into one term per group,
+  with each group's profile share f_m and variance ratio g_m (Result 5d), so
+  a report can name the group that makes a test liberal.
+- `size_check`: the rejection rate of any test on simulated null data with
+  the observed group sizes, annotation table and variance components, a
+  direct check of a test's level for one design.
+- `lens_null` and `lens_congruence_null` take `p`: with it, the null refits
+  PLS on p random features and keeps the first loading, the right baseline
+  for a PLS component (Result 2b).
+- `similarity_decomposition`: the Mantel correlation split exactly into a
+  typicality part and a pattern part, with λ², r_a and the raw r_e (Result 4a).
+- `cca` and `cca_test` take `weights`: row-weighted CCA, in which group m
+  carries total weight w_m. `cca_test` accepts `"exchangeable"`; its default
+  stays `"size"`, ordinary CCA.
+- `describe` no longer treats a pairing ratio within 0.8–1.1 as safe: where
+  tests fail depends on the number of groups (Result 5d). It flags departures
+  from 1 of more than 0.05, names the group with the largest term
+  (`DesignSummary.pairing_group`), and always points to `size_check`.
+- Docstrings and guide pages cite the restructured paper: results by number,
+  sections by their new numbers.
+
 ## 0.1.0 (2026-11-04)
 
 First release, accompanying the methods paper *The group is the unit: limits

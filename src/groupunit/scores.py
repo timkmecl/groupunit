@@ -7,7 +7,7 @@ from .core import check_groups, group_means, weighted_corr, weighted_r2
 
 
 def between_share(t, groups):
-    """Between-group share η² of the variance of a score (Section 2.2).
+    """Between-group share η² of the variance of a score (Results 1 and 3a).
 
     ``t`` is a score vector ``(N,)`` or a matrix of scores ``(N, k)``; returns
     a float or one value per column.
@@ -22,7 +22,7 @@ def between_share(t, groups):
 
 
 def feature_between_share(X, groups):
-    """Between-group share of the feature space as a whole, tr S_B / tr S_T (Section 6.5)."""
+    """Between-group share of the feature space as a whole, tr S_B / tr S_T (Section 5)."""
     groups, n = check_groups(groups)
     X = np.asarray(X, float)
     Xc = X - X.mean(0)

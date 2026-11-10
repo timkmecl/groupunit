@@ -27,7 +27,7 @@ n = gu.group_sizes(groups, len(Y))
 ```
 
 Missing or censored annotation values filled in with a fixed number can
-encode unrelated group properties (§10.1). Code them deliberately before
+encode unrelated group properties (§8, Limitations). Code them deliberately before
 using the package.
 
 ## 2. Describe the design
@@ -146,7 +146,7 @@ mean of the others, and it can be negative.
 ## 9. Other group-level variables
 
 Any other variable that is constant within groups (class, route, dose,
-region) is confounded with the annotations (§7.5). Permuting within its
+region) is confounded with the annotations (§4.5). Permuting within its
 levels tests the annotations beyond it:
 
 ```python

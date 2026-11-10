@@ -5,7 +5,7 @@ Guidance for coding agents working on this repository.
 ## What this is
 
 `groupunit` is the companion package to the methods paper *The group is the unit:
-limits of correlation, PLS and CCA with group-level variables* (Kmecl; Appendix B).
+limits of correlation, PLS and CCA with group-level variables* (Kmecl; Appendix D).
 It analyses individual-level features `X` against annotations `Y` that exist only
 per group. The paper's argument is that the group, not the individual, is the unit
 of evidence, and the code must never contradict it:
@@ -21,12 +21,13 @@ src/groupunit/   one module per paper section (see the table in README.md)
 tests/           pytest; conftest.py holds a simulated design and the paper's toy data
 examples/        walkthrough.py, the paper's checklist (Box 1) on simulated data
 docs/            MkDocs site: hand-written guide pages + API reference generated from docstrings
-simulations/     the paper's simulation study (Section 8); not part of the package
+simulations/     the paper's simulation study (Section 6); not part of the package
 drafts/          drafts of paper text produced alongside the code
 ```
 
 Module dependencies go one way: `core` → `scores`, `diagnostics`, `methods` →
-`weights` → `inference` → `design`, `similarity`; `validation` stands alone.
+`weights` → `inference` → `design`, `similarity`; `validation` stands alone, and
+`simulate` depends on nothing (`inference.size_check` uses it).
 Keep it acyclic.
 
 ## Commands

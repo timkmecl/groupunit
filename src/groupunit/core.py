@@ -77,7 +77,7 @@ def wcentre(A, w):
 
 
 def weighted_corr(a, b, w):
-    """Weighted correlation across groups, r_w(a, b) (Section 2.4).
+    """Weighted correlation across groups, r_w(a, b) (Section 2.1).
 
     ``a`` and ``b`` are vectors or matrices with one row per group. Returns a
     float for two vectors, otherwise the matrix of correlations between the
@@ -104,7 +104,7 @@ def weighted_basis(A, w):
     """Orthonormal basis of the column space of ``diag(sqrt(w)) @ wcentre(A, w)``.
 
     Its number of columns is the rank of the weighted-centred table, which for
-    an annotation table is r (Section 2.2).
+    an annotation table is r (Section 2.1).
     """
     A = np.asarray(A, float)
     A = A.reshape(len(A), -1)
@@ -138,7 +138,7 @@ def weighted_r2(tbar, Y, w):
 def scatter_matrices(X, groups):
     """Total, between-group and within-group sums of squares and cross-products.
 
-    Returns ``(S_T, S_B, S_W)`` with ``S_T = S_B + S_W`` (Section 2.3).
+    Returns ``(S_T, S_B, S_W)`` with ``S_T = S_B + S_W`` (Section 2.1).
     """
     groups, n = check_groups(groups)
     X = np.asarray(X, float)

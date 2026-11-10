@@ -1,9 +1,9 @@
-"""Permutation tests over groups (Section 7).
+"""Permutation tests over groups (Section 4).
 
 The annotation profile belongs to the group, so the exchangeable units are
 groups: every test here reassigns rows of the annotation table among groups,
 keeping each group's individuals together. What must be refitted depends on
-the design (Section 7.2):
+the design (Section 4.4):
 
 * scores built without the annotations are held fixed - `correlation_test`;
 * components that depend on the annotations are refitted in every
@@ -24,8 +24,9 @@ from dataclasses import dataclass
 import numpy as np
 
 from .core import check_groups, group_means, wcentre, weighted_basis, weighted_corr
-from .methods import _rank_cutoff, cca, pls
+from .methods import _cca_spaces, cca, pls
 from .scores import between_share
+from .simulate import simulate
 from .weights import exchangeable_weights, pooled_variance_components
 
 
@@ -64,11 +65,22 @@ def pairing_ratio(Y, n, weights=None, tau2=None, sigma2_w=None):
     statistic is expected to be by design alone. Near 1, group permutation
     tests with these weights hold their level. Above 1, atypical profiles sit
     on high-variance terms (for size weights: large groups) and the tests are
-    liberal. Below 1, they are conservative. In the paper's simulations, tests
-    held their level at ratios of 0.9-1.1. Without variance components, group
+    liberal. Below 1, they are conservative. No range of the ratio is safe for
+    every design: one atypical group's share of the profile spread shrinks
+    like 1/M, so the same ratio implies a more variable term, and a more
+    liberal test, when there are more groups (Result 5d). Use the ratio as a
+    warning and `size_check` to check a test's level. Without variance components, group
     means are taken as equally variable. Weights from
     `groupunit.weights.exchangeable_weights` give a ratio close to 1.
     """
+    Y, A = _pairing_matrix(Y, n, weights, tau2, sigma2_w)
+    observed = np.trace(Y.T @ A @ Y)
+    permuted = np.trace(A) * (Y**2).sum() / (len(Y) - 1)
+    return float(observed / permuted)
+
+
+def _pairing_matrix(Y, n, weights, tau2, sigma2_w):
+    """Y centred without weights, and A = W C V Cᵀ W, the null covariance of the weighted terms."""
     n = np.asarray(n, float)
     Y = np.asarray(Y, float).reshape(len(n), -1)
     M = len(n)
@@ -80,10 +92,69 @@ def pairing_ratio(Y, n, weights=None, tau2=None, sigma2_w=None):
     else:
         v = tau2 + sigma2_w / n
     WC = w[:, None] * (np.eye(M) - np.outer(np.ones(M), w) / w.sum())   # W C
-    A = WC @ (v[:, None] * WC.T)
-    observed = np.trace(Y.T @ A @ Y)
-    permuted = np.trace(A) * ((Y - Y.mean(0)) ** 2).sum() / (M - 1)
-    return float(observed / permuted)
+    # A 1 = 0, so the statistic does not depend on how Y is centred; unweighted centring
+    # makes the permutation average a function of Σ‖y_m‖² alone
+    return Y - Y.mean(0), WC @ (v[:, None] * WC.T)
+
+
+@dataclass(frozen=True)
+class PairingTerms:
+    """The pairing ratio split into one term per group (Result 5d).
+
+    Attributes
+    ----------
+    ratio : the pairing ratio ϱ, as returned by `pairing_ratio`.
+    terms : (M,) the excess ϱ − 1 split exactly over groups; they sum to ϱ − 1.
+        A large positive term marks a group whose atypical profile sits on a
+        highly variable term.
+    profile_share : (M,) f_m = ‖y_m − ȳ‖² / Σ_m ‖y_m − ȳ‖², each group's share
+        of the spread of the annotation profiles (unweighted mean ȳ).
+    variance_ratio : (M,) g_m = A_mm / (tr A / M), the null variance of group
+        m's weighted term relative to the average group; about w_m² v_m up to
+        scale. Exchangeable weights make every g_m close to 1.
+    largest : index of the group with the largest term.
+    """
+
+    ratio: float
+    terms: np.ndarray
+    profile_share: np.ndarray
+    variance_ratio: np.ndarray
+    largest: int
+
+
+def pairing_terms(Y, n, weights=None, tau2=None, sigma2_w=None):
+    """Which groups make a group permutation test liberal or conservative (Result 5d).
+
+    Splits the excess of the `pairing_ratio` over 1 into one term per group,
+
+        ϱ_m = (M − 1) c_m / (tr(A) S_Y) − f_m,   c_m = Σ_m' A_mm' y_mᵀ y_m',
+
+    with the profiles y_m centred without weights, S_Y = Σ‖y_m‖² and A as in
+    `pairing_ratio`. The terms sum exactly to ϱ − 1. When no group holds a
+    large share of the total weight, ϱ_m ≈ f_m (g_m − 1): a group pushes the
+    test towards liberal when its profile is unusual (large f_m) and its term
+    is more variable than average (g_m > 1). Under size weights these are the
+    large groups; under equal weights, and in similarity designs, the small
+    ones. Report the ratio together with its largest term.
+
+    Arguments are those of `pairing_ratio`.
+    """
+    Y, A = _pairing_matrix(Y, n, weights, tau2, sigma2_w)
+    M = len(Y)
+    S_Y = (Y**2).sum()
+    if S_Y == 0:
+        raise ValueError("all annotation profiles are equal; the pairing ratio is undefined")
+    trA = np.trace(A)
+    c = ((A @ Y) * Y).sum(1)                 # c_m = Σ_m' A_mm' y_mᵀ y_m'
+    f = (Y**2).sum(1) / S_Y
+    terms = (M - 1) * c / (trA * S_Y) - f
+    return PairingTerms(
+        ratio=float(1 + terms.sum()),
+        terms=terms,
+        profile_share=f,
+        variance_ratio=np.diag(A) / (trA / M),
+        largest=int(np.argmax(terms)),
+    )
 
 
 def draw_permutations(M, n_perm, rng=None, strata=None):
@@ -91,7 +162,7 @@ def draw_permutations(M, n_perm, rng=None, strata=None):
 
     With ``strata`` (one label per group, for example a drug class), groups are
     permuted only within their stratum, which tests the annotations beyond that
-    group-level variable (Section 7.5).
+    group-level variable (Section 4.5).
     """
     rng = np.random.default_rng(rng)
     if strata is None:
@@ -279,7 +350,7 @@ class CorrelationTest:
 
 def correlation_test(scores, groups, Y, n_perm=5000, rng=None, strata=None, weights="exchangeable",
                      correction="max-t"):
-    """Test correlations of scores built without the annotations (Sections 4.1, 7.2).
+    """Test correlations of scores built without the annotations (Result 1, Section 4.4).
 
     ``scores`` (N,) or (N, k) are held fixed: single features chosen in
     advance, PCA components, LDA scores, or CCA factors at saturation. The
@@ -343,7 +414,7 @@ class SequentialTest:
 
 
 def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, weights="exchangeable", strata=None):
-    """Sequential group-level permutation test of PLS components (Sections 7.2-7.3).
+    """Sequential group-level permutation test of PLS components (Section 4.4).
 
     PLS weights depend on the annotations, so the model is refitted in every
     permutation. For component c, the first c - 1 components are removed from
@@ -377,37 +448,107 @@ def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, weights="ex
     return SequentialTest(fit.strength, np.maximum.accumulate(p), fit)
 
 
-def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, strata=None):
+@dataclass(frozen=True)
+class SizeCheck:
+    """Estimated size of a test for one design (Result 5, Section 4.3).
+
+    Attributes
+    ----------
+    rate : share of simulated null data sets in which the test rejected.
+    se : its binomial standard error, sqrt(rate (1 − rate) / n_sim).
+    alpha : the nominal level.
+    p_values : (n_sim,) the smallest p-value the test returned for each data set.
+    """
+
+    rate: float
+    se: float
+    alpha: float
+    p_values: np.ndarray
+
+
+def size_check(test, n, Y, tau2, sigma2_w, p=1, n_sim=200, alpha=0.05, rng=None):
+    """How often a test rejects for this design when features and annotations are unrelated.
+
+    The pairing ratio compares averages, while a test's level depends on the
+    tails of its null distribution, so a ratio near 1 does not guarantee the
+    level (Result 5a). This checks the level directly for the design at hand.
+    It keeps the group sizes ``n`` and the annotation table ``Y`` as observed,
+    draws features with no relation to the annotations,
+
+        x_i = u_m(i) + ε_i,   u_m ~ N(0, τ² I),   ε_i ~ N(0, σ²_w I),
+
+    so that each group mean has variance v_m = τ² + σ²_w / n_m, runs ``test``
+    on each data set and records how often it rejects at ``alpha``.
+
+    ``test(X, groups, Y, rng)`` runs the test and returns a p-value or an
+    array of p-values; the data set counts as a rejection if the smallest is
+    at most ``alpha``, so return family-wise p-values for a family of cells.
+    For example, for the first PLS component::
+
+        size_check(lambda X, g, Y, rng: pls_test(X, g, Y, n_components=1, n_perm=199,
+                                                 rng=rng).p_value[0],
+                   n, Y, vc.tau2, vc.sigma2_w)
+
+    with ``vc`` from `groupunit.weights.pooled_variance_components`. Estimate
+    τ² around the grand mean, not around the annotations, so that the check
+    is possible at any annotation ratio. ``p`` is the number of simulated
+    features: use the number the test sees, or a smaller one when only a
+    rough check is needed. The features are Gaussian and independent, so the
+    check covers the design (sizes, profiles, variance components), not
+    heavy tails or correlated features. With 200 data sets the standard error
+    at a true rate of 0.05 is about 0.015.
+    """
+    rng = np.random.default_rng(rng)
+    n = np.asarray(n, int)
+    Y = np.asarray(Y, float)
+    if Y.shape[0] != len(n):
+        raise ValueError(f"Y has {Y.shape[0]} rows but there are {len(n)} groups")
+    if tau2 < 0 or sigma2_w < 0 or tau2 + sigma2_w == 0:
+        raise ValueError("tau2 and sigma2_w must be non-negative and not both zero")
+    p_values = np.empty(n_sim)
+    for s in range(n_sim):
+        X, groups, _ = simulate(n, p, Y=Y, beta=0.0, tau2=tau2, sigma2_w=sigma2_w, rng=rng)
+        p_values[s] = np.min(test(X, groups, Y, rng))
+    rate = float((p_values <= alpha).mean())
+    return SizeCheck(rate, float(np.sqrt(rate * (1 - rate) / n_sim)), alpha, p_values)
+
+
+def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, strata=None, weights="size"):
     """Sequential group-level permutation test of canonical correlations.
 
     Refits CCA in every permutation, removing the first c - 1 canonical
     variates before testing the c-th. If the annotations have rank M - 1
     (κ = 1), every permutation gives the same result and no test of the
-    annotations is possible (Result 3c); this raises an error. CCA weights
-    groups by size, so like size-weighted PLS it is liberal when large groups
-    carry atypical profiles (`pairing_ratio` well above 1).
+    annotations is possible (Result 3c); this raises an error.
+
+    Ordinary CCA weights groups by size (``weights="size"``, the default), so
+    like size-weighted PLS it is liberal when large groups carry atypical
+    profiles (`pairing_ratio` well above 1). ``weights="exchangeable"`` or an
+    array fits and tests row-weighted CCA instead (see `groupunit.cca`), in
+    which group m carries total weight w_m. Canonical correlations are
+    ratios, so whether exchangeable weights restore the level as they do for
+    PLS is an empirical question; check the design with `size_check`.
     """
     Y = np.asarray(Y, float)
     groups, n = check_groups(groups, len(Y))
-    Q = weighted_basis(Y, n)
+    X = np.asarray(X, float)
+    w = permutation_weights(weights, X, groups, n)
+    Ux, sx, Vxt, x_mean, P, Q = _cca_spaces(X, groups, Y, w)
     if Q.shape[1] >= len(Y) - 1:
         raise ValueError("the annotations span all M - 1 between-group directions (kappa = 1): CCA equals "
                          "LDA for any annotation table and cannot be tested against the annotations. "
                          "Reduce the annotations first, e.g. with reduce_annotations().")
-    fit = cca(X, groups, Y, n_components)
+    fit = cca(X, groups, Y, n_components, weights=w)
 
-    X = np.asarray(X, float)
-    Ux, sx, _ = np.linalg.svd(X - X.mean(0), full_matrices=False)
-    Ux = Ux[:, _rank_cutoff(sx)]
-    P = np.sqrt(n)[:, None] * group_means(Ux, groups, len(Y))   # canonical correlations = svd(Pᵀ Q)
-    # full SVD: deflation must keep every remaining direction of both spaces, not only the paired ones
+    # canonical correlations = svd(Pᵀ Q); full SVD: deflation must keep every remaining
+    # direction of both spaces, not only the paired ones
     A, rho, Bt = np.linalg.svd(P.T @ Q, full_matrices=True)
     perms = draw_permutations(len(Y), n_perm, rng, strata)
 
     p = np.empty(len(fit.strength))
     for c, observed in enumerate(fit.strength):
         Pd = P @ A[:, c:]
-        Yd = (Q @ Bt[c:].T) / np.sqrt(n)[:, None]   # annotation table spanning the deflated space
-        null = [np.linalg.norm(Pd.T @ weighted_basis(Yd[perm], n), 2) for perm in perms]
+        Yd = (Q @ Bt[c:].T) / np.sqrt(w)[:, None]   # annotation table spanning the deflated space
+        null = [np.linalg.norm(Pd.T @ weighted_basis(Yd[perm], w), 2) for perm in perms]
         p[c] = p_value(observed, null)
     return SequentialTest(fit.strength, np.maximum.accumulate(p), fit)

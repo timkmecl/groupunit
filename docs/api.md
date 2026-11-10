@@ -51,13 +51,13 @@ This page is generated from the docstrings when the site is built
 
 ::: groupunit.similarity
     options:
-      members: [typicality_pattern, TypicalityPattern, compare_similarity, SimilarityComparison, distance_similarity, standardised_pattern]
+      members: [typicality_pattern, TypicalityPattern, similarity_decomposition, SimilarityDecomposition, compare_similarity, SimilarityComparison, distance_similarity, standardised_pattern]
 
 ## Inference
 
 ::: groupunit.inference
     options:
-      members: [correlation_test, CorrelationTest, pls_test, cca_test, SequentialTest, estimator_test, paired_score_correlation, permutation_test, PermutationResult, pairing_ratio, permutation_weights, draw_permutations, p_value, max_t_p_value, min_p_value]
+      members: [correlation_test, CorrelationTest, pls_test, cca_test, SequentialTest, estimator_test, paired_score_correlation, permutation_test, PermutationResult, pairing_ratio, pairing_terms, PairingTerms, size_check, SizeCheck, permutation_weights, draw_permutations, p_value, max_t_p_value, min_p_value]
 
 ## Validation
 

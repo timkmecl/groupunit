@@ -11,7 +11,7 @@ row of the annotation table Ỹ. For any score t computed from the features,
 $$ t^\top Y = \sum_{m=1}^{M} n_m \, \bar t_m \, \tilde y_m, \qquad X^\top Y = \bar X^\top D \tilde Y, $$
 
 where \(\bar t_m\) is the mean score in group m and D holds the group sizes
-(§3). Everything that relates features to annotations through this
+(§2.2). Everything that relates features to annotations through this
 cross-product sees the M group means, weighted by size. Correlation, PLS, CCA
 and regression all work this way. Variation within groups cancels.
 Large N sharpens each group mean, but the annotation is still observed M
@@ -38,7 +38,7 @@ strongly. `decompose_score` returns both factors.
 
 The rank r of the centred annotation table is the number of independent
 between-group directions the annotations can express. The **annotation ratio**
-κ = r / (M − 1) sets the regime (§4.5), and `describe` reports it.
+κ = r / (M − 1) sets the regime (§3.3), and `describe` reports it.
 
 - **κ = 1, saturated.** The annotations can express every difference between
   groups. CCA then gives identical results for *any* annotation table of full
@@ -56,7 +56,7 @@ A component's annotation loading is \(\ell \propto \tilde Y^\top D \bar t\). The
 annotation table and group sizes are fixed by the design, and only \(\bar t\)
 comes from the features. Random group means therefore still produce
 structured loadings, concentrated on the leading eigenvectors of the **lens**
-\(\Lambda = \tilde Y^\top D^2 \tilde Y\) (§4.2). The largest groups with the most
+\(\Lambda = \tilde Y^\top D^2 \tilde Y\) (Result 2b). The largest groups with the most
 unusual profiles set those eigenvectors. `lens` computes Λ and its participation
 ratio ν, the effective number of annotation directions. `lens_null` and
 `lens_congruence_null` give the loadings and congruences that random group
@@ -67,7 +67,7 @@ same groups, should be judged against this baseline.
 
 Each group contributes one term \(n_m \bar t_m \tilde y_m\) to a loading.
 Projected onto the loading, the terms give **group shares** that sum to one and
-equal the groups' Shapley values for the squared loading (§6.1,
+equal the groups' Shapley values for the squared loading (§5, Appendix B.8,
 `group_shares`). The **effective number of groups** behind a component is the
 inverse Simpson index of the absolute shares. A value of 2 or 3 means the
 component is a contrast between a few groups. `leave_out` recomputes the
@@ -77,7 +77,7 @@ so the loading loses more than that group's own term.
 ## Weights and effective sample size
 
 Size weights describe the population of individuals; equal weights describe
-the population of groups (§5). A group mean deviates from what the
+the population of groups (§4.1). A group mean deviates from what the
 annotations predict through sampling error (σ²_w / n_m) and group-level
 heterogeneity (τ²). The most precise weights are ∝ 1 / (τ² + σ²_w / n_m), and
 no weighting gives more than M effective groups (`variance_components`,
@@ -87,7 +87,7 @@ no weighting gives more than M effective groups (`variance_components`,
 
 A permutation test is valid when the units it reassigns are exchangeable
 under the null. The annotation profile belongs to the group, so tests
-reassign annotation rows among groups, never among individuals (§7.1).
+reassign annotation rows among groups, never among individuals (§4.2).
 Reassigning among individuals tests only whether groups differ.
 
 Exchangeability has a second requirement that is easy to miss. Under a
@@ -104,7 +104,7 @@ same variance. See [Testing and validation](testing.md).
 
 Any similarity matrix between groups splits into each group's **typicality**
 (how similar it is to the set as a whole) and the **pattern** (which groups
-resemble each other beyond that), \(s_{ij} = \mu + a_i + a_j + e_{ij}\) (§4.4).
+resemble each other beyond that), \(s_{ij} = \mu + a_i + a_j + e_{ij}\) (§3.4, Result 4a).
 Two similarity matrices can correlate through shared typicality alone. The
 claim that similar annotations go with similar features concerns the
 pattern. See [Similarity designs](similarity.md).

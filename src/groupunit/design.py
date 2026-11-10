@@ -1,4 +1,4 @@
-"""What a design can show before any analysis: counts, ranks and regimes (Sections 4.5 and Box 1)."""
+"""What a design can show before any analysis: counts, ranks and regimes (Result 3b, the regimes of Section 3.3, Box 1)."""
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -6,9 +6,13 @@ from scipy import stats
 
 from .core import annotation_rank, check_groups, group_means, wcentre
 from .diagnostics import effective_number
-from .inference import pairing_ratio
+from .inference import pairing_terms
 from .scores import feature_between_share
 from .weights import pooled_variance_components
+
+
+# a departure of the pairing ratio from 1 that `describe` reports; a trigger to check, not a safe range
+PAIRING_TOLERANCE = (0.95, 1.05)
 
 
 @dataclass(frozen=True)
@@ -24,11 +28,16 @@ class DesignSummary:
     max_components : number of non-trivial PLS or CCA components, min(rank X̄, r).
     pairing_ratio : `groupunit.inference.pairing_ratio` for size weights, with
         variance components pooled over the features if they were given, and
-        group means taken as equally variable otherwise. In the paper's
-        simulations, size-weighted permutation tests were liberal above about
-        1.1 and conservative below about 0.8.
+        group means taken as equally variable otherwise. Above 1, size-weighted
+        permutation tests lean liberal; below 1, conservative. No range of the
+        ratio is safe for every design: the same ratio does more harm with more
+        groups (Result 5d), so check a test's level with
+        `groupunit.inference.size_check`.
+    pairing_group : the group with the largest term of the ratio
+        (`groupunit.inference.pairing_terms`), the one most responsible for
+        an excess above 1.
     feature_between_share : tr S_B / tr S_T, if features were given.
-    single_group : indices of annotations that single out one group (Section 4.1).
+    single_group : indices of annotations that single out one group (Section 3.1).
     """
 
     N: int
@@ -39,6 +48,7 @@ class DesignSummary:
     kish_groups: float
     max_components: int
     pairing_ratio: float
+    pairing_group: int = 0
     feature_between_share: float | None = None
     single_group: list = field(default_factory=list)
     annotation_names: list | None = None
@@ -58,14 +68,19 @@ class DesignSummary:
         elif self.kappa >= 0.8:
             lines.append("NEAR-SATURATED: the null mean of R² is close to 1, and PLS loadings "
                          "are dominated by the lens; consider reducing the annotations.")
-        lines.append(f"pairing ratio of sizes with annotation profiles = {self.pairing_ratio:.2f}")
-        if self.pairing_ratio > 1.1:
+        lines.append(f"pairing ratio of sizes with annotation profiles = {self.pairing_ratio:.2f} "
+                     f"(largest term: group {self.pairing_group})")
+        # no fixed range of the ratio is safe: the same ratio does more harm with more groups
+        # (Result 5d), so the summary never declares a design safe and points to size_check
+        if self.pairing_ratio > PAIRING_TOLERANCE[1]:
             lines.append("UNUSUAL PAIRING: large groups carry atypical profiles, so size-weighted group "
-                         "permutation tests (weights='size', cca_test, estimator_test) are liberal here; "
-                         "keep the default exchangeable weights.")
-        elif self.pairing_ratio < 0.8:
-            lines.append("UNUSUAL PAIRING: size-weighted group permutation tests are conservative here; "
+                         "permutation tests (weights='size', cca_test, estimator_test) lean liberal here, "
+                         "more so with more groups; keep the default exchangeable weights.")
+        elif self.pairing_ratio < PAIRING_TOLERANCE[0]:
+            lines.append("UNUSUAL PAIRING: size-weighted group permutation tests lean conservative here; "
                          "the default exchangeable weights recover power.")
+        lines.append("A ratio near 1 does not guarantee the level of a test; check the test you run "
+                     "with size_check().")
         if self.single_group:
             names = self.annotation_names or list(range(self.q))
             flagged = ", ".join(str(names[j]) for j in self.single_group)
@@ -97,19 +112,20 @@ def describe(groups, Y, X=None, annotation_names=None):
     r = annotation_rank(Y, n)
     max_components = r
     share = None
-    ratio = pairing_ratio(Y, n)
+    terms = pairing_terms(Y, n)
     if X is not None:
         X = np.asarray(X, float)
         Xbar = group_means(X - X.mean(0), groups, M)
         max_components = min(r, annotation_rank(Xbar, n))
         share = feature_between_share(X, groups)
         vc = pooled_variance_components(X, groups)
-        ratio = pairing_ratio(Y, n, tau2=vc.tau2, sigma2_w=vc.sigma2_w)
+        terms = pairing_terms(Y, n, tau2=vc.tau2, sigma2_w=vc.sigma2_w)
     return DesignSummary(
         N=len(groups), M=M, q=q, r=r, kappa=r / (M - 1),
         kish_groups=effective_number(n),
         max_components=max_components,
-        pairing_ratio=ratio,
+        pairing_ratio=terms.ratio,
+        pairing_group=terms.largest,
         feature_between_share=share,
         single_group=single_group_annotations(Y),
         annotation_names=None if annotation_names is None else list(annotation_names),

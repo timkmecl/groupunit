@@ -2,7 +2,7 @@
 
 In a similarity design, each pair of groups gets a similarity from their
 features and another from their annotations. The two M × M matrices are then
-compared (§4.4), as in the Mantel test or representational similarity
+compared (§3.4, Results 4a-4c), as in the Mantel test or representational similarity
 analysis.
 
 ## Typicality and pattern

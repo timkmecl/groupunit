@@ -1,4 +1,4 @@
-"""Weighting groups: variance components, optimal weights and effective numbers of groups (Section 5).
+"""Weighting groups: variance components, optimal weights and effective numbers of groups (Section 4.1, Appendix B.7).
 
 A group mean deviates from what the annotations predict through sampling
 error, with variance σ²_w / n_m, and through group-level heterogeneity, with

@@ -6,7 +6,7 @@ drug experience reports and each drug's receptor profile, brain regions and
 parcel-level atlas maps, patients and characteristics of their hospital.
 
 It accompanies Kmecl, *The group is the unit: limits of correlation, PLS and
-CCA with group-level variables* (methods paper, Appendix B). The package
+CCA with group-level variables* (methods paper, Appendix D). The package
 computes the quantities the paper derives, and the diagnostics, tests and
 validation it recommends. Every test resamples groups, never individuals.
 
@@ -52,23 +52,23 @@ Markdown directly:
 - [Similarity designs](docs/similarity.md): typicality versus pattern.
 - [Published results](docs/published.md): diagnostics from digitised group means.
 - [Other models and scores](docs/other-models.md): scikit-learn models, scores from any method.
-- [Simulations](docs/simulations.md): the simulation study of §8.
+- [Simulations](docs/simulations.md): the simulation study of §6.
 - [API reference](docs/api.md): generated from the docstrings; readable only in the built site.
 
 ## Layout
 
 | Module        | Paper           | Contents                                                                  |
 | ------------- | --------------- | ------------------------------------------------------------------------- |
-| `core`        | §2–3            | group codes and means, weighted centring, correlation and R², annotation rank |
-| `design`      | §4.5, Box 1     | `describe`, `r2_null`, `reduce_annotations`                                |
+| `core`        | §2              | group codes and means, weighted centring, correlation and R², annotation rank |
+| `design`      | §3.3, Box 1     | `describe`, `r2_null`, `reduce_annotations`                                |
 | `scores`      | Results 1, 3a   | between-group share η², `decompose_score`                                  |
-| `methods`     | §4.2–4.3        | `pls`, `cca`, `lda`, computed through the group means                      |
-| `diagnostics` | §6              | group shares, effective numbers, the lens and its null, `leave_out`        |
-| `weights`     | §5              | variance components, optimal and exchangeable weights, effective groups    |
-| `similarity`  | §4.4, Result 4  | typicality and pattern, `compare_similarity`, `distance_similarity`        |
-| `inference`   | §7.1–7.3, 7.5   | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio` |
-| `validation`  | §7.4            | `leave_one_group_out`, `pca_regression`, scikit-learn models               |
-| `simulate`    | §8.1            | `simulate`, `lognormal_sizes`                                              |
+| `methods`     | §3.2–3.3        | `pls`, `cca` (optionally row-weighted), `lda`, computed through the group means |
+| `diagnostics` | §5, Result 2b   | group shares, effective numbers, the lens and its null, `leave_out`        |
+| `weights`     | §4.1            | variance components, optimal and exchangeable weights, effective groups    |
+| `similarity`  | §3.4, Results 4a–4c | typicality and pattern, `similarity_decomposition`, `compare_similarity`, `distance_similarity` |
+| `inference`   | §4.2–4.5, Result 5 | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio`, `pairing_terms`, `size_check` |
+| `validation`  | §4.5            | `leave_one_group_out`, `pca_regression`, scikit-learn models               |
+| `simulate`    | §6.1            | `simulate`, `lognormal_sizes`                                              |
 
 `simulations/` holds the simulation study of the paper. `tests/` checks the
 identities against direct computation and pins the numbers of the paper's

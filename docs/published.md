@@ -50,5 +50,5 @@ annotations and cannot be tested from published figures.
 When only loadings are published, the identity can be inverted. Solve
 \(\tilde Y^\top D \bar t \propto \ell\) together with \(\sum_m n_m \bar t_m = 0\).
 The solution is unique up to the null space of \(\tilde Y^\top D\) (companion
-paper, Appendix A.3), so check how much of it falls on lightly weighted
+paper, Result 2c), so check how much of it falls on lightly weighted
 groups before relying on the shares it implies.

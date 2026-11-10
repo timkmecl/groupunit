@@ -1,4 +1,4 @@
-"""Diagnostics computable from group means, annotations and group sizes (Section 6).
+"""Diagnostics computable from group means, annotations and group sizes (Section 5).
 
 All functions here work on group-level inputs, so they also apply to
 published results: digitised group means of a component, the annotation
@@ -12,7 +12,7 @@ from .core import wcentre
 
 
 def effective_number(w, axis=0):
-    """(Σ|w|)² / Σw²: the number of equal weights with the same concentration (Section 6.2).
+    """(Σ|w|)² / Σw²: the number of equal weights with the same concentration (Sections 4.1 and 5).
 
     With group sizes it is Kish's effective number of groups, with eigenvalues
     the participation ratio, and with group shares the effective number of
@@ -30,7 +30,7 @@ def participation_ratio(A):
 
 
 def congruence(a, b):
-    """Tucker's congruence coefficient, the cosine between loading vectors (Section 6.3).
+    """Tucker's congruence coefficient, the cosine between loading vectors (Section 5).
 
     For two vectors returns a float; for matrices, the congruences between
     their columns.
@@ -45,7 +45,7 @@ def congruence(a, b):
 
 
 def contributions(tbar, Y, w):
-    """Group × annotation contribution matrix with entries w_m t̄_m ỹ_mj (Section 6.1).
+    """Group × annotation contribution matrix with entries w_m t̄_m ỹ_mj (the identity, Section 2.2).
 
     Column sums are the (unnormalised) annotation loadings of the component.
     """
@@ -84,7 +84,7 @@ class GroupShares:
 
 
 def group_shares(tbar, Y, w):
-    """Group shares of the annotation loading of one or more components (Sections 6.1-6.2).
+    """Group shares of the annotation loading of one or more components (Section 5, Appendix B.8).
 
     ``tbar`` holds each group's mean score, (M,) or (M, k); ``w`` are the group
     weights used by the analysis (group sizes for analyses of individuals).
@@ -125,7 +125,7 @@ class LeaveOut:
 
 
 def leave_out(tbar, Y, w, drop):
-    """A component's loading without groups ``drop``, the component held fixed (Section 6.4).
+    """A component's loading without groups ``drop``, the component held fixed (Section 5, Appendix B.8).
 
     The other groups' means are kept unchanged, and the loading is the one the
     data without the dropped groups would give, re-centred over the remaining
@@ -167,7 +167,7 @@ def _group_mean_cov(n, tau2, sigma2_w):
 
 @dataclass(frozen=True)
 class Lens:
-    """The lens Λ = Ỹᵀ W K W Ỹ through which loadings see random group means (Section 4.2).
+    """The lens Λ = Ỹᵀ W K W Ỹ through which loadings see random group means (Result 2b).
 
     Attributes
     ----------
@@ -189,7 +189,7 @@ class Lens:
 
 
 def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
-    """The lens of a design, from the annotation table and group sizes (Sections 4.2, 6.3).
+    """The lens of a design, from the annotation table and group sizes (Result 2b).
 
     By default group means are taken as independent with equal variance (K = I),
     which gives Λ = Ỹᵀ D² Ỹ for size weights. Pass ``tau2`` and ``sigma2_w``
@@ -208,28 +208,66 @@ def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
     return Lens(L, eigenvalues, eigenvectors[:, order], participation_ratio(eigenvalues))
 
 
-def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None):
+def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None, p=None):
     """Unit-length loadings produced by random group means through the lens, (n_draws, q).
 
     These are the loadings a design yields with no information from the
-    features; compare published loadings against them (Section 6.3).
+    features; compare published loadings against them (Result 2b, Section 5).
+
+    With ``p=None`` each draw is one random score, which is the right null for
+    a score fixed before the annotations were used (a single feature, a PCA
+    or LDA component). For a PLS component pass the number of features ``p``:
+    each draw is then an M × p matrix of random group means, PLS is refitted,
+    and the annotation loading of its first component is kept. PLS selects the
+    best of p directions, so this null concentrates on the leading direction
+    of the lens more than the single-score null does, and as p grows it
+    approaches that direction (Result 2b). With correlated features, pass
+    their effective number of dimensions (for example the participation ratio
+    of their between-group covariance) rather than their count. Signs are
+    arbitrary; compare with `congruence`, which ignores them.
     """
     rng = np.random.default_rng(rng)
     n = np.asarray(n, float)
     w = n if weights is None else np.asarray(weights, float)
     Yc = wcentre(Y, w)
     sd = np.sqrt(_group_mean_cov(n, tau2, sigma2_w))
-    T = wcentre(rng.standard_normal((len(n), n_draws)) * sd[:, None], w)
-    L = Yc.T @ (w[:, None] * T)
-    return (L / np.linalg.norm(L, axis=0)).T
+    if p is None:
+        T = wcentre(rng.standard_normal((len(n), n_draws)) * sd[:, None], w)
+        L = Yc.T @ (w[:, None] * T)
+        return (L / np.linalg.norm(L, axis=0)).T
+    if int(p) != p or p < 1:
+        raise ValueError(f"p must be a positive integer, not {p!r}")
+    WY = w[:, None] * Yc
+    out = np.empty((n_draws, Yc.shape[1]))
+    for start in range(0, n_draws, 256):           # chunks keep memory at 256 · M · p
+        k = min(256, n_draws - start)
+        T = rng.standard_normal((k, len(n), int(p))) * sd[None, :, None]
+        out[start:start + k] = _first_pls_loading(T, WY, w)
+    return out
 
 
-def lens_congruence_null(loading, Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None):
+def _first_pls_loading(T, WY, w):
+    """Unit annotation loading of the first PLS component of random group means T, (k, q).
+
+    T is (k, M, p), one set of group means per draw; WY is W Ỹ with Ỹ centred
+    by ``w``. The loading is Ỹᵀ W t̄₁ for the first component, proportional to
+    the leading left singular vector of Ỹᵀ W X̄ (Result 2b); centring of T is
+    irrelevant because 1ᵀ W Ỹ = 0.
+    """
+    C = np.einsum("mq,kmp->kqp", WY, T)              # Ỹᵀ W X̄ for every draw
+    _, vectors = np.linalg.eigh(C @ C.transpose(0, 2, 1))
+    return vectors[:, :, -1]
+
+
+def lens_congruence_null(loading, Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None,
+                         p=None):
     """Absolute congruence of a loading with random-group-mean loadings, (n_draws,).
 
     A loading, or the agreement between two analyses of the same groups, is
-    informative only to the extent that it exceeds this baseline.
+    informative only to the extent that it exceeds this baseline. Pass ``p``
+    for a PLS loading, so that the null refits PLS on p random features
+    (see `lens_null`).
     """
-    null = lens_null(Y, n, n_draws, weights, tau2, sigma2_w, rng)
+    null = lens_null(Y, n, n_draws, weights, tau2, sigma2_w, rng, p)
     loading = np.asarray(loading, float)
     return np.abs(null @ (loading / np.linalg.norm(loading)))

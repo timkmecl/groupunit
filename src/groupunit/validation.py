@@ -1,4 +1,4 @@
-"""Leave-one-group-out validation against a mean baseline (Section 7.4).
+"""Leave-one-group-out validation against a mean baseline (Section 4.5).
 
 A claim that a relation holds for groups not yet studied is a prediction. It
 is validated by predicting each group from the others, with every selection
