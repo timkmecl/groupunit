@@ -1,4 +1,4 @@
-"""Outcome 8: optimism of individual-split versus group-split cross-validation (Section 7.4).
+"""Outcome 8: optimism of individual-split versus group-split cross-validation (Section 4.5).
 
 A ridge regression predicts each individual's (inherited) annotation from its
 features. Splitting individuals into folds leaves every held-out group in the

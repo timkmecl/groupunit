@@ -55,7 +55,7 @@ def summarise(df):
     return descriptive.groupby(keys).median().join((df[TESTS] < ALPHA).groupby(keys).mean())
 
 
-def main(reps=300, n_perm=199, seed=5, M=20):
+def main(reps=500, n_perm=199, seed=5, M=20):
     df = run(replicate, cells(n_perm, M), reps, seed)
     save(df, summarise(df), "s5_dominance" if M == 20 else f"s5_dominance_M{M}")
 

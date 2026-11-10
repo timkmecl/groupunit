@@ -1,4 +1,4 @@
-"""Simulation design of Section 8.1, and a small parallel runner shared by the outcome scripts."""
+"""Simulation design of Section 6.1, and a small parallel runner shared by the outcome scripts."""
 import os
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import asdict, dataclass
@@ -9,7 +9,7 @@ from scipy.stats import norm
 
 import groupunit as gu
 
-RESULTS = os.path.join(os.path.dirname(__file__), "results")
+RESULTS = os.environ.get("GROUPUNIT_SIM_RESULTS", os.path.join(os.path.dirname(__file__), "results"))
 ALPHA = 0.05
 
 
@@ -33,6 +33,10 @@ class Design:
     p: int = 10                        # features
     signal: float = 0.0                # group-level R² of features 1-2 on annotation 1; 0 is the null
     length_var: float = 0.0            # variance of a within-group direction unrelated to groups
+    n_atypical: int = 1                # for "several": how many of the largest groups are atypical
+    gamma: float = 0.5                 # for "continuous": profile scale grows as (n_m / mean n)^gamma
+    feature_rank: int | None = None    # features from this many latent dimensions (None: isotropic)
+    tails: str = "normal"              # "normal" or "t3" (Student t, 3 df, scaled to unit variance)
 
     @property
     def q(self):
@@ -69,6 +73,13 @@ class Design:
             # one group's profile is `extremity` times as far out; groups are ordered largest first
             m = {"largest": 0, "smallest": self.M - 1}.get(self.extreme_at)
             Y[rng.integers(self.M) if m is None else m] *= self.extremity
+        elif self.structure == "several":
+            # the `n_atypical` largest groups are each `extremity` times as far out
+            Y[:self.n_atypical] *= self.extremity
+        elif self.structure == "continuous":
+            # how far a profile lies out grows smoothly with its group's size
+            n = self.sizes()
+            Y *= ((n / n.mean()) ** self.gamma)[:, None]
         elif self.structure != "independent":
             raise ValueError(self.structure)
         return Y
@@ -85,11 +96,51 @@ class Design:
         """Draw ``(X, groups, Y, n)``: x_i = μ_m(i) + ε_i, μ_m = βᵀỹ_m + u_m."""
         n = self.sizes()
         Y = self.annotations(rng) if Y is None else Y
-        X, groups, Y = gu.simulate(n, self.p, Y=Y, beta=self.beta(), tau2=self.tau2, sigma2_w=1.0, rng=rng)
+        if self.feature_rank is None and self.tails == "normal":
+            X, groups, Y = gu.simulate(n, self.p, Y=Y, beta=self.beta(), tau2=self.tau2, sigma2_w=1.0, rng=rng)
+        else:
+            X, groups = self._draw_features(n, Y, rng)
         if self.length_var > 0:
             d = np.ones(self.p) / np.sqrt(self.p)
             X += np.sqrt(self.length_var) * rng.standard_normal(len(X))[:, None] * d
         return X, groups, Y, n
+
+
+    def _noise(self, rng, shape):
+        if self.tails == "normal":
+            return rng.standard_normal(shape)
+        if self.tails == "t3":
+            return rng.standard_t(3, shape) / np.sqrt(3)       # unit variance
+        raise ValueError(self.tails)
+
+    def _draw_features(self, n, Y, rng):
+        """Group effects and within-group noise in ``feature_rank`` latent dimensions, mapped to p features.
+
+        The map A (k × p) has orthogonal rows with A Aᵀ = (p / k) I, so the total
+        variance is that of p isotropic features; a little isotropic noise
+        (variance 0.01) keeps the features of full rank. With isotropic features
+        the relation β acts on features 1-2; with latent dimensions it acts on
+        latent dimensions 1-2, so that it lies in the same subspace as the noise.
+        """
+        k = self.p if self.feature_rank is None else self.feature_rank
+        groups = np.repeat(np.arange(self.M), n)
+        if self.feature_rank is None:
+            A = np.eye(self.p)
+        else:
+            A = np.linalg.qr(rng.standard_normal((self.p, k)))[0].T * np.sqrt(self.p / k)
+        U = np.sqrt(self.tau2) * self._noise(rng, (self.M, k))
+        E = self._noise(rng, (len(groups), k))
+        if self.feature_rank is None:
+            X = (U[groups] + E) @ A + (Y @ self.beta())[groups]
+        else:
+            # the relation acts in the latent space, so the signal shares the subspace (and the
+            # scale) of the noise; on the observed features it would lie partly outside it, where
+            # scale-invariant CCA would find a direction with almost no noise
+            B = self.beta()[:, :k]
+            X = ((U + Y @ B)[groups] + E) @ A
+        if self.feature_rank is not None:
+            X += 0.1 * rng.standard_normal(X.shape)
+        return X, groups
 
 
 def indicator(groups, M):

@@ -1,4 +1,4 @@
-"""Outcome 6: weighting groups (Section 5).
+"""Outcome 6: weighting groups (Section 4.1).
 
 One feature, one annotation. (a) Mean squared error of the group-level slope
 under size, equal and optimal weights (optimal with true and with estimated

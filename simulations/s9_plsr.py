@@ -126,7 +126,7 @@ def summarise(df):
     return a, b
 
 
-def main(reps=200, n_perm=99, seed=9):
+def main(reps=200, n_perm=199, seed=9):
     df = run(replicate, cells(n_perm), reps, seed, chunk=5)
     a, b = summarise(df)
     save(df, a, "s9_plsr_tests")
