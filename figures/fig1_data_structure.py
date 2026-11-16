@@ -27,6 +27,10 @@ def t(x,y,s,size=13,fill='#1b2128',anchor='start',weight='400',style='normal',fa
     a(f'<text x="{x}" y="{y}" font-size="{size}" fill="{fill}" text-anchor="{anchor}" font-weight="{weight}" font-style="{style}" font-family="{fam}" {extra}>{s}</text>')
 def vdots(x,y):
     for k in range(3): a(f'<circle cx="{x}" cy="{y-14+k*7}" r="1.8" fill="#8a96a3"/>')
+def ytilde(size,w='700'):
+    """Italic Y with a tilde (Ỹ): Georgia has no precomposed Ỹ, so a spacing tilde is placed over the Y."""
+    adv=0.73 if w=='700' else 0.615       # advance of italic Y in Georgia (bold, regular), em
+    return f'Y<tspan dx="{-(adv*0.5+0.25+0.04-0.06)*size:.1f}" dy="{-0.24*size:.1f}">˜</tspan>'
 def xbarlab(x,y,size=16,w='700'):
     t(x,y,'X',size,weight=w,style='italic',fam='Georgia, serif')
     a(f'<line x1="{x+2}" y1="{y-size*0.82}" x2="{x+size*0.72}" y2="{y-size*0.82}" stroke="#1b2128" stroke-width="1.4"/>')
@@ -94,7 +98,7 @@ for MODE,T in T_ALL.items():
     t(yx+Q*cw,47,T['bracket'],11.5,fill='#4d5966',anchor='end')
     # Ytilde
     tx=760; th=26
-    t(tx,82,'Ỹ',16,weight='700',style='italic',fam='Georgia, serif'); t(tx+16,82,'(M × q)',12,fill='#4d5966')
+    t(tx,82,ytilde(16),16,weight='700',style='italic',fam='Georgia, serif'); t(tx+16,82,'(M × q)',12,fill='#4d5966')
     t(tx,98,T['Yt'][0],11.5,fill='#4d5966'); t(tx,112,T['Yt'][1],11,fill='#8a96a3')
     for d in drugs:
         y=centers[d]-th/2
@@ -124,7 +128,7 @@ for MODE,T in T_ALL.items():
     dlx=xbx+P*cw+14
     t(dlx+16,82,'D',16,weight='700',style='italic',fam='Georgia, serif'); t(dlx,98,T['D'][0],11.5,fill='#4d5966'); t(dlx,112,T['D'][1],11,fill='#8a96a3')
     tbx=dlx+92
-    t(tbx,82,'Ỹ',16,weight='700',style='italic',fam='Georgia, serif'); t(tbx+16,82,'(M × q)',12,fill='#4d5966')
+    t(tbx,82,ytilde(16),16,weight='700',style='italic',fam='Georgia, serif'); t(tbx+16,82,'(M × q)',12,fill='#4d5966')
     t(tbx,98,T['yb'][0],11.5,fill='#4d5966'); t(tbx,112,T['yb'][1],11,fill='#8a96a3')
     y=yb
     for d in drugs:
@@ -145,7 +149,7 @@ for MODE,T in T_ALL.items():
     fx=bx0+10
     a(f'<text x="{fx}" y="{fy}" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic">X<tspan font-size="12" dy="-9">T</tspan><tspan dy="9">Y  =  </tspan></text>')
     xbarlab(fx+70,fy,20,'400')
-    a(f'<text x="{fx+86}" y="{fy}" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic"><tspan font-size="12" dy="-9">T</tspan><tspan dy="9"> D Ỹ</tspan></text>')
+    a(f'<text x="{fx+86}" y="{fy}" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic"><tspan font-size="12" dy="-9">T</tspan><tspan dy="9"> D {ytilde(20,"400")}</tspan></text>')
     for k,ln in enumerate(T['ident']): t(bx0+10,fy+22+16*k,ln,12,fill='#33404d')
     # dot strip: reports -> mean
     sy=fy+96

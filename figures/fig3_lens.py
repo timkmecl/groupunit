@@ -24,13 +24,11 @@ obs = obs * np.sign(obs @ e1)
 cong = np.abs(R @ obs)
 cong_med, cong_95 = np.median(cong), np.quantile(cong, 0.95)
 
-W, H = 1400, 880
+W, H = 1400, 820
 s = SVG(W, H)
 
 # ---------------------------------------------------------------- panel a
 s.label(20, 40, "a", "The lens: random group means in, loadings out")
-s.text(46, 62, "loading = centred annotation table (transposed) × group sizes × group means", 12, INK2)
-s.text(46, 77, "toy data", 11, MUTED, style="italic")
 y0 = 130
 t_demo = wcentre(np.random.default_rng(4).standard_normal(M), N_REPORTS)
 # input: random means as dots on short axes
@@ -73,7 +71,6 @@ s.text(ox, box_bot + 18, "one draw", 11, MUTED)
 # ---------------------------------------------------------------- panel b
 bx = 760
 s.label(bx, 40, "b", "Noise in, structure out")
-s.text(bx + 26, 62, "loadings from 40 random draws of the group means", 12, INK2)
 px, py, pw, ph = bx + 40, 110, 560, 300
 zero = py + ph / 2
 s.line(px, zero, px + pw, zero, INK2)
@@ -94,7 +91,6 @@ s.text(px + 280, py + ph + 50, "random draws (unit length, sign-aligned)", 11.5,
 # ---------------------------------------------------------------- panel c
 cy = 520
 s.label(20, cy, "c", "How many directions the lens allows")
-s.text(46, cy + 22, "eigenvalues of the lens matrix (share of total)", 12, INK2)
 share = ev / ev.sum()
 bxs, base = 60, cy + 230
 for j in range(Q):
@@ -113,7 +109,6 @@ s.text(470, cy + 156, f"first direction: {100 * share[0]:.0f}% of the lens", 12,
 # ---------------------------------------------------------------- panel d
 dx = 760
 s.label(dx, cy, "d", "An observed loading against the lens null")
-s.text(dx + 26, cy + 22, "congruence (|cosine|) of the loading in panel 2b with 5,000 random-draw loadings", 12, INK2)
 hx, hy, hw, hh = dx + 40, cy + 50, 560, 170
 bins = np.linspace(0, 1, 41)
 cnt, _ = np.histogram(cong, bins)
@@ -131,9 +126,6 @@ s.text(hx + hw * cong_95 - 6, hy - 8, f"95th pct {cong_95:.2f}", 11, INK, anchor
 s.rect(hx + hw * 0.85, hy + hh + 30, hw * 0.10, 8, "#c9a227", 0.5)
 s.rect(hx + hw * 0.95, hy + hh + 30, hw * 0.05, 8, "#2e7d4f", 0.5)
 s.text(hx + hw * 0.84, hy + hh + 54, "0.85–0.95 fair similarity · ≥ 0.95 near-equal", 10.5, INK2, anchor="end")
-s.text(hx, hy + hh + 72, "benchmarks: Lorenzo-Seva and ten Berge (2006)", 10.5, MUTED)
-s.text(hx, hy + hh + 100, f"Many random draws come close to the observed loading (5% exceed {cong_95:.2f}),", 12, INK)
-s.text(hx, hy + hh + 116, "so the loading's shape alone is no evidence of a relation with the annotations.", 12, INK)
 
 s.save("figure3_lens.svg")
 print(f"nu = {nu:.2f}; first share = {share[0]:.3f}; congruence median {cong_med:.3f}, 95th {cong_95:.3f}")

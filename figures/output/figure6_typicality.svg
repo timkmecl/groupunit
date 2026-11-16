@@ -1,10 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 465" width="1400" height="465">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 385" width="1400" height="385">
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d5966"/></marker></defs>
-<rect width="1400" height="465" fill="#ffffff"/>
+<rect width="1400" height="385" fill="#ffffff"/>
 <text x="20.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">a</text>
 <text x="46.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Two similarity matrices</text>
-<text x="46.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">similarity between groups, from features and from annotations</text>
-<text x="46.0" y="77.0" font-size="11" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="italic" font-family="Helvetica, Arial, sans-serif">toy data; groups ordered by typicality in features</text>
 <text x="150.0" y="108.0" font-size="12" fill="#1b2128" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">features</text>
 <text x="55.0" y="131.0" font-size="9.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">G</text>
 <rect x="75.0" y="120.0" width="14.0" height="14.0" rx="0" fill="rgb(22,64,96)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
@@ -385,11 +383,8 @@
 <rect x="237.0" y="334.0" width="3.2" height="10.0" rx="0" fill="rgb(22,64,96)" fill-opacity="1.00" stroke="none" stroke-width="1"/>
 <text x="60.0" y="358.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">less similar</text>
 <text x="240.0" y="358.0" font-size="10.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">more similar</text>
-<text x="300.0" y="342.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Groups that are typical in one table</text>
-<text x="300.0" y="357.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">are typical in the other.</text>
 <text x="580.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">b</text>
 <text x="606.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Mantel comparison</text>
-<text x="606.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">all 66 pairs of groups</text>
 <rect x="620.0" y="104.0" width="200.0" height="200.0" rx="0" fill="none" fill-opacity="1.00" stroke="#d7dde3" stroke-width="1"/>
 <line x1="636.7" y1="248.4" x2="803.3" y2="133.2" stroke="#8a96a3" stroke-width="1" stroke-opacity="1" stroke-dasharray="4 3"/>
 <circle cx="768.5" cy="172.0" r="3.6" fill="#1d5d7f" fill-opacity="0.55" stroke="none"/>
@@ -464,7 +459,6 @@
 <text x="610.0" y="204.0" font-size="11" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">annot.</text>
 <text x="840.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">c</text>
 <text x="866.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Typicality</text>
-<text x="866.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">group effects, 12 groups</text>
 <rect x="880.0" y="104.0" width="200.0" height="200.0" rx="0" fill="none" fill-opacity="1.00" stroke="#d7dde3" stroke-width="1"/>
 <line x1="896.7" y1="277.6" x2="1063.3" y2="132.9" stroke="#8a96a3" stroke-width="1" stroke-opacity="1" stroke-dasharray="4 3"/>
 <circle cx="993.6" cy="206.4" r="5.5" fill="#1d5d7f" fill-opacity="0.8" stroke="none"/>
@@ -488,7 +482,6 @@
 <text x="870.0" y="204.0" font-size="11" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">annot.</text>
 <text x="1100.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">d</text>
 <text x="1126.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Pattern</text>
-<text x="1126.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">standardised residuals, 66 pairs</text>
 <rect x="1140.0" y="104.0" width="200.0" height="200.0" rx="0" fill="none" fill-opacity="1.00" stroke="#d7dde3" stroke-width="1"/>
 <line x1="1156.7" y1="222.0" x2="1323.3" y2="231.0" stroke="#8a96a3" stroke-width="1" stroke-opacity="1" stroke-dasharray="4 3"/>
 <circle cx="1285.3" cy="265.4" r="3.6" fill="#1d5d7f" fill-opacity="0.55" stroke="none"/>
@@ -561,9 +554,4 @@
 <text x="1202.0" y="95.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">p = 0.71</text>
 <text x="1240.0" y="324.0" font-size="11" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">feature residual</text>
 <text x="1130.0" y="204.0" font-size="11" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">annot.</text>
-<text x="620.0" y="372.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Similarities are negative squared distances between group profiles. Permutation p-values</text>
-<text x="620.0" y="389.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">reassign groups (5,000 permutations). The Mantel correlation in b is carried by typicality (c):</text>
-<text x="620.0" y="406.0" font-size="12" fill="#1b2128" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">atypical groups are atypical in both tables. Which groups resemble which (d) is not shared.</text>
-<text x="620.0" y="432.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Decomposition: s_ij = μ + a_i + a_j + e_ij, a = group effect (typicality), e = pattern,</text>
-<text x="620.0" y="447.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">here divided by each group's residual scale.</text>
 </svg>

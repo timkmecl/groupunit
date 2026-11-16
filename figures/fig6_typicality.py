@@ -58,13 +58,11 @@ def ramp(v):
     return f"rgb({c[0]},{c[1]},{c[2]})"
 
 
-W, H = 1400, 465
+W, H = 1400, 385
 s = SVG(W, H)
 
 # ---------------------------------------------------------------- panel a
 s.label(20, 40, "a", "Two similarity matrices")
-s.text(46, 62, "similarity between groups, from features and from annotations", 12, INK2)
-s.text(46, 77, "toy data; groups ordered by typicality in features", 11, MUTED, style="italic")
 order = np.argsort(-aF)
 cs = 15
 amax = max(np.abs(aF).max(), np.abs(aA).max())
@@ -90,14 +88,11 @@ for i in range(60):
     s.rect(60 + i * 3, ky, 3.2, 10, ramp(i / 59))
 s.text(60, ky + 24, "less similar", 10.5, INK2)
 s.text(60 + 180, ky + 24, "more similar", 10.5, INK2, anchor="end")
-s.text(300, ky + 8, "Groups that are typical in one table", 11, INK2)
-s.text(300, ky + 23, "are typical in the other.", 11, INK2)
 
 
 # ---------------------------------------------------------------- scatter helper
 def scatter(x0, letter, title, sub, xs, ys, corr, ylab_text, xlab_text, labels=None, big=False):
     s.label(x0, 40, letter, title)
-    s.text(x0 + 26, 62, sub, 12, INK2)
     px, py, pw, ph = x0 + 40, 104, 200, 200
     s.rect(px, py, pw, ph, "none", stroke=RULE)
     xmin, xmax = xs.min(), xs.max()
@@ -127,12 +122,6 @@ scatter(840, "c", "Typicality", "group effects, 12 groups", aF, aA, res.typicali
 scatter(1100, "d", "Pattern", "standardised residuals, 66 pairs", EF[iu], EA[iu], res.pattern,
         "annot.", "feature residual")
 
-ny = 372
-s.text(620, ny, "Similarities are negative squared distances between group profiles. Permutation p-values", 12, INK)
-s.text(620, ny + 17, "reassign groups (5,000 permutations). The Mantel correlation in b is carried by typicality (c):", 12, INK)
-s.text(620, ny + 34, "atypical groups are atypical in both tables. Which groups resemble which (d) is not shared.", 12, INK)
-s.text(620, ny + 60, "Decomposition: s_ij = μ + a_i + a_j + e_ij, a = group effect (typicality), e = pattern,", 11, INK2)
-s.text(620, ny + 75, "here divided by each group's residual scale.", 11, INK2)
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 s.save("figure6_typicality.svg")

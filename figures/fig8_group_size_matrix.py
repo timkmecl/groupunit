@@ -48,7 +48,6 @@ CW, CH = 66, 62          # cell size
 
 def panel(s, x0, letter, title, sub, P, rings=()):
     s.label(x0 + 20, 40, letter, title)
-    s.text(x0 + 46, 62, sub, 12, INK2)
     gx, gy = x0 + 120, 110
     for i, M in enumerate(GROUPS[::-1]):                 # most groups at the top
         row = len(GROUPS) - 1 - i
@@ -76,7 +75,7 @@ def panel(s, x0, letter, title, sub, P, rings=()):
 
 exch, size = matrix("PLS: exchangeable"), matrix("PLS: size weights")
 
-W, H = 1400, 500
+W, H = 1400, 425
 s = SVG(W, H)
 gx, gy = panel(s, 0, "a", "Power grows far more with groups than with individuals", "PLS test, exchangeable weights", exch,
                rings=((20, 1000), (100, 25)))
@@ -92,13 +91,6 @@ s.text(lx, gy - 10, "power", 11, INK2)
 s.rect(lx, gy + 222, 16, 16, "none", stroke=INK, sw=2)
 s.text(lx + 22, gy + 234, "≥ 0.8", 10.5, INK2)
 
-ny = 428
-s.text(82, ny, "Orange: equal power (about 0.5) with 20 groups of 1,000 and with 100 groups of 25, eight times "
-               "fewer individuals.", 12, INK)
-s.text(82, ny + 18, "Simulated data with a fixed population: groups differ by τ² = 0.02, and their population means "
-                    "relate to the annotations with R² = 0.5 (κ = 0.5, Kish 40%).", 12, INK)
-s.text(82, ny + 36, f"{len(df):,} data sets, 300 per cell (standard error at most 0.03). N: individuals in total.",
-       12, INK)
 
 os.chdir(HERE)
 s.save("figure8_group_size_matrix.svg")

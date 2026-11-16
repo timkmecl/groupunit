@@ -82,7 +82,7 @@ for r in R_LIST:
     res.append((r, obs, null, pval))
 
 # ---------------------------------------------------------------- draw
-W, H = 1400, 580
+W, H = 1400, 540
 s = SVG(W, H)
 MARK = {"real annotations": ("#1d5d7f", "circle", 7), "shuffled among groups": ("#CC79A7", "square", 6),
         "random numbers": ("#E69F00", "diamond", 6), "group indicators (LDA)": ("#1b2128", "cross", 6)}
@@ -101,7 +101,6 @@ def marker(x, y, kind, col, size):
 
 # panel a
 s.label(20, 40, "a", "At full rank, any annotation table gives the same CCA")
-s.text(46, 62, f"simulated as in Section 6.1: M = {M} groups, N = {N:,} individuals, p = {P} features, q = {QMAX} annotations (r = M − 1)", 12, INK2)
 px, py, pw, ph = 80, 100, 520, 330
 s.rect(px, py, pw, ph, "none", stroke=RULE)
 K = P
@@ -126,16 +125,10 @@ for j, k in enumerate(tables):
     s.text(lx + 24, ly + j * 28 + 4, k, 12, INK)
 s.text(lx, ly + 4 * 28 + 18, "all four overlap exactly:", 12, INK, weight="700")
 s.text(lx, ly + 4 * 28 + 36, f"largest difference {maxdiff:.0e}", 12, INK2)
-s.text(lx, ly + 4 * 28 + 66, "Canonical correlations depend on the", 11.5, INK2)
-s.text(lx, ly + 4 * 28 + 82, "annotations only through the space", 11.5, INK2)
-s.text(lx, ly + 4 * 28 + 98, "they span. At r = M − 1 that space is", 11.5, INK2)
-s.text(lx, ly + 4 * 28 + 114, "every between-group difference.", 11.5, INK2)
 
 # panel b
 bx = 900 + 20
 s.label(bx - 20 + 20, 40, "b", "The real table stands out only when κ is small")
-s.text(bx + 26, 62, "first canonical correlation: real table vs 500 shuffles of its rows among groups", 12, INK2)
-s.text(bx + 26, 77, "r = 1: the annotation that drives the features; larger r adds unrelated annotation columns", 11, MUTED)
 qx, qy, qw, qh = bx + 30, 100, 420, 330
 s.rect(qx, qy, qw, qh, "none", stroke=RULE)
 lo, hi = 0.0, 1.0
@@ -171,8 +164,6 @@ s.text(qx + 20, ly2 + 4, "real table", 11.5, INK2)
 s.circle(qx + 110, ly2, 2.5, MUTED, 0.6)
 s.rect(qx + 120, ly2 - 6, 14, 12, "none", stroke=INK2)
 s.text(qx + 142, ly2 + 4, "shuffles (box: 5th–95th percentile)", 11.5, INK2)
-s.text(qx, ly2 + 30, "The data contain a real relation with one annotation. As κ → 1 the null rises", 11.5, INK)
-s.text(qx, ly2 + 46, "to the LDA value and the test loses it; at κ = 1 every shuffle equals the real result.", 11.5, INK)
 
 os.chdir(HERE)
 s.save("figure4_cca_saturation.svg")

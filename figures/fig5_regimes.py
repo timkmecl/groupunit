@@ -12,7 +12,7 @@ Panels
   b  the annotation ratio kappa = r / (M - 1): the Beta(r/2, (M-1-r)/2) null of the
      group-level R² of a score on the annotations (Result 3b, band and mean), and the
      simulated mean R² of the first principal component of the group means under size
-     weights (dots); published designs marked. Result 3b assumes the weighted group
+     weights (dots). Result 3b assumes the weighted group
      means point in a random direction. The optimal weights of Section 4.1 meet that
      (printed, on the line); size weights with unequal sizes do not, and the null R²
      then exceeds kappa. It approaches r / M_eff only for small r (r = 1: 0.120 against
@@ -82,12 +82,11 @@ def beta_ppf(a, b, qs, n=4000):
     return [x[np.searchsorted(cdf, q)] for q in qs]
 
 
-W, H = 1400, 640
+W, H = 1400, 620
 s = SVG(W, H)
 
 # ---------------------------------------------------------------- panel a
 s.label(20, 40, "a", "Group-level CCA: where chance alone gives large correlations")
-s.text(46, 62, f"mean first canonical correlation under no association, simulated as in Section 6.1 (M = {M}, size weights)", 12, INK2)
 cs = 22
 gx, gy = 150, 100
 for ki in range(D):
@@ -138,15 +137,14 @@ s.circle(lx + 8, ex_y, 6.5, "none", stroke="#E69F00")
 s.o[-1] = s.o[-1].replace('stroke="#E69F00"', 'stroke="#E69F00" stroke-width="2.5"')
 s.text(lx + 22, ex_y - 6, "3 feature PCs, 3 annotation PCs:", 10.5, INK2)
 s.text(lx + 22, ex_y + 8, f"mean first ρ = {grid[2, 2]:.2f}", 10.5, INK, weight="700")
-s.text(lx + 22, ex_y + 34, "5 feature PCs, 19 receptors:", 10.5, INK2)
+s.text(lx + 22, ex_y + 34, "5 feature PCs, 19 annotations:", 10.5, INK2)
 s.text(lx + 22, ex_y + 48, "first ρ = 1 by construction", 10.5, INK, weight="700")
 s.circle(lx + 8, ex_y + 40, 6.5, "none", stroke="#E69F00")
 s.o[-1] = s.o[-1].replace('stroke="#E69F00"', 'stroke="#E69F00" stroke-width="2.5"')
 
 # ---------------------------------------------------------------- panel b
-bx = 760
+bx = 860
 s.label(bx, 40, "b", "The annotation ratio decides what can be detected")
-s.text(bx + 26, 62, "null distribution of the group-level R² of any score on the annotations", 12, INK2)
 px, py, pw, ph = bx + 50, 110, 430, 330
 s.rect(px, py, pw, ph, "none", stroke=RULE)
 def X_(v): return px + v * pw
@@ -181,24 +179,6 @@ for r in range(1, D):
     s.circle(X_(r / D), Y_(r2["size"][:, r - 1].mean()), 3.2, "#D55E00", 1, stroke="#ffffff")
 s.text(X_(0.03), Y_(0.82), "simulated, size weights", 11, "#D55E00", weight="700")
 s.text(X_(0.03), Y_(0.82) + 15, "(above κ, most at intermediate κ)", 10.5, "#D55E00")
-# published designs, labelled directly
-def pt(k, v):
-    s.circle(X_(k), Y_(v), 6, "#E69F00", 0.95, stroke="#ffffff")
-pt(3 / 20, 0.15)
-s.line(X_(3 / 20) + 5, Y_(0.15) + 5, X_(0.24), Y_(0.04), INK2, 1)
-s.text(X_(0.245), Y_(0.04) + 4, "Suresh et al. 2026, receptors reduced to 3 PCs", 11, INK)
-pt(19 / 20, 0.95)
-s.text(X_(0.95) - 12, Y_(0.95) + 4, "Suresh et al. 2026 (r = 19, M − 1 = 20)", 11, INK, anchor="end")
-pt(1.0, 1.0)
-s.line(X_(1), Y_(1), X_(1) + 18, Y_(1) + 40, INK2, 1)
-s.text(X_(1) + 22, Y_(1) + 38, "Ballentine et al. 2022", 11, INK)
-s.text(X_(1) + 22, Y_(1) + 53, "(r = M − 1 = 26)", 10.5, INK2)
-s.text(X_(1) + 22, Y_(1) + 74, "Friedman and", 11, INK)
-s.text(X_(1) + 22, Y_(1) + 89, "Ballentine 2024", 11, INK)
-s.text(X_(1) + 22, Y_(1) + 104, "(r = M − 1 = 51)", 10.5, INK2)
-s.text(px, py + ph + 70, "At κ near 1, a group-level fit explains almost all between-group variance of any score.", 11.5, INK)
-s.text(px, py + ph + 86, "With size weights and unequal sizes the null mean exceeds κ (dots, mean of", 11.5, INK)
-s.text(px, py + ph + 102, f"{SIMS:,} data sets): the large groups dominate both the score and the annotations.", 11.5, INK)
 
 os.chdir(HERE)
 s.save("figure5_regimes.svg")

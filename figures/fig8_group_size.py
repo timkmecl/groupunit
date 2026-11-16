@@ -50,7 +50,6 @@ class Panel:
         self.s, self.px, self.py, self.pw, self.ph = s, x0 + 62, 104, 300, 330
         self.xlo, self.xhi = np.log(xlo), np.log(xhi)
         s.label(x0 + 20, 40, letter, title)
-        s.text(x0 + 46, 62, sub, 12, INK2)
         px, py, pw, ph = self.px, self.py, self.pw, self.ph
         for v in np.arange(0, 1.01, 0.2):
             s.line(px, self.Y(v), px + pw, self.Y(v), RULE, 1, opacity=0.6)
@@ -102,7 +101,7 @@ exch, size = rates("PLS: exchangeable"), rates("PLS: size weights")
 NBAR = dict(xlo=7, xhi=1500, ticks=(10, 25, 50, 100, 250, 1000))
 DY = {10: 0, 20: 0, 50: 0, 100: 0}
 
-W, H = 1400, 600
+W, H = 1400, 500
 s = SVG(W, H)
 
 a = Panel(s, 0, "a", "More individuals per group", "PLS test, exchangeable weights",
@@ -130,13 +129,6 @@ c = Panel(s, 930, "c", "Size weights waste the extra individuals", "the PLS test
 for M in SHADE:
     c.series(size, "nbar", M, dy={10: 12, 20: -5, 50: -2, 100: 0}.get(M, 0))
 
-ny = 512
-s.text(82, ny, "Simulated data with a fixed population: groups differ by τ² = 0.02, and their population means relate to "
-               "the annotations with R² = 0.5 (κ = 0.5, Kish 40%).", 12, INK)
-s.text(82, ny + 18, f"{len(df):,} data sets, 300 per cell. Dashed line: the nominal rate, 0.05. Bands: 95% intervals. "
-                    "Darker lines: more groups.", 12, INK)
-s.text(82, ny + 44, "More individuals sharpen each group mean but add no observations of the annotations; once the "
-                    "means are precise (n̄ well above σ²_w/τ² = 50), only more groups add power.", 11, INK2)
 
 os.chdir(HERE)
 s.save("figure8_group_size.svg")

@@ -56,7 +56,6 @@ class Panel:
     def __init__(self, s, x0, letter, title, sub, xlabel):
         self.s, self.px, self.py, self.pw, self.ph = s, x0 + 62, 104, 300, 330
         s.label(x0 + 20, 40, letter, title)
-        s.text(x0 + 46, 62, sub, 12, INK2)
         px, py, pw, ph = self.px, self.py, self.pw, self.ph
         # a reference line at ϱ = 1, not a "safe" band: where tests fail depends on M (Result 5d)
         s.line(self.X(1), py, self.X(1), py + ph, MUTED, 1, dash="3 3")
@@ -122,12 +121,12 @@ def own_weights_panel(x0, letter, M, dys):
     p.series(equal, d["Mantel: equal"] < 0.05, "equal", "Mantel", "Mantel, equal", dy=dys[3])
 
 
-W, H = 1400, 600
+W, H = 1400, 500
 s = SVG(W, H)
 own_weights_panel(0, "a", 20, dys=(0, 0, 8, -8))
 own_weights_panel(465, "b", 50, dys=(0, 0, 8, -8))
 
-c = Panel(s, 930, "c", "Exchangeable weights restore the level", "PLS against the ratio of the design (size weights)",
+c = Panel(s, 930, "c", "Exchangeable weights restore the level for PLS", "PLS against the ratio of the design (size weights)",
           "pairing ratio of the design")
 for M, faint in ((20, True), (50, False)):
     d = null[M]
@@ -137,13 +136,6 @@ for M, faint in ((20, True), (50, False)):
              dy=-7 if faint else 9, faint=faint)
 
 n_data = sum(len(d) for d in null.values())
-ny = 512
-s.text(82, ny, "Simulated null data: one group's annotation profile 1.5–4 times as far out as the others, on the "
-               f"largest, the smallest or a random group ({n_data:,} data sets).", 12, INK)
-s.text(82, ny + 18, "Dashed line: the nominal rate, 0.05. Bands: 95% intervals per bin of the ratio. Vertical line: ϱ = 1. "
-                    "Exchangeable weights ∝ 1/√(τ² + σ²_w / n_m).", 12, INK)
-s.text(82, ny + 44, "Colour: weighting (blue size, orange equal, green exchangeable). Line: test (solid PLS, dashed "
-                    "correlation, dotted Mantel). In c, hollow markers: M = 20; filled: M = 50.", 11, INK2)
 
 os.chdir(HERE)
 s.save("figure7_pairing.svg")

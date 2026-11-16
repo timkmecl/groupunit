@@ -1,8 +1,11 @@
 """Outcome 2: power of the valid tests under β ≠ 0 at realistic numbers of groups.
 
-Annotation 1 drives features 1-2 (group-level R² = 0.3 or 0.6). Within groups, a
-strong direction unrelated to groups (a "length" direction) dominates the
-first principal component.
+Annotation 1 drives features 1-2 (group-level R² = 0.3 or 0.6). Every cell is
+run twice: under the standard design of Section 6.1, and with a strong
+within-group direction unrelated to groups (a "length" direction, variance 3
+along the mean of the 10 features) that dominates the first principal
+component. Each test is run with size weights and with exchangeable weights
+(estimated from the data); the Mantel test uses equal weights.
 
 A second part fixes the population (τ² and the relation β) and varies the
 mean number of individuals per group with the number of groups: more
@@ -15,13 +18,23 @@ import groupunit as gu
 import procedures as pr
 from common import ALPHA, Design, run, save
 
-TESTS = ["corr: PCA scores", "corr: LDA scores", "PLS: refit", "CCA: refit", "Mantel: groups"]
+TESTS = ["corr: PCA scores, size", "corr: LDA scores, size", "PLS: refit, size", "CCA: refit, size",
+         "corr: PCA scores, exchangeable", "corr: LDA scores, exchangeable", "PLS: refit, exchangeable",
+         "CCA: refit, exchangeable", "Mantel: groups"]
 
 
 def cells(n_perm):
-    grid = [Design(M=M, kappa=k, h=1, signal=s, length_var=3.0)
-            for s in (0.3, 0.6) for M in (20, 50) for k in (0.1, 0.5, 0.9, 1.0)]
+    grid = [Design(M=M, kappa=k, h=1, signal=s, length_var=lv)
+            for lv in (3.0, 0.0) for s in (0.3, 0.6) for M in (20, 50) for k in (0.1, 0.5, 0.9, 1.0)]
     return [(d, {"n_perm": n_perm}) for d in grid]
+
+
+def cca_exchangeable(X, groups, Y, n_perm, rng):
+    """Row-weighted CCA with exchangeable weights (as in outcome 15); p = 1 when saturated."""
+    try:
+        return gu.cca_test(X, groups, Y, 1, n_perm, rng, weights="exchangeable").p_value[0]
+    except ValueError:
+        return 1.0
 
 
 def replicate(d, rng, n_perm):
@@ -35,6 +48,10 @@ def replicate(d, rng, n_perm):
         pr.corr_groups(lda, groups, Y, n_perm, rng),
         pr.pls_groups_refit(X, groups, Y, n_perm, rng),
         pr.cca_groups_refit(X, groups, Y, n_perm, rng),
+        gu.correlation_test(pca, groups, Y, n_perm, rng).p_fwer.min(),
+        gu.correlation_test(lda, groups, Y, n_perm, rng).p_fwer.min(),
+        gu.pls_test(X, groups, Y, n_components=1, n_perm=n_perm, rng=rng).p_value[0],
+        cca_exchangeable(X, groups, Y, n_perm, rng),
         pr.mantel_groups(S_features, gu.distance_similarity(Y), n_perm, rng),
     ]
     eta2 = {"eta2 PC1": gu.between_share(pca[:, 0], groups), "eta2 LD1": gu.between_share(lda[:, 0], groups)}
@@ -42,7 +59,7 @@ def replicate(d, rng, n_perm):
 
 
 def summarise(df):
-    keys = [df.signal, df.M, df.kappa]
+    keys = [df.length_var, df.signal, df.M, df.kappa]
     rates = (df[TESTS] < ALPHA).groupby(keys).mean()
     return df[["eta2 PC1", "eta2 LD1"]].groupby(keys).mean().join(rates)
 

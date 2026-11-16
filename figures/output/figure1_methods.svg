@@ -247,7 +247,7 @@
 <text x="658" y="461.0" font-size="12" fill="#009E73" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif" >×1</text>
 <path d="M314,60 v-6 H640 v6" fill="none" stroke="#8a96a3" stroke-width="1.2" stroke-dasharray="4 3"/>
 <text x="640" y="47" font-size="11.5" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >analysed at individual level: N = 4,496 rows</text>
-<text x="760" y="82" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="italic" font-family="Georgia, serif" >Ỹ</text>
+<text x="760" y="82" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="italic" font-family="Georgia, serif" >Y<tspan dx="-9.5" dy="-3.8">˜</tspan></text>
 <text x="776" y="82" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >(M × q)</text>
 <text x="760" y="98" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >group annotations, M = 21</text>
 <text x="760" y="112" font-size="11" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >drug receptor profiles</text>
@@ -317,7 +317,7 @@
 <text x="1180" y="82" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="italic" font-family="Georgia, serif" >D</text>
 <text x="1164" y="98" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >group sizes</text>
 <text x="1164" y="112" font-size="11" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >reports per drug</text>
-<text x="1256" y="82" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="italic" font-family="Georgia, serif" >Ỹ</text>
+<text x="1256" y="82" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="italic" font-family="Georgia, serif" >Y<tspan dx="-9.5" dy="-3.8">˜</tspan></text>
 <text x="1272" y="82" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >(M × q)</text>
 <text x="1256" y="98" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >group annotations</text>
 <text x="1256" y="112" font-size="11" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >drug profiles</text>
@@ -409,7 +409,7 @@
 <text x="1000" y="422" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic">X<tspan font-size="12" dy="-9">T</tspan><tspan dy="9">Y  =  </tspan></text>
 <text x="1070" y="422" font-size="20" fill="#1b2128" text-anchor="start" font-weight="400" font-style="italic" font-family="Georgia, serif" >X</text>
 <line x1="1072" y1="405.6" x2="1084.4" y2="405.6" stroke="#1b2128" stroke-width="1.4"/>
-<text x="1086" y="422" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic"><tspan font-size="12" dy="-9">T</tspan><tspan dy="9"> D Ỹ</tspan></text>
+<text x="1086" y="422" font-family="Georgia, serif" font-size="20" fill="#1b2128" font-style="italic"><tspan font-size="12" dy="-9">T</tspan><tspan dy="9"> D Y<tspan dx="-10.8" dy="-4.8">˜</tspan></tspan></text>
 <text x="1000" y="444" font-size="12" fill="#33404d" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >every cross-product is a weighted sum over</text>
 <text x="1000" y="460" font-size="12" fill="#33404d" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >the M group means; variation within</text>
 <text x="1000" y="476" font-size="12" fill="#33404d" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif" >groups drops out</text>

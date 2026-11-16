@@ -30,8 +30,6 @@ s = SVG(W, H)
 
 # ---------------------------------------------------------------- panel a
 s.label(20, 40, "a", "Each group contributes one term")
-s.text(46, 62, "term = group size × group mean score on the component × centred annotation profile", 12, INK2)
-s.text(46, 77, "toy data", 11, MUTED, style="italic")
 y0, rh = 128, 38
 cx = dict(name=20, n=118, t=262, yrow=410, term=572)
 s.text(cx["n"], y0 - 18, "n (individuals)", 11.5, INK2)
@@ -79,7 +77,6 @@ s.text((cx["term"] + Q * cw + 14 + 760) / 2, ay + 18, "groups", 11, INK2, anchor
 # ---------------------------------------------------------------- panel b
 bx, by = 790, 40
 s.label(bx, by, "b", "The loading is the stack of terms")
-s.text(bx + 26, by + 22, "annotation loading = sum of the terms in a, coloured by contributing group", 12, INK2)
 cx0, cy0, bw, gap = bx + 40, 300, 50, 18
 scale = 150 / max(np.abs(r["terms"]).clip(0).sum(0).max(), (-r["terms"]).clip(0).sum(0).max())
 s.line(cx0 - 10, cy0, cx0 + Q * (bw + gap), cy0, INK2)
@@ -108,7 +105,6 @@ s.text(cx0 - 14, cy0 + 140, "−", 12, MUTED, anchor="middle")
 # ---------------------------------------------------------------- panel c
 c_y = 520
 s.label(20, c_y, "c", "Group shares")
-s.text(46, c_y + 22, "absolute shares of the loading", 12, INK2)
 x, yb, tot_w = 46, c_y + 46, 380
 order = np.argsort(-r["abs_share"])
 for m in order:
@@ -131,7 +127,6 @@ s.text(46, yb + 136, f"Effective number from group sizes alone: {kish(N_REPORTS)
 # ---------------------------------------------------------------- panel d
 d_x = 490
 s.label(d_x, c_y, "d", "Leave the dominant group out")
-s.text(d_x + 26, c_y + 22, "same component, Group C removed (group means of the others unchanged)", 12, INK2)
 base = c_y + 140
 s.line(d_x + 20, base, d_x + 20 + Q * 52, base, INK2)
 qa = r["q"] / np.abs(r["q"]).max()
@@ -150,7 +145,6 @@ s.text(d_x + 42, c_y + 306, f"without Group C (r = {np.corrcoef(r['q'], r_lo['q'
 # ---------------------------------------------------------------- panel e
 e_x = 970
 s.label(e_x, c_y, "e", "A contrast between two groups")
-s.text(e_x + 26, c_y + 22, "loading vs the difference of the standardised profiles of D and C", 12, INK2)
 px, py, pw, ph = e_x + 50, c_y + 44, 250, 190
 s.rect(px, py, pw, ph, "none", stroke=RULE)
 cmin, cmax = contrast.min(), contrast.max()
