@@ -78,7 +78,7 @@ exch, size = matrix("PLS: exchangeable"), matrix("PLS: size weights")
 
 W, H = 1400, 500
 s = SVG(W, H)
-gx, gy = panel(s, 0, "a", "Power grows with groups, not individuals", "PLS test, exchangeable weights", exch,
+gx, gy = panel(s, 0, "a", "Power grows far more with groups than with individuals", "PLS test, exchangeable weights", exch,
                rings=((20, 1000), (100, 25)))
 panel(s, 640, "b", "Size weights waste the extra individuals", "the same test with size weights", size)
 

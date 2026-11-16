@@ -1,0 +1,374 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 840" width="1400" height="840">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d5966"/></marker></defs>
+<rect width="1400" height="840" fill="#ffffff"/>
+<text x="20.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">a</text>
+<text x="46.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Each group contributes one term</text>
+<text x="46.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">term = group size × group mean score on the component × centred annotation profile</text>
+<text x="46.0" y="77.0" font-size="11" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="italic" font-family="Helvetica, Arial, sans-serif">toy data</text>
+<text x="118.0" y="110.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">n (individuals)</text>
+<text x="322.0" y="110.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">mean score on component</text>
+<text x="410.0" y="110.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">ỹ (centred profile)</text>
+<text x="572.0" y="110.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">term</text>
+<line x1="322.0" y1="120.0" x2="322.0" y2="428.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<text x="20.0" y="147.0" font-size="12" fill="#0072B2" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group A</text>
+<rect x="118.0" y="134.0" width="67.5" height="18.0" rx="0" fill="#0072B2" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="189.5" y="147.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">90</text>
+<text x="244.0" y="147.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="338.5" cy="143.0" r="5.5" fill="#0072B2" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="147.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#0072B2" fill-opacity="0.52" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#0072B2" fill-opacity="0.66" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#0072B2" fill-opacity="0.37" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#0072B2" fill-opacity="0.37" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#0072B2" fill-opacity="0.11" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="132.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<text x="550.0" y="147.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="143.0" x2="684.0" y2="143.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="140.6" width="10.0" height="2.4" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="139.9" width="10.0" height="3.1" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="141.4" width="10.0" height="1.6" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="141.4" width="10.0" height="1.6" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="142.9" width="10.0" height="0.1" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="143.0" width="10.0" height="1.3" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="143.0" width="10.0" height="1.1" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="143.0" width="10.0" height="1.3" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="185.0" font-size="12" fill="#E69F00" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group B</text>
+<rect x="118.0" y="172.0" width="45.0" height="18.0" rx="0" fill="#E69F00" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="167.0" y="185.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">60</text>
+<text x="244.0" y="185.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="333.2" cy="181.0" r="5.5" fill="#E69F00" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="185.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.24" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.23" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#E69F00" fill-opacity="0.49" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.15" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#E69F00" fill-opacity="0.59" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#E69F00" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.41" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="170.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.20" stroke="none" stroke-width="1"/>
+<text x="550.0" y="185.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="181.0" x2="684.0" y2="181.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="181.0" width="10.0" height="0.4" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="181.0" width="10.0" height="0.4" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="180.0" width="10.0" height="1.0" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="181.0" width="10.0" height="0.2" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="179.8" width="10.0" height="1.2" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="180.1" width="10.0" height="0.9" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="181.0" width="10.0" height="0.8" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="181.0" width="10.0" height="0.3" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="223.0" font-size="12" fill="#CC79A7" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group C</text>
+<rect x="118.0" y="210.0" width="90.0" height="18.0" rx="0" fill="#CC79A7" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="212.0" y="223.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">120</text>
+<text x="244.0" y="223.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="272.0" cy="219.0" r="5.5" fill="#CC79A7" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="223.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.24" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.23" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.30" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#CC79A7" fill-opacity="0.73" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="208.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<text x="550.0" y="223.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="219.0" x2="684.0" y2="219.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="215.5" width="10.0" height="3.5" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="215.8" width="10.0" height="3.2" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="214.8" width="10.0" height="4.2" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="214.8" width="10.0" height="4.2" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="214.3" width="10.0" height="4.7" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="213.8" width="10.0" height="5.2" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="219.0" width="10.0" height="14.0" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="213.7" width="10.0" height="5.3" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="261.0" font-size="12" fill="#009E73" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group D</text>
+<rect x="118.0" y="248.0" width="60.0" height="18.0" rx="0" fill="#009E73" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="182.0" y="261.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">80</text>
+<text x="244.0" y="261.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="367.7" cy="257.0" r="5.5" fill="#009E73" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="261.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.12" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.35" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#009E73" fill-opacity="0.13" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.17" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#009E73" fill-opacity="0.57" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.53" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="246.0" width="13.0" height="22.0" rx="0" fill="#009E73" fill-opacity="0.93" stroke="none" stroke-width="1"/>
+<text x="550.0" y="261.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="257.0" x2="684.0" y2="257.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="257.0" width="10.0" height="0.6" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="257.0" width="10.0" height="3.6" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="257.0" width="10.0" height="2.6" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="256.4" width="10.0" height="0.6" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="257.0" width="10.0" height="1.2" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="250.5" width="10.0" height="6.5" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="257.0" width="10.0" height="5.9" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="245.8" width="10.0" height="11.2" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="299.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group E</text>
+<rect x="118.0" y="286.0" width="10.5" height="18.0" rx="0" fill="#a7b0ba" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="132.5" y="299.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">14</text>
+<text x="244.0" y="299.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="330.5" cy="295.0" r="5.5" fill="#a7b0ba" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="299.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.12" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.11" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.40" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.25" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.23" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.12" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="284.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.32" stroke="none" stroke-width="1"/>
+<text x="550.0" y="299.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="295.0" x2="684.0" y2="295.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="295.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="295.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="295.0" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="294.9" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="294.9" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="295.0" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="295.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="295.0" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="337.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group F</text>
+<rect x="118.0" y="324.0" width="7.5" height="18.0" rx="0" fill="#a7b0ba" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="129.5" y="337.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">10</text>
+<text x="244.0" y="337.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="317.2" cy="333.0" r="5.5" fill="#a7b0ba" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="337.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.37" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.35" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.15" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.11" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.44" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="322.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="550.0" y="337.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="333.0" x2="684.0" y2="333.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="332.9" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="333.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="332.9" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="375.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group G</text>
+<rect x="118.0" y="362.0" width="6.0" height="18.0" rx="0" fill="#a7b0ba" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="128.0" y="375.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">8</text>
+<text x="244.0" y="375.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="335.8" cy="371.0" r="5.5" fill="#a7b0ba" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="375.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.24" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.30" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.52" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.28" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.17" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.20" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.53" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="360.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.08" stroke="none" stroke-width="1"/>
+<text x="550.0" y="375.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="371.0" x2="684.0" y2="371.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="371.0" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="370.9" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="371.0" width="10.0" height="0.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="371.0" width="10.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="371.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="371.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="371.0" width="10.0" height="0.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="371.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="20.0" y="413.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group H</text>
+<rect x="118.0" y="400.0" width="4.5" height="18.0" rx="0" fill="#a7b0ba" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="126.5" y="413.0" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">6</text>
+<text x="244.0" y="413.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<circle cx="322.5" cy="409.0" r="5.5" fill="#a7b0ba" fill-opacity="1" stroke="none"/>
+<text x="392.0" y="413.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">×</text>
+<rect x="410.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.49" stroke="none" stroke-width="1"/>
+<rect x="424.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.47" stroke="none" stroke-width="1"/>
+<rect x="438.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.40" stroke="none" stroke-width="1"/>
+<rect x="452.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.40" stroke="none" stroke-width="1"/>
+<rect x="466.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.30" stroke="none" stroke-width="1"/>
+<rect x="480.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.56" stroke="none" stroke-width="1"/>
+<rect x="494.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#a7b0ba" fill-opacity="0.24" stroke="none" stroke-width="1"/>
+<rect x="508.0" y="398.0" width="13.0" height="22.0" rx="0" fill="#5f6b78" fill-opacity="0.45" stroke="none" stroke-width="1"/>
+<text x="550.0" y="413.0" font-size="13" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">=</text>
+<line x1="572.0" y1="409.0" x2="684.0" y2="409.0" stroke="#d7dde3" stroke-width="1" stroke-opacity="1"/>
+<rect x="574.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="602.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="616.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="630.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="644.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="658.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="672.0" y="409.0" width="10.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="267.0" y="444.0" font-size="11" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="377.0" y="444.0" font-size="11" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">+</text>
+<text x="410.0" y="444.0" font-size="10.5" fill="#8a96a3" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">darker = further from the average profile; grey = below it</text>
+<line x1="698.0" y1="280.0" x2="760.0" y2="280.0" stroke="#4d5966" stroke-width="1.6" stroke-opacity="1" marker-end="url(#ah)"/>
+<text x="729.0" y="272.0" font-size="11" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">sum over</text>
+<text x="729.0" y="298.0" font-size="11" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">groups</text>
+<text x="790.0" y="40.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">b</text>
+<text x="816.0" y="40.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">The loading is the stack of terms</text>
+<text x="816.0" y="62.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">annotation loading = sum of the terms in a, coloured by contributing group</text>
+<line x1="820.0" y1="300.0" x2="1374.0" y2="300.0" stroke="#4d5966" stroke-width="1" stroke-opacity="1"/>
+<rect x="830.0" y="275.9" width="50.0" height="24.1" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="259.7" width="50.0" height="16.2" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="300.0" width="50.0" height="3.8" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="303.8" width="50.0" height="2.7" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="306.5" width="50.0" height="0.4" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="259.3" width="50.0" height="0.3" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="306.9" width="50.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="830.0" y="307.0" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="826.0" y1="266.4" x2="884.0" y2="266.4" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="855.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a1</text>
+<rect x="898.0" y="300.0" width="50.0" height="24.3" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="278.0" width="50.0" height="22.0" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="256.8" width="50.0" height="21.2" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="324.3" width="50.0" height="2.5" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="256.3" width="50.0" height="0.6" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="255.9" width="50.0" height="0.3" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="326.8" width="50.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="898.0" y="326.9" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="894.0" y1="282.9" x2="952.0" y2="282.9" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="923.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a2</text>
+<rect x="966.0" y="271.2" width="50.0" height="28.8" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="300.0" width="50.0" height="17.6" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="260.6" width="50.0" height="10.6" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="253.8" width="50.0" height="6.8" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="317.6" width="50.0" height="1.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="318.8" width="50.0" height="0.9" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="253.5" width="50.0" height="0.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="966.0" y="319.7" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="962.0" y1="273.3" x2="1020.0" y2="273.3" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="991.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a3</text>
+<rect x="1034.0" y="271.1" width="50.0" height="28.9" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="260.5" width="50.0" height="10.6" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="256.3" width="50.0" height="4.2" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="300.0" width="50.0" height="1.2" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="301.2" width="50.0" height="0.5" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="255.8" width="50.0" height="0.5" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="255.7" width="50.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1034.0" y="301.8" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="1030.0" y1="257.5" x2="1088.0" y2="257.5" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="1059.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a4</text>
+<rect x="1102.0" y="268.1" width="50.0" height="31.9" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="300.0" width="50.0" height="8.5" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="259.7" width="50.0" height="8.5" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="258.7" width="50.0" height="1.0" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="258.3" width="50.0" height="0.4" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="308.5" width="50.0" height="0.3" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="308.8" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1102.0" y="308.8" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="1098.0" y1="267.1" x2="1156.0" y2="267.1" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="1127.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a5</text>
+<rect x="1170.0" y="256.0" width="50.0" height="44.0" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="220.6" width="50.0" height="35.4" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="300.0" width="50.0" height="8.8" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="214.5" width="50.0" height="6.1" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="308.8" width="50.0" height="0.7" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="214.1" width="50.0" height="0.4" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="309.5" width="50.0" height="0.3" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1170.0" y="309.8" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="1166.0" y1="223.9" x2="1224.0" y2="223.9" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="1195.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a6</text>
+<rect x="1238.0" y="300.0" width="50.0" height="95.4" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="395.4" width="50.0" height="40.2" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="435.6" width="50.0" height="7.4" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="443.1" width="50.0" height="5.4" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="448.4" width="50.0" height="1.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="299.8" width="50.0" height="0.2" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="299.6" width="50.0" height="0.1" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1238.0" y="299.6" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="1234.0" y1="449.3" x2="1292.0" y2="449.3" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="1263.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a7</text>
+<rect x="1306.0" y="223.6" width="50.0" height="76.4" rx="0" fill="#009E73" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="187.5" width="50.0" height="36.0" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="300.0" width="50.0" height="8.9" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="308.9" width="50.0" height="2.0" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="310.9" width="50.0" height="0.7" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="187.1" width="50.0" height="0.4" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="311.7" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="1306.0" y="311.7" width="50.0" height="0.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<line x1="1302.0" y1="198.8" x2="1360.0" y2="198.8" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="1331.0" y="468.0" font-size="11.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a8</text>
+<line x1="834.0" y1="124.0" x2="856.0" y2="124.0" stroke="#1b2128" stroke-width="2.2" stroke-opacity="1"/>
+<text x="862.0" y="128.0" font-size="11" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">net loading</text>
+<text x="816.0" y="170.0" font-size="12" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">+</text>
+<text x="816.0" y="440.0" font-size="12" fill="#8a96a3" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">−</text>
+<text x="20.0" y="520.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">c</text>
+<text x="46.0" y="520.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group shares</text>
+<text x="46.0" y="542.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">absolute shares of the loading</text>
+<rect x="46.0" y="566.0" width="216.2" height="30.0" rx="0" fill="#CC79A7" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<text x="154.1" y="586.0" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">57%</text>
+<rect x="262.2" y="566.0" width="139.0" height="30.0" rx="0" fill="#009E73" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<text x="331.7" y="586.0" font-size="11.5" fill="#ffffff" text-anchor="middle" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">37%</text>
+<rect x="401.2" y="566.0" width="11.6" height="30.0" rx="0" fill="#E69F00" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="412.8" y="566.0" width="10.6" height="30.0" rx="0" fill="#0072B2" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="423.4" y="566.0" width="1.2" height="30.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="424.6" y="566.0" width="0.8" height="30.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="425.3" y="566.0" width="0.6" height="30.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="425.9" y="566.0" width="0.1" height="30.0" rx="0" fill="#a7b0ba" fill-opacity="0.90" stroke="#ffffff" stroke-width="1"/>
+<rect x="46.0" y="612.0" width="10.0" height="10.0" rx="0" fill="#CC79A7" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="60.0" y="621.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group C</text>
+<rect x="136.0" y="612.0" width="10.0" height="10.0" rx="0" fill="#009E73" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="150.0" y="621.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group D</text>
+<rect x="226.0" y="612.0" width="10.0" height="10.0" rx="0" fill="#E69F00" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="240.0" y="621.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Group B</text>
+<rect x="316.0" y="612.0" width="10.0" height="10.0" rx="0" fill="#a7b0ba" fill-opacity="1.00" stroke="none" stroke-width="1"/>
+<text x="330.0" y="621.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">others</text>
+<text x="46.0" y="662.0" font-size="13" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Effective number of groups behind</text>
+<text x="46.0" y="680.0" font-size="13" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">this component: 2.2 (of 8)</text>
+<text x="46.0" y="702.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">Effective number from group sizes alone: 4.6</text>
+<text x="490.0" y="520.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">d</text>
+<text x="516.0" y="520.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">Leave the dominant group out</text>
+<text x="516.0" y="542.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">same component, Group C removed (group means of the others unchanged)</text>
+<line x1="510.0" y1="660.0" x2="926.0" y2="660.0" stroke="#4d5966" stroke-width="1" stroke-opacity="1"/>
+<rect x="514.0" y="642.0" width="20.0" height="18.0" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="536.0" y="660.0" width="20.0" height="0.7" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="535.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a1</text>
+<rect x="566.0" y="650.8" width="20.0" height="9.2" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="588.0" y="660.0" width="20.0" height="7.9" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="587.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a2</text>
+<rect x="618.0" y="645.7" width="20.0" height="14.3" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="640.0" y="660.0" width="20.0" height="8.0" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="639.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a3</text>
+<rect x="670.0" y="637.2" width="20.0" height="22.8" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="692.0" y="659.6" width="20.0" height="0.4" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="691.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a4</text>
+<rect x="722.0" y="642.3" width="20.0" height="17.7" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="744.0" y="660.0" width="20.0" height="7.1" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="743.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a5</text>
+<rect x="774.0" y="619.2" width="20.0" height="40.8" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="796.0" y="646.7" width="20.0" height="13.3" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="795.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a6</text>
+<rect x="826.0" y="660.0" width="20.0" height="80.0" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="848.0" y="660.0" width="20.0" height="5.9" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="847.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a7</text>
+<rect x="878.0" y="605.8" width="20.0" height="54.2" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<rect x="900.0" y="633.7" width="20.0" height="26.3" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="899.0" y="764.0" font-size="10.5" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a8</text>
+<rect x="514.0" y="796.0" width="12.0" height="12.0" rx="0" fill="#1d5d7f" fill-opacity="0.90" stroke="none" stroke-width="1"/>
+<text x="532.0" y="806.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">all groups</text>
+<rect x="514.0" y="816.0" width="12.0" height="12.0" rx="0" fill="#1d5d7f" fill-opacity="0.30" stroke="#1d5d7f" stroke-width="1"/>
+<text x="532.0" y="826.0" font-size="11.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">without Group C (r = 0.58 with all groups; norm 29% of original)</text>
+<text x="970.0" y="520.0" font-size="20" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">e</text>
+<text x="996.0" y="520.0" font-size="16" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">A contrast between two groups</text>
+<text x="996.0" y="542.0" font-size="12" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">loading vs the difference of the standardised profiles of D and C</text>
+<rect x="1020.0" y="564.0" width="250.0" height="190.0" rx="0" fill="none" fill-opacity="1.00" stroke="#d7dde3" stroke-width="1"/>
+<line x1="1032.1" y1="720.0" x2="1257.9" y2="567.6" stroke="#8a96a3" stroke-width="1" stroke-opacity="1" stroke-dasharray="4 3"/>
+<circle cx="1163.2" cy="623.8" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<circle cx="1128.5" cy="633.8" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<circle cx="1143.6" cy="628.0" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<circle cx="1195.7" cy="618.3" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<circle cx="1164.0" cy="624.2" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<circle cx="1233.1" cy="597.8" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<text x="1241.1" y="601.8" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a6</text>
+<circle cx="1044.2" cy="735.6" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<text x="1052.2" y="739.6" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a7</text>
+<circle cx="1245.8" cy="582.4" r="5" fill="#1d5d7f" fill-opacity="0.85" stroke="none"/>
+<text x="1253.8" y="586.4" font-size="10.5" fill="#4d5966" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">a8</text>
+<text x="1145.0" y="774.0" font-size="11" fill="#4d5966" text-anchor="middle" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">profile of D − profile of C (standardised)</text>
+<text x="1008.0" y="659.0" font-size="11" fill="#4d5966" text-anchor="end" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">loading</text>
+<text x="1030.0" y="582.0" font-size="13" fill="#1b2128" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">r = 0.94</text>
+</svg>

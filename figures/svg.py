@@ -1,7 +1,10 @@
 """Minimal SVG writer used by the paper figures (from the paper's figure code), so new figures match Figures 1-5."""
+import os
+
 INK, INK2, MUTED, RULE, ACCENT = "#1b2128", "#4d5966", "#8a96a3", "#d7dde3", "#1d5d7f"
 SANS = "Helvetica, Arial, sans-serif"
 SERIF = "Georgia, serif"
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")   # every figure file goes here
 
 
 class SVG:
@@ -40,8 +43,10 @@ class SVG:
         self.text(x + 26, y, title, 16, weight="700")
 
     def save(self, path):
+        """Write the SVG; a bare file name goes into OUT."""
         self.o.append("</svg>")
-        with open(path, "w", encoding="utf-8") as f:
+        os.makedirs(OUT, exist_ok=True)
+        with open(os.path.join(OUT, path), "w", encoding="utf-8") as f:
             f.write("\n".join(self.o))
 
 
@@ -51,4 +56,5 @@ def save_png(svg_path):
         import cairosvg
     except ImportError:
         return
+    svg_path = os.path.join(OUT, svg_path)
     cairosvg.svg2png(url=svg_path, write_to=svg_path.replace(".svg", ".png"), scale=2)

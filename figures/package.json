@@ -1,0 +1,6 @@
+{
+  "name": "group-is-the-unit-figures",
+  "private": true,
+  "description": "SVG to PDF conversion for the LaTeX build: npm install && node svg_to_pdf.js",
+  "dependencies": { "playwright": "^1" }
+}

@@ -9,3 +9,5 @@ site/
 drafts/
 # local reanalysis of published data (not part of the package)
 reanalysis/
+node_modules/
+package-lock.json
