@@ -221,10 +221,16 @@ def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=No
     and the annotation loading of its first component is kept. PLS selects the
     best of p directions, so this null concentrates on the leading direction
     of the lens more than the single-score null does, and as p grows it
-    approaches that direction (Result 2b). With correlated features, pass
-    their effective number of dimensions (for example the participation ratio
-    of their between-group covariance) rather than their count. Signs are
-    arbitrary; compare with `congruence`, which ignores them.
+    approaches that direction (Result 2b). The null is right only when ``p``
+    is the effective number of independent directions along which the group
+    means vary. With correlated features that number lies between 1 and the
+    feature count, and with few groups it cannot be estimated reliably: in
+    simulations (Section 6), participation ratios of the between-group and of
+    the within-group covariance both missed it when group effects spanned fewer
+    dimensions than the within-group noise, and the correct value could exceed
+    M - 1. Run the null at ``p=1`` and at the number of features, and rely only
+    on conclusions that hold at both. Signs are arbitrary; compare with
+    `congruence`, which ignores them.
     """
     rng = np.random.default_rng(rng)
     n = np.asarray(n, float)

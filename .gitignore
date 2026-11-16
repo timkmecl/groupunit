@@ -11,3 +11,4 @@ drafts/
 reanalysis/
 node_modules/
 package-lock.json
+figures/*.zip
