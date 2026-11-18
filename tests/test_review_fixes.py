@@ -119,3 +119,19 @@ def test_public_names_are_listed():
     from groupunit.methods import Components
     assert isinstance(gu.pls_test(np.random.default_rng(9).standard_normal((30, 3)), np.repeat(np.arange(6), 5),
                                   np.random.default_rng(10).standard_normal((6, 2)), n_perm=9, rng=0).fit, Components)
+
+
+def test_diagnostic_options_are_keyword_only():
+    n, Y = np.array([4, 6, 9, 5]), np.random.default_rng(11).standard_normal((4, 2))
+    for call in (lambda: gu.pairing_ratio(Y, n, None, 0.1, 1.0), lambda: gu.pairing_terms(Y, n, None),
+                 lambda: gu.lens(Y, n, None), lambda: gu.lens_null(Y, n, 10, None)):
+        with pytest.raises(TypeError):
+            call()
+    assert gu.pairing_ratio(Y, n, tau2=0.1, sigma2_w=1.0) == pytest.approx(
+        gu.pairing_ratio(Y, n, sigma2_w=1.0, tau2=0.1))
+
+
+def test_variance_components_fields_follow_the_function_order():
+    from dataclasses import fields
+    from groupunit.weights import VarianceComponents
+    assert [f.name for f in fields(VarianceComponents)] == ["tau2", "sigma2_w"]

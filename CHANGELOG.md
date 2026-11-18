@@ -36,6 +36,12 @@
   `strata, weights`; a call that passed them by position now raises a
   `TypeError` instead of silently swapping them. Calls that pass `n_perm` and
   `rng` by position are unaffected.
+- In `pairing_ratio`, `pairing_terms`, `lens`, `lens_null` and
+  `lens_congruence_null`, `weights`, `tau2`, `sigma2_w`, `rng` and `p` are
+  keyword-only, so the two variance components cannot be swapped by position.
+  Three calls in `simulations/` were updated; their results are unchanged.
+- `VarianceComponents` lists its fields as `tau2, sigma2_w`, the order of every
+  function that takes them. Code that reads the fields by name is unaffected.
 - One vocabulary for `weights`: `pls`, `cca`, `lens`, `lens_null`,
   `lens_congruence_null`, `pairing_ratio` and `pairing_terms` accept `"size"`
   as well as `None` and an array, and the tests accept `None` as size weights.

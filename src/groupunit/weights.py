@@ -14,10 +14,13 @@ from .diagnostics import effective_number
 
 @dataclass(frozen=True)
 class VarianceComponents:
-    """Within-group variance σ²_w and between-group heterogeneity τ² of one score."""
+    """Between-group heterogeneity τ² and within-group variance σ²_w of one score.
 
-    sigma2_w: float
+    The fields follow the order ``tau2, sigma2_w`` of every function that takes them.
+    """
+
     tau2: float
+    sigma2_w: float
 
 
 def variance_components(t, groups, Y=None):
@@ -32,12 +35,12 @@ def variance_components(t, groups, Y=None):
     t = np.asarray(t, float)
     if t.ndim != 1:
         raise ValueError("variance_components takes a single score vector; see pooled_variance_components")
-    sigma2_w, tau2 = _variance_components(t[:, None], groups, Y)
-    return VarianceComponents(sigma2_w=float(sigma2_w[0]), tau2=float(tau2[0]))
+    tau2, sigma2_w = _variance_components(t[:, None], groups, Y)
+    return VarianceComponents(tau2=float(tau2[0]), sigma2_w=float(sigma2_w[0]))
 
 
 def _variance_components(T, groups, Y=None):
-    """σ²_w and τ² (truncated at zero) of every column of ``T`` (N, k), as two (k,) arrays.
+    """τ² (truncated at zero) and σ²_w of every column of ``T`` (N, k), as two (k,) arrays.
 
     The regression on the annotations is the same for every column, so its
     hat matrix is formed once.
@@ -61,7 +64,7 @@ def _variance_components(T, groups, Y=None):
     # E[RSS] = Σ (1 - h_mm)(τ² + σ²_w / n_m), with Σ (1 - h_mm) = df
     leverage_free = 1 - np.diag(H)
     tau2 = ((resid**2).sum(0) - sigma2_w * (leverage_free / n).sum()) / df
-    return sigma2_w, np.maximum(tau2, 0.0)
+    return np.maximum(tau2, 0.0), sigma2_w
 
 
 def optimal_weights(n, tau2, sigma2_w):
@@ -90,8 +93,8 @@ def pooled_variance_components(X, groups):
     is what the null hypothesis of no association implies.
     """
     X = np.asarray(X, float).reshape(len(groups), -1)
-    sigma2_w, tau2 = _variance_components(X, groups)
-    return VarianceComponents(sigma2_w=float(sigma2_w.mean()), tau2=float(tau2.mean()))
+    tau2, sigma2_w = _variance_components(X, groups)
+    return VarianceComponents(tau2=float(tau2.mean()), sigma2_w=float(sigma2_w.mean()))
 
 
 def effective_groups(w, n=None, tau2=None, sigma2_w=None):

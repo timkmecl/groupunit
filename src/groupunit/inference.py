@@ -52,7 +52,7 @@ def permutation_weights(weights, values, groups, n):
     return exchangeable_weights(n, vc.tau2, vc.sigma2_w)
 
 
-def pairing_ratio(Y, n, weights=None, tau2=None, sigma2_w=None):
+def pairing_ratio(Y, n, *, weights=None, tau2=None, sigma2_w=None):
     """How unusual the observed pairing of group weights with annotation profiles is.
 
     Under the null, a weighted loading ℓ = Ỹᵀ W (x̄ − x̄_w) of independent group
@@ -115,7 +115,7 @@ class PairingTerms:
     largest: int
 
 
-def pairing_terms(Y, n, weights=None, tau2=None, sigma2_w=None):
+def pairing_terms(Y, n, *, weights=None, tau2=None, sigma2_w=None):
     """Which groups make a group permutation test liberal or conservative (Result 4c).
 
     Splits the excess of the `pairing_ratio` over 1 into one term per group,

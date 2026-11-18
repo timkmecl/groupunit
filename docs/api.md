@@ -8,9 +8,15 @@ imported from their modules, for example
 `from groupunit.inference import p_value`. Modules are listed in the order of
 the paper.
 
-Two conventions hold throughout. In the tests (`correlation_test`, `pls_test`,
-`cca_test`, `estimator_test`, `permutation_test`, `compare_similarity`), every
-argument after `rng` is keyword-only. Every `weights` argument accepts
+Two conventions hold throughout. Data are passed by position and options by
+name: in the tests (`correlation_test`, `pls_test`, `cca_test`,
+`estimator_test`, `permutation_test`, `compare_similarity`) every argument
+after `rng` is keyword-only, and in `pairing_ratio`, `pairing_terms`, `lens`,
+`lens_null` and `lens_congruence_null` so are `weights`, `tau2`, `sigma2_w`,
+`rng` and `p`. Where the variance components are required inputs
+(`exchangeable_weights`, `optimal_weights`, `max_effective_groups`,
+`size_check`) they come in the order `tau2, sigma2_w`, as in
+`VarianceComponents`. Every `weights` argument accepts
 `"size"` (the group sizes; `None` means the same) or one weight per group, and
 the tests also accept `"exchangeable"` (`group_weights`, `permutation_weights`).
 

@@ -61,8 +61,8 @@ def replicate(d, rng, n_perm):
     return {
         "pairing ratio (size)": size_terms.ratio,
         "largest term (size)": size_terms.terms.max(),
-        "pairing ratio (exchangeable)": gu.pairing_ratio(Y, n, w, d.tau2, 1.0),
-        "pairing ratio (equal)": gu.pairing_ratio(Y, n, np.ones(d.M), d.tau2, 1.0),
+        "pairing ratio (exchangeable)": gu.pairing_ratio(Y, n, weights=w, tau2=d.tau2, sigma2_w=1.0),
+        "pairing ratio (equal)": gu.pairing_ratio(Y, n, weights=np.ones(d.M), tau2=d.tau2, sigma2_w=1.0),
         **dict(zip(TESTS, p)),
     }
 

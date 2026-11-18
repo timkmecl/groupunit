@@ -45,7 +45,7 @@ def replicate(d, rng, n_perm):
     ]
     return {"share of extreme group": shares.abs_share[extreme], "M_eff,c": shares.m_eff,
             "pairing ratio (size)": gu.pairing_ratio(Y, n, tau2=d.tau2, sigma2_w=1.0),
-            "pairing ratio (equal)": gu.pairing_ratio(Y, n, np.ones(d.M), d.tau2, 1.0),
+            "pairing ratio (equal)": gu.pairing_ratio(Y, n, weights=np.ones(d.M), tau2=d.tau2, sigma2_w=1.0),
             **dict(zip(TESTS, p))}
 
 

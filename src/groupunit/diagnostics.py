@@ -201,7 +201,7 @@ class Lens:
         return np.cumsum(self.eigenvalues) / self.eigenvalues.sum()
 
 
-def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
+def lens(Y, n, *, weights=None, tau2=None, sigma2_w=None):
     """The lens of a design, from the annotation table and group sizes (Result 2b).
 
     By default group means are taken as independent with equal variance (K = I),
@@ -222,7 +222,7 @@ def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
     return Lens(L, eigenvalues, eigenvectors[:, order], participation_ratio(eigenvalues))
 
 
-def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None, p=None):
+def lens_null(Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng=None, p=None):
     """Unit-length loadings produced by random group means through the lens, (n_draws, q).
 
     These are the loadings a design yields with no information from the
@@ -279,7 +279,7 @@ def _first_pls_loading(T, WY, w):
     return vectors[:, :, -1]
 
 
-def lens_congruence_null(loading, Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=None,
+def lens_congruence_null(loading, Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng=None,
                          p=None):
     """Absolute congruence of a loading with random-group-mean loadings, (n_draws,).
 
@@ -288,6 +288,6 @@ def lens_congruence_null(loading, Y, n, n_draws=5000, weights=None, tau2=None, s
     for a PLS loading, so that the null refits PLS on p random features
     (see `lens_null`).
     """
-    null = lens_null(Y, n, n_draws, weights, tau2, sigma2_w, rng, p)
+    null = lens_null(Y, n, n_draws, weights=weights, tau2=tau2, sigma2_w=sigma2_w, rng=rng, p=p)
     loading = np.asarray(loading, float)
     return np.abs(null @ (loading / np.linalg.norm(loading)))
