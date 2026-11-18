@@ -14,9 +14,10 @@ the design (Section 4.4):
   are refitted on individuals in every permutation - `estimator_test`.
 
 Reassigning rows among groups is exact only if the groups' terms in the
-statistic are exchangeable. With unequal group sizes they may not be: check
-`pairing_ratio`, and use `groupunit.weights.exchangeable_weights` when it is
-far from 1.
+statistic are exchangeable. With unequal group sizes they may not be.
+`pls_test` and `correlation_test` therefore use exchangeable weights by
+default (`permutation_weights`). Report `pairing_ratio` with its largest term
+(`pairing_terms`), and check the level of the test with `size_check`.
 """
 import copy
 from dataclasses import dataclass
@@ -57,19 +58,20 @@ def pairing_ratio(Y, n, *, weights=None, tau2=None, sigma2_w=None):
 
     Under the null, a weighted loading ℓ = Ỹᵀ W (x̄ − x̄_w) of independent group
     means with variances v_m = τ² + σ²_w / n_m has E‖ℓ‖² = tr(Yᵀ A Y), with
-    A = W C V Cᵀ W and C the weighted centring. The ratio of this to its
+    A = W C K Cᵀ W, K = diag(v_m) and C the weighted centring (Result 4a). The ratio of this to its
     average over reassignments of annotation rows among groups, tr(A) ·
     Σ‖y_m − ȳ‖² / (M − 1), says how much larger than under permutation the
-    statistic is expected to be by design alone. Near 1, group permutation
-    tests with these weights hold their level. Above 1, atypical profiles sit
-    on high-variance terms (for size weights: large groups) and the tests are
-    liberal. Below 1, they are conservative. No range of the ratio is safe for
-    every design: one atypical group's share of the profile spread shrinks
-    like 1/M, so the same ratio implies a more variable term, and a more
-    liberal test, when there are more groups (Result 4c). Use the ratio as a
-    warning and `size_check` to check a test's level. Without variance components, group
-    means are taken as equally variable. Weights from
-    `groupunit.weights.exchangeable_weights` give a ratio close to 1.
+    statistic is expected to be by design alone. Near 1 the permutation
+    distribution is centred correctly, which is necessary for the level but
+    does not guarantee it. Above 1, atypical profiles belong to groups with
+    high-variance terms (under size weights, the large groups) and the tests
+    tend to be liberal. Below 1 they tend to be conservative. No range of the
+    ratio is safe for every design. One atypical group's share of the profile
+    spread shrinks like 1/M, so the same ratio implies a more variable term,
+    and a more liberal test, when there are more groups (Result 4c). Use the
+    ratio as a warning and `size_check` to check a test's level. Without
+    variance components, group means are taken as equally variable. Weights
+    from `groupunit.weights.exchangeable_weights` give a ratio close to 1.
     """
     Y, A = _pairing_matrix(Y, n, weights, tau2, sigma2_w)
     observed = np.trace(Y.T @ A @ Y)
@@ -78,7 +80,7 @@ def pairing_ratio(Y, n, *, weights=None, tau2=None, sigma2_w=None):
 
 
 def _pairing_matrix(Y, n, weights, tau2, sigma2_w):
-    """Y centred without weights, and A = W C V Cᵀ W, the null covariance of the weighted terms."""
+    """Y centred without weights, and A = W C K Cᵀ W, the null covariance of the weighted terms."""
     n = np.asarray(n, float)
     Y = np.asarray(Y, float).reshape(len(n), -1)
     M = len(n)
@@ -97,9 +99,9 @@ class PairingTerms:
     Attributes
     ----------
     ratio : the pairing ratio ϱ, as returned by `pairing_ratio`.
-    terms : (M,) the excess ϱ − 1 split exactly over groups; they sum to ϱ − 1.
-        A large positive term marks a group whose atypical profile sits on a
-        highly variable term.
+    terms : (M,) the excess ϱ − 1 split exactly over groups (π_m of Result 4c);
+        they sum to ϱ − 1. A large positive term marks a group that has both an
+        atypical profile and a highly variable term.
     profile_share : (M,) f_m = ‖y_m − ȳ‖² / Σ_m ‖y_m − ȳ‖², each group's share
         of the spread of the annotation profiles (unweighted mean ȳ).
     variance_ratio : (M,) g_m = A_mm / (tr A / M), the null variance of group
@@ -120,11 +122,11 @@ def pairing_terms(Y, n, *, weights=None, tau2=None, sigma2_w=None):
 
     Splits the excess of the `pairing_ratio` over 1 into one term per group,
 
-        ϱ_m = (M − 1) c_m / (tr(A) S_Y) − f_m,   c_m = Σ_m' A_mm' y_mᵀ y_m',
+        π_m = (M − 1) c_m / (tr(A) S_Y) − f_m,   c_m = Σ_m' A_mm' y_mᵀ y_m',
 
     with the profiles y_m centred without weights, S_Y = Σ‖y_m‖² and A as in
     `pairing_ratio`. The terms sum exactly to ϱ − 1. When no group holds a
-    large share of the total weight, ϱ_m ≈ f_m (g_m − 1): a group pushes the
+    large share of the total weight, π_m ≈ f_m (g_m − 1): a group pushes the
     test towards liberal when its profile is unusual (large f_m) and its term
     is more variable than average (g_m > 1). Under size weights these are the
     large groups; under equal weights, and in similarity designs, the small
@@ -193,8 +195,8 @@ def max_t_p_value(observed, null):
     """Family-wise p-values by the maximum statistic over all cells (Westfall-Young max-T).
 
     Suited to cells that share a scale and a null spread. If one cell's null
-    is much wider than the others', it sets the bar for all of them; use
-    `min_p_value` then.
+    is much wider than the others', it sets the threshold for all of them;
+    use `min_p_value` then.
     """
     observed = np.asarray(observed, float)
     null = np.asarray(null, float)
@@ -318,7 +320,7 @@ def estimator_test(estimator, X, groups, Y, statistic=paired_score_correlation, 
     Iterative fits are not exact. At saturation, where every permutation
     should reproduce the observed statistic, their rounding noise makes the
     p-value arbitrary rather than 1. Fits on individuals weight groups by
-    size, so the test is liberal when large groups carry atypical profiles
+    size, so the test is liberal when large groups have atypical profiles
     (`pairing_ratio`). Check `groupunit.describe` first. ``correction`` is
     passed to `permutation_test`.
     """
@@ -360,16 +362,21 @@ def correlation_test(scores, groups, Y, n_perm=5000, rng=None, *, weights="excha
 
     ``scores`` (N,) or (N, k) are held fixed: single features chosen in
     advance, PCA components, LDA scores, or CCA factors at saturation. The
-    test concerns the group-level correlations, which rest on M groups.
+    test concerns the group-level correlations, which are computed from M
+    groups.
 
     By default groups are weighted so that their terms are exchangeable
-    (`permutation_weights`), which keeps the test valid when atypical profiles sit on
-    large or small groups. ``r`` is then the weighted group-level correlation,
+    (`permutation_weights`), which corrects the test when atypical profiles
+    belong to large or small groups (Result 4d), provided the scores were not
+    computed over individuals. Principal components of all individuals are
+    weighted towards the large groups and keep the size weighting; in the
+    paper's simulations their tests stayed liberal in some designs (up to
+    0.15). Check the level with `size_check`. ``r`` is then the weighted group-level correlation,
     and the p-values come from the weighted cross-product Σ w_m t̄_m y_m,
     scaled by quantities that do not change under permutation.
     ``weights="size"`` tests the size-weighted correlations instead: ``r`` is
     then the individual-level correlation η · r_n. That test is liberal when
-    large groups carry atypical profiles (`pairing_ratio` well above 1).
+    large groups have atypical profiles (`pairing_ratio` well above 1).
 
     ``correction`` sets the family-wise correction over the k × q cells (see
     `permutation_test`). Max-T suits scores with similar null spreads. If some
@@ -434,7 +441,7 @@ def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, *, weights=
     (`permutation_weights`), so ``fit`` is the PLS fit with those weights. For a
     size-weighted description of the data, fit `groupunit.pls` separately.
     ``weights="size"`` tests the size-weighted fit, which is liberal when
-    large groups carry atypical profiles (`pairing_ratio` well above 1).
+    large groups have atypical profiles (`pairing_ratio` well above 1).
     """
     Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
@@ -503,7 +510,8 @@ def size_check(test, n, Y, tau2, sigma2_w, p=1, n_sim=200, alpha=0.05, rng=None)
     rough check is needed. The features are Gaussian and independent, so the
     check covers the design (sizes, profiles, variance components), not
     heavy tails or correlated features. With 200 data sets the standard error
-    at a true rate of 0.05 is about 0.015.
+    at a true rate of 0.05 is about 0.015. To decide whether a test whose size
+    is near the threshold is liberal, use 400 or more (Appendix D).
     """
     rng = np.random.default_rng(rng)
     n = np.asarray(n, int)
@@ -530,15 +538,15 @@ def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, *, weights=
     annotations is possible (Result 3c); this raises an error.
 
     Ordinary CCA weights groups by size (``weights="size"``, the default), so
-    like size-weighted PLS it is liberal when large groups carry atypical
+    like size-weighted PLS it is liberal when large groups have atypical
     profiles (`pairing_ratio` well above 1). ``weights="exchangeable"`` or an
     array fits and tests row-weighted CCA instead (see `groupunit.cca`), in
     which group m carries total weight w_m. In the paper's simulations
     (Section 4.3, Appendix D) row-weighted CCA with exchangeable weights held
     its level in every design but was often conservative and, in pairing
-    designs, less powerful than `pls_test`; prefer reweighted PLS when the
-    pairing ratio is far from 1, and row-weighted CCA when the annotations are
-    few. Check the design at hand with `size_check`.
+    designs, less powerful than `pls_test`. When the pairing ratio is far
+    from 1, prefer reweighted PLS, or row-weighted CCA when the annotations
+    are few (κ around 0.1). Check the design at hand with `size_check`.
     """
     Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))

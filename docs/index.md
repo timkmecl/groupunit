@@ -17,8 +17,9 @@ correlation, PLS and CCA with group-level variables* (Kmecl). It provides:
   groups, the lens null, leaving out dominant groups, typicality versus
   pattern;
 - **valid inference**: permutation tests that reassign annotations among
-  groups, refitting what must be refitted, sequential tests of components, and
-  weights that keep the tests valid when atypical profiles sit on large groups;
+  groups, refitting what must be refitted, sequential tests of components,
+  weights that correct the tests when atypical profiles belong to large
+  groups, and a check of a test's level for the design at hand;
 - **validation on new groups**: leave-one-group-out prediction against a mean
   baseline, with every selection step nested.
 
@@ -45,7 +46,7 @@ import groupunit as gu
 groups, names = gu.encode_groups(labels, order=group_names)
 n = gu.group_sizes(groups, len(table))
 
-print(gu.describe(groups, table))          # what the design can show at all
+print(gu.describe(groups, table))          # counts, rank, kappa and warnings
 ```
 
 For a design with the dimensions of Suresh et al. (2026) the first lines read:

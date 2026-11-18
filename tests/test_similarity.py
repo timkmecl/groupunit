@@ -19,7 +19,7 @@ def test_decomposition_reconstructs_off_diagonal():
 
 
 def test_shared_typicality_without_pattern():
-    """Two matrices that share group effects and nothing else (Result 4)."""
+    """Two matrices that share group effects and nothing else (Result C1)."""
     rng = np.random.default_rng(3)
     M = 15
     a = rng.standard_normal(M)

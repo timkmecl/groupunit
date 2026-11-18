@@ -73,7 +73,7 @@ class DesignSummary:
         # no fixed range of the ratio is safe: the same ratio does more harm with more groups
         # (Result 4c), so the summary never declares a design safe and points to size_check
         if self.pairing_ratio > PAIRING_TOLERANCE[1]:
-            lines.append("UNUSUAL PAIRING: large groups carry atypical profiles, so size-weighted group "
+            lines.append("UNUSUAL PAIRING: large groups have atypical profiles, so size-weighted group "
                          "permutation tests (weights='size', cca_test, estimator_test) lean liberal here, "
                          "more so with more groups; keep the default exchangeable weights.")
         elif self.pairing_ratio < PAIRING_TOLERANCE[0]:
@@ -92,7 +92,7 @@ def single_group_annotations(Y, atol=1e-12):
     """Indices of annotation columns in which exactly one group differs from all others.
 
     Such an annotation correlates with any score exactly as that group's mean
-    does, so it describes one group rather than a relation.
+    does, so it measures only how far that group lies from the others.
     """
     Y = np.asarray(Y, float)
     flagged = []

@@ -13,7 +13,7 @@ name: in the tests (`correlation_test`, `pls_test`, `cca_test`,
 `estimator_test`, `permutation_test`, `compare_similarity`) every argument
 after `rng` is keyword-only, and in `pairing_ratio`, `pairing_terms`, `lens`,
 `lens_null` and `lens_congruence_null` so are `weights`, `tau2`, `sigma2_w`,
-`rng` and `p`. Where the variance components are required inputs
+`rng`, `p` and `means`. Where the variance components are required inputs
 (`exchangeable_weights`, `optimal_weights`, `max_effective_groups`,
 `size_check`) they come in the order `tau2, sigma2_w`, as in
 `VarianceComponents`. Every `weights` argument accepts

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+
+- `lens_null` and `lens_congruence_null` take `means`, the observed group
+  means of the features. Each draw shuffles them among groups and refits PLS,
+  the null the paper recommends with equal group sizes (Section 5, Box 1).
+
 ### Fixed
 
 - An undefined (NaN) observed statistic got the smallest possible p-value,
@@ -58,22 +64,9 @@
 
 ### Documentation
 
-- Docstrings, README and guide pages cite the current numbering of the paper:
-  the pairing ratio and its terms are Result 4 (4a–4d), the similarity
-  results are Results C1–C3 in Appendix C, the proofs of the shares and of
-  the variance components are Appendices B.7 and B.6, and the software is
-  described in Appendix F.
-- The testing and guide pages describe row-weighted CCA (`cca_test(...,
-  weights="exchangeable")`), which they had said did not exist, and quote the
-  current simulation results for size-weighted, exchangeable-weighted and CCA
-  tests.
-- `r2_null` states when the Beta null holds, as in Result 3b.
-- `leave_one_group_out` warns that the target must not depend on the
-  annotations: the group means of a PLS or CCA component fitted on all groups
-  leak the held-out group.
-- `lens_null` explains that the effective number of feature dimensions cannot
-  be estimated reliably and recommends running the null at `p=1` and at the
-  number of features.
+- Docs and docstrings aligned with the paper (v35): result numbering and
+  notation, the limits of exchangeable weights, the refitted lens null for PLS
+  loadings, row-weighted CCA, and the mixed model for one score.
 
 ## 0.2.0 (2026-11-10)
 

@@ -103,7 +103,7 @@ def test_describe_flags_atypical_large_group():
 
 
 def test_describe_never_declares_a_design_safe():
-    """With equal sizes the ratio is exactly 1, yet the summary still points to size_check (Result 5d)."""
+    """With equal sizes the ratio is exactly 1, yet the summary still points to size_check (Result 4c)."""
     groups = np.repeat(np.arange(8), 15)
     Y = np.random.default_rng(3).standard_normal((8, 3))
     text = str(gu.describe(groups, Y))

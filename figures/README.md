@@ -1,7 +1,7 @@
 # Figures
 
 All figures of the methods paper, drawn with the package itself so that the figures and the code
-cannot disagree. Section numbers follow the streamlined paper (simulation design in §6.1).
+cannot disagree. Section numbers follow the paper (simulation design in §6.1).
 
 ```bash
 python figures/build_all.py               # every figure as SVG (about 20 s); PNGs too if cairosvg is installed

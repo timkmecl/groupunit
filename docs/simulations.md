@@ -25,7 +25,7 @@ python simulations/s5_dominance.py 50     # outcome 5 with 50 groups instead of 
 | `s8_validation.py`        | optimism of individual-split versus group-split cross-validation               |
 | `s9_plsr.py`              | PLS regression (as in Suresh et al.): tests of its R² and its cross-validation; needs scikit-learn |
 | `s1_precise.py`           | the valid tests of outcome 1 with 2,000 replicates and 999 permutations, against the binomial band |
-| `s10_comparators.py`      | one score fixed in advance: OLS, a REML mixed model (Wald χ² and F with M − q − 1 df), the wild cluster bootstrap, and group permutation |
+| `s10_comparators.py`      | one score fixed in advance: OLS, a REML mixed model (Wald χ² and F with M − r − 1 df), the wild cluster bootstrap, and group permutation |
 | `s11_highdim.py`          | p = 10, 100, 300 features, low-rank features, Student t noise                  |
 | `s12_pairing.py`          | several atypical groups, profiles growing with group size, heavy tails; row-weighted CCA |
 | `s13_size_check.py`       | whether `size_check` with estimated variance components predicts a test's size for the table at hand |
@@ -109,7 +109,7 @@ map A with A Aᵀ = (p/k) I. Group effects and within-group noise are drawn in t
 k latent dimensions and mapped by A, so the total variance equals that of p
 isotropic features; the relation acts in latent dimensions 1–2. Isotropic noise of
 variance 0.01 is added to every feature to keep the features of full rank. CCA is
-scale-invariant, so the dimensions that carry only this noise count fully for it.
+scale-invariant, so dimensions that contain only this noise count as much as the others.
 In outcome 14's mixed designs, group effects occupy the first k_b of the k_w
 latent dimensions of the noise.
 
@@ -121,7 +121,7 @@ u′_m = u_m · exp(N(0, 0.15²)) and independent standard normal directions z_m
 and nothing about which groups resemble which. Each similarity matrix is split by
 least squares into s_ij = μ + a_i + a_j + e_ij over the off-diagonal entries. The
 standardised pattern test divides the residuals by both groups' residual scales,
-e_ij / (σ_i σ_j) with σ_i² = Σ_j e_ij² / (M − 1), and correlates them over the
+e_ij / (s_i s_j) with s_i² = Σ_j e_ij² / (M − 1), and correlates them over the
 M(M − 1)/2 pairs; groups are permuted jointly over rows and columns of the second
 matrix, with a one-sided p-value.
 

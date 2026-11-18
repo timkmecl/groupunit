@@ -77,8 +77,9 @@ def exchangeable_weights(n, tau2, sigma2_w):
     """Group weights 1 / sqrt(τ² + σ²_w / n_m) for permutation tests, normalised to sum to one.
 
     With these weights every group's term in a weighted cross-product has the
-    same variance under the null, so reassigning annotation rows among groups
-    is a valid test whichever groups carry atypical profiles (see
+    same variance under the null. The permutation distribution is then
+    centred correctly whichever groups have atypical profiles, unless one
+    group has a large share of the weight (Result 4d; see
     `groupunit.inference.pairing_ratio`). They differ from `optimal_weights`,
     which are the square of these and are the most precise for estimation.
     """

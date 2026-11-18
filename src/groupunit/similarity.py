@@ -51,8 +51,8 @@ class SimilarityDecomposition:
         over pairs that is due to typicality, (M − 2) Σ a_i² / Σ_{i<j} (s_ij − μ)².
     r_typicality : r_a, the correlation of the two sets of group effects across groups.
     r_pattern : r_e, the correlation of the raw (unstandardised) residuals across pairs.
-    typicality_part : sqrt(λ² λ'²) r_a, the part of r_M carried by typicality.
-    pattern_part : sqrt((1 − λ²)(1 − λ'²)) r_e, the part carried by pattern.
+    typicality_part : sqrt(λ² λ'²) r_a, the part of r_M due to typicality.
+    pattern_part : sqrt((1 − λ²)(1 − λ'²)) r_e, the part due to the pattern.
         The two parts sum exactly to ``mantel``.
     """
 
@@ -109,10 +109,10 @@ def similarity_decomposition(S1, S2):
 def distance_similarity(profiles):
     """Negative squared Euclidean distances between group profiles, (M, M).
 
-    For this similarity the additive model is exact: typicality is
-    −M/(M−2) times each group's centred squared distance from the centroid, and
-    the pattern is twice the U-centred matrix of inner products of the centred
-    profiles. Correlation and
+    For this similarity the additive model is exact (Result C2). Typicality is
+    −M/(M−2) times each group's centred squared distance from the centroid,
+    and the pattern is twice the matrix of inner products of the profiles,
+    centred without weights, with its additive part removed. Correlation and
     cosine similarities divide by each group's norm, which turns shared
     typicality into apparent resemblance, so their pattern test is liberal
     when typicality is shared.
@@ -125,11 +125,12 @@ def distance_similarity(profiles):
 
 
 def standardised_pattern(E):
-    """Pattern residuals divided by the residual scale of both groups, e_ij / (σ_i σ_j).
+    """Pattern residuals divided by the residual scale of both groups, e_ij / (s_i s_j) (Result C3).
 
-    Atypical groups have larger residuals; when two tables share typicality
-    they share this scale, and permuting groups breaks it, which makes the raw
-    pattern test liberal. Standardising removes the shared scale.
+    Here s_i² = Σ_j e_ij² / (M − 1). Atypical groups have larger residuals.
+    When two tables share typicality they share this scale, and permuting
+    groups breaks it, which makes the raw pattern test liberal. Standardising
+    removes the shared scale.
     """
     E = np.asarray(E, float)
     sd = np.sqrt((E**2).sum(1) / (len(E) - 1))
@@ -168,9 +169,9 @@ def compare_similarity(S1, S2, n_perm=5000, rng=None, *, alternative="greater", 
     With ``standardise`` (the default) the pattern test correlates
     `standardised_pattern` residuals, which keeps it calibrated when the tables
     share typicality. That holds for distance-based similarities (see
-    `distance_similarity`); for correlation or cosine similarities the pattern
-    test stays somewhat liberal under shared typicality, so confirm a
-    significant pattern with distances.
+    `distance_similarity`). For correlation or cosine similarities the pattern
+    test stays liberal under shared typicality (0.12-0.88 in the paper's
+    simulations, Appendix C), so confirm a significant pattern with distances.
 
     Needs at least four groups: with three, the additive model fits the
     three pairs exactly and there is no pattern to test.

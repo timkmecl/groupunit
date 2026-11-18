@@ -222,7 +222,7 @@ def lens(Y, n, *, weights=None, tau2=None, sigma2_w=None):
     return Lens(L, eigenvalues, eigenvectors[:, order], participation_ratio(eigenvalues))
 
 
-def lens_null(Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng=None, p=None):
+def lens_null(Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng=None, p=None, means=None):
     """Unit-length loadings produced by random group means through the lens, (n_draws, q).
 
     These are the loadings a design yields with no information from the
@@ -237,20 +237,38 @@ def lens_null(Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng
     of the lens more than the single-score null does, and as p grows it
     approaches that direction (Result 2b). The null is right only when ``p``
     is the effective number of independent directions along which the group
-    means vary. With correlated features that number lies between 1 and the
-    feature count, and with few groups it cannot be estimated reliably: in
-    simulations (Section 6), participation ratios of the between-group and of
-    the within-group covariance both missed it when group effects spanned fewer
-    dimensions than the within-group noise, and the correct value could exceed
-    M - 1. Run the null at ``p=1`` and at the number of features, and rely only
-    on conclusions that hold at both. Signs are arbitrary; compare with
-    `congruence`, which ignores them.
+    means vary, p_eff. With correlated features it lies between 1 and the
+    feature count, and with few groups it cannot be estimated reliably. In the
+    paper's simulations (Section 6) participation ratios of the between-group
+    and of the within-group covariance both missed it when group effects
+    spanned fewer dimensions than the within-group noise. Run the null at
+    ``p=1`` and at the number of features, and rely only on conclusions that
+    hold at both (Section 5, Box 1).
+
+    With equal group sizes, pass the observed group means of the features as
+    ``means`` (M, p) instead of ``p``. Each draw then shuffles these means among
+    groups, keeping the annotation table and sizes in place, and refits PLS.
+    This null needs no p_eff and was calibrated in every simulated design with
+    equal sizes. With unequal sizes it was not, so use the ``p`` bracket there.
+
+    Signs are arbitrary; compare with `congruence`, which ignores them.
     """
     rng = np.random.default_rng(rng)
     n = np.asarray(n, float)
     w = group_weights(weights, n)
     Yc = wcentre(annotation_table(Y), w)
     sd = np.sqrt(_group_mean_cov(n, tau2, sigma2_w))
+    if means is not None:
+        if p is not None:
+            raise ValueError("pass either p (random group means) or means (shuffled observed means), not both")
+        Z = np.asarray(means, float).reshape(len(n), -1)
+        WY = w[:, None] * Yc
+        out = np.empty((n_draws, Yc.shape[1]))
+        for start in range(0, n_draws, 256):
+            k = min(256, n_draws - start)
+            perms = np.array([rng.permutation(len(n)) for _ in range(k)])
+            out[start:start + k] = _first_pls_loading(Z[perms], WY, w)   # row m gets the means of group perms[m]
+        return out
     if p is None:
         T = wcentre(rng.standard_normal((len(n), n_draws)) * sd[:, None], w)
         L = Yc.T @ (w[:, None] * T)
@@ -280,14 +298,16 @@ def _first_pls_loading(T, WY, w):
 
 
 def lens_congruence_null(loading, Y, n, n_draws=5000, *, weights=None, tau2=None, sigma2_w=None, rng=None,
-                         p=None):
+                         p=None, means=None):
     """Absolute congruence of a loading with random-group-mean loadings, (n_draws,).
 
     A loading, or the agreement between two analyses of the same groups, is
-    informative only to the extent that it exceeds this baseline. Pass ``p``
-    for a PLS loading, so that the null refits PLS on p random features
-    (see `lens_null`).
+    informative only to the extent that it exceeds this baseline. For a PLS
+    loading, pass ``p`` so that the null refits PLS on p random features, and
+    run it at ``p=1`` and at the number of features; with equal group sizes,
+    pass the observed group means as ``means`` instead (see `lens_null`).
     """
-    null = lens_null(Y, n, n_draws, weights=weights, tau2=tau2, sigma2_w=sigma2_w, rng=rng, p=p)
+    null = lens_null(Y, n, n_draws, weights=weights, tau2=tau2, sigma2_w=sigma2_w, rng=rng, p=p,
+                     means=means)
     loading = np.asarray(loading, float)
     return np.abs(null @ (loading / np.linalg.norm(loading)))

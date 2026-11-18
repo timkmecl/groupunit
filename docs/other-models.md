@@ -8,8 +8,8 @@ or not. The identity \(t^\top Y = \sum_m n_m \bar t_m \tilde y_m\) holds for any
 vector t, so a UMAP coordinate, an autoencoder unit, a topic proportion or a
 language-model rating is handled exactly like a principal component.
 
-Which test applies depends on one question: did the method see the
-annotations when it built the scores?
+Which test applies depends on whether the method used the annotations to
+build the scores.
 
 **No** (PCA, NMF, topic models, between-group PCA, LDA on group labels, UMAP,
 autoencoders, embeddings). Compute the scores once and hold them fixed:
@@ -49,9 +49,9 @@ The package implements PLS correlation, CCA and LDA itself, as SVDs computed
 through the group means. Its results agree with scikit-learn's:
 `pls` matches `PLSSVD(scale=False)` exactly, and `cca` matches `CCA` to the
 tolerance of scikit-learn's iterative fit. The package keeps its own versions
-because they are exact, which matters at saturation, where permutation tests
-must count exact ties. They are also faster under permutation, and they never
-rescale silently: scikit-learn's default `scale=True` standardises columns
+because they are exact, so at saturation the permutation tests count exact
+ties correctly. They are also faster under permutation, and they never
+rescale silently. scikit-learn's default `scale=True` standardises columns
 over individuals and changes the PLS weights.
 
 Any scikit-learn style model can still be passed in.

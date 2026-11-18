@@ -34,7 +34,7 @@ print(gu.describe(groups, Y, X))           # N, M, r, kappa = r/(M-1), effective
 
 Y3, _ = gu.reduce_annotations(Y, n, 3)     # reduce in advance if kappa is near 1
 test = gu.pls_test(X, groups, Y3, n_perm=5000, rng=0)   # refitted under group permutation
-shares = gu.group_shares(test.fit.group_scores, Y3, n)  # which groups carry each component
+shares = gu.group_shares(test.fit.group_scores, Y3, n)  # which groups each component depends on
 print(test.p_value, shares.m_eff, gu.pairing_ratio(Y3, n))
 ```
 
@@ -66,7 +66,7 @@ Markdown directly:
 | `diagnostics` | §5, Result 2b   | group shares, effective numbers, the lens and its null, `leave_out`        |
 | `weights`     | §4.1            | variance components, optimal and exchangeable weights, effective groups    |
 | `similarity`  | App. C, Results C1–C3 | typicality and pattern, `similarity_decomposition`, `compare_similarity`, `distance_similarity` |
-| `inference`   | §4.2–4.5, Result 4 | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio`, `pairing_terms`, `size_check` |
+| `inference`   | §4.2–4.5, Results 4a–4d | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio`, `pairing_terms`, `size_check` |
 | `validation`  | §4.5            | `leave_one_group_out`, `pca_regression`, scikit-learn models               |
 | `simulate`    | §6.1            | `simulate`, `lognormal_sizes`                                              |
 

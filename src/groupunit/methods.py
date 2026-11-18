@@ -1,4 +1,4 @@
-"""PLS correlation, CCA and LDA, written through the group means (the identity, Results 2-3).
+"""PLS correlation, CCA and LDA, written through the group means (the identity, Results 2a-3f).
 
 These are plain reference implementations. They exist so that the tests in
 `groupunit.inference` can refit them under permutation, and so that each
@@ -54,7 +54,7 @@ def _rank_cutoff(s):
 def pls(X, groups, Y, n_components=None, weights=None):
     """PLS correlation (PLS-SVD) of individual features with group-level annotations.
 
-    The weights are the singular vectors of ``XᵀY = X̄ᵀ D Ỹ`` (Result 2), so they
+    The weights are the singular vectors of ``XᵀY = X̄ᵀ D Ỹ`` (Result 2a), so they
     depend on the group means, the annotations and the group sizes only.
     ``weights`` is ``"size"`` (or ``None``, the default) or one weight per
     group; pass ``np.ones(M)`` to target the population of groups instead of

@@ -32,7 +32,7 @@ ratio = gu.pairing_ratio(Y3, n, tau2=vc.tau2, sigma2_w=vc.sigma2_w)
 p_size = gu.pls_test(X, groups, Y3, n_components=1, n_perm=999, rng=0, weights="size").p_value[0]
 print(f"   pairing ratio of the design {ratio:.2f}; the size-weighted test of component 1 gives p = {p_size:.3f}\n")
 
-print("4. Which groups carry the first component?")
+print("4. Which groups does the first component depend on?")
 fit = gu.pls(X, groups, Y3)                        # size-weighted fit, describing the individuals
 shares = gu.group_shares(fit.group_scores[:, 0], Y3, n)
 top = shares.top(3)
@@ -45,9 +45,14 @@ print(f"   without group {top[0]}: congruence {dropped.congruence:.2f} with the 
 print("5. The lens of the full annotation table, and its null for PLS on all 15 annotations")
 full = gu.pls(X, groups, Y)
 L = gu.lens(Y, n)
-null = gu.lens_congruence_null(full.y_loadings[:, 0], Y, n, rng=0)
 print(f"   participation ratio nu = {L.nu:.1f} of {Y.shape[1]} annotations")
-print(f"   congruence of component 1 with random-group-mean loadings: median {np.median(null):.2f}\n")
+# PLS is refitted on p random features. The effective number of feature dimensions lies
+# between 1 and the number of features, so run both and rely only on what holds at both.
+for p in (1, X.shape[1]):
+    null = gu.lens_congruence_null(full.y_loadings[:, 0], Y, n, rng=0, p=p)
+    print(f"   congruence of component 1 with null loadings refitted on p = {p}: "
+          f"median {np.median(null):.2f}, 95th percentile {np.quantile(null, 0.95):.2f}")
+print()
 
 print("6. Between-group share, separately from any relation to the annotations")
 print(f"   features overall: {gu.feature_between_share(X, groups):.3f}; "

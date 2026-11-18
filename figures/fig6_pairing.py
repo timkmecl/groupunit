@@ -57,7 +57,7 @@ class Panel:
         self.s, self.px, self.py, self.pw, self.ph = s, x0 + 62, 104, 300, 330
         s.label(x0 + 20, 40, letter, title)
         px, py, pw, ph = self.px, self.py, self.pw, self.ph
-        # a reference line at ϱ = 1, not a "safe" band: where tests fail depends on M (Result 5d)
+        # a reference line at ϱ = 1, not a "safe" band: where tests fail depends on M (Result 4c)
         s.line(self.X(1), py, self.X(1), py + ph, MUTED, 1, dash="3 3")
         s.text(self.X(1) + 4, py + 14, "ϱ = 1", 10, MUTED)
         for v in np.arange(0, YHI + 1e-9, 0.2):

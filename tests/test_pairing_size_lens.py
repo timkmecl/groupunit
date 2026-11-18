@@ -1,4 +1,4 @@
-"""Per-group pairing terms (Result 5d), the design-based size check and the refitted
+"""Per-group pairing terms (Result 4c), the design-based size check and the refitted
 PLS lens null (Result 2b), each against direct computation."""
 import itertools
 
@@ -173,3 +173,23 @@ def test_lens_congruence_null_passes_p():
     assert np.median(refit) > np.median(single)
     with pytest.raises(ValueError, match="positive integer"):
         gu.lens_null(Y, n, n_draws=5, p=0)
+
+
+def test_permuted_means_lens_null_equals_pls_refitted_on_whole_groups_relabelled():
+    """With ``means``, each draw is the first PLS loading after the observed group means are
+    shuffled among groups; checked against `pls` fitted on individuals whose groups were relabelled."""
+    rng = np.random.default_rng(11)
+    M, size, p, q = 8, 6, 5, 3
+    n = np.full(M, size)
+    groups = np.repeat(np.arange(M), size)
+    X = rng.standard_normal((M * size, p)) + rng.standard_normal((M, p))[groups]
+    Y = rng.standard_normal((M, q))
+    null = gu.lens_null(Y, n, n_draws=6, rng=3, means=gu.group_means(X, groups))
+    replay = np.random.default_rng(3)
+    for draw in null:
+        perm = replay.permutation(M)                     # group m receives the means of group perm[m]
+        relabelled = np.argsort(perm)[groups]
+        direct = gu.pls(X, relabelled, Y).y_loadings[:, 0]
+        assert abs(draw @ direct) / np.linalg.norm(direct) == pytest.approx(1, abs=1e-10)
+    with pytest.raises(ValueError, match="not both"):
+        gu.lens_null(Y, n, n_draws=2, p=2, means=gu.group_means(X, groups))

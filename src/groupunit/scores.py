@@ -55,7 +55,8 @@ def decompose_score(t, groups, Y):
     """Decompose the relation of one score ``t`` (N,) with the annotation table ``Y`` (M, q).
 
     Correlations computed over individuals equal the group-level correlations
-    attenuated by η, and rest on M group means, not on N individuals.
+    attenuated by η (Result 1), and the group-level correlations are computed
+    from M group means.
     """
     groups, n = check_groups(groups, len(Y))
     t = np.asarray(t, float)

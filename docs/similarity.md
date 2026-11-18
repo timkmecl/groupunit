@@ -53,14 +53,15 @@ Typicality affects the pattern residuals in two ways.
    residual by both groups' residual scales by default (`standardise=True`;
    `standardised_pattern`).
 2. **Normalisation.** Correlation and cosine similarities divide by each
-   group's norm. That turns shared typicality into apparent resemblance:
-   atypical groups really do resemble each other once profiles are
-   normalised. No additive model removes this.
+   group's norm. That turns shared typicality into apparent resemblance,
+   because after normalisation atypical groups do resemble each other. No
+   additive model removes this.
 
-For negative squared Euclidean distances the additive model is exact.
-Typicality is then a linear function of each group's squared distance from
-the centroid, and the pattern is twice the U-centred inner products. Use
-these where you can:
+For negative squared Euclidean distances the additive model is exact
+(Result C2). Typicality is then a linear function of each group's squared
+distance from the centroid, and the pattern is twice the inner products of
+the centred profiles with their additive part removed. Use these where you
+can:
 
 ```python
 S_features = gu.distance_similarity(gu.group_means(X, groups))
@@ -68,10 +69,10 @@ S_annotations = gu.distance_similarity(Y)
 ```
 
 With standardised residuals and distance similarities, the pattern test held
-its level in the simulations. With correlation similarities it remained
-liberal under shared typicality, so confirm a significant pattern with
-distances. A non-significant pattern remains informative, because the bias
-favours rejection.
+its level in the simulations (0.05–0.07). With correlation similarities it
+remained liberal under shared typicality (0.12–0.88). Because the test then
+errs on the liberal side, only a significant pattern found with such
+similarities needs to be confirmed with distances.
 
 ## Unequal group sizes
 

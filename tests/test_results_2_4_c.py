@@ -1,4 +1,4 @@
-"""Results 2b, 4a, 4b, 5b and 5c, and row-weighted CCA, against direct computation."""
+"""Results 2b, 4b, 4d, C1 and C2, and row-weighted CCA, against direct computation."""
 import numpy as np
 import pytest
 from scipy.linalg import orth, subspace_angles
@@ -21,10 +21,10 @@ def test_result2b_lens_is_the_covariance_of_random_loadings():
     np.testing.assert_allclose(empirical, L, rtol=0.03, atol=0.03 * np.abs(L).max())
 
 
-# ---------- Result 4a: the Mantel correlation splits into typicality and pattern ----------
+# ---------- Result C1: the Mantel correlation splits into typicality and pattern ----------
 
 @pytest.mark.parametrize("kind", ["random", "distance"])
-def test_result4a_mantel_is_typicality_part_plus_pattern_part(kind):
+def test_resultC1_mantel_is_typicality_part_plus_pattern_part(kind):
     rng = np.random.default_rng(2)
     M = 10
     if kind == "random":
@@ -47,7 +47,7 @@ def test_result4a_mantel_is_typicality_part_plus_pattern_part(kind):
     assert dec.typicality_share[0] == pytest.approx((fitted**2).sum() / total)
 
 
-def test_result4a_shared_typicality_alone_gives_a_large_mantel_correlation():
+def test_resultC1_shared_typicality_alone_gives_a_large_mantel_correlation():
     rng = np.random.default_rng(3)
     M = 12
     a = rng.standard_normal(M) * 3
@@ -66,9 +66,9 @@ def test_similarity_decomposition_validates_inputs():
         gu.similarity_decomposition(np.ones((4, 4)), np.eye(4))
 
 
-# ---------- Result 4b: closed form of the pattern for squared distances ----------
+# ---------- Result C2: closed form of the pattern for squared distances ----------
 
-def test_result4b_pattern_of_squared_distances_in_closed_form():
+def test_resultC2_pattern_of_squared_distances_in_closed_form():
     rng = np.random.default_rng(4)
     M = 9
     F = rng.standard_normal((M, 4))
@@ -80,16 +80,16 @@ def test_result4b_pattern_of_squared_distances_in_closed_form():
     np.testing.assert_allclose(gu.typicality_pattern(gu.distance_similarity(F)).pattern, expected, atol=1e-12)
 
 
-# ---------- Results 5b and 5c: when the pairing ratio is 1 ----------
+# ---------- Results 4b and 4d: when the pairing ratio is 1 ----------
 
-def test_result5b_equal_weights_and_variances_give_ratio_one():
+def test_result4b_equal_weights_and_variances_give_ratio_one():
     rng = np.random.default_rng(5)
     for _ in range(5):
         Y = rng.standard_normal((8, 3)) * rng.uniform(0.2, 5, (8, 1))
         assert gu.pairing_ratio(Y, np.full(8, 25)) == pytest.approx(1)
 
 
-def test_result5c_exchangeable_weights_in_closed_form():
+def test_result4d_exchangeable_weights_in_closed_form():
     rng = np.random.default_rng(6)
     M = 14
     n = gu.lognormal_sizes(M, 40, sigma=1.0, rng=rng).astype(float)

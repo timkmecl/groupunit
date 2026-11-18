@@ -1,4 +1,4 @@
-"""Outcome 12: harder pairing designs, and row-weighted CCA (Result 5).
+"""Outcome 12: harder pairing designs, and row-weighted CCA (Result 4).
 
 Outcome 5 places one atypical profile on one group. Real tables are less
 tidy, so here, under β = 0:
@@ -11,7 +11,7 @@ tidy, so here, under β = 0:
   design with Gaussian noise.
 
 For each design we record the pairing ratio under size and under estimated
-exchangeable weights, the largest per-group term (Result 5d), and the
+exchangeable weights, the largest per-group term (Result 4c), and the
 rejection rates of correlation, PLS, CCA and Mantel tests. CCA is tested both
 as ordinary (size-weighted) CCA and as row-weighted CCA with exchangeable
 weights (`gu.cca_test(weights="exchangeable")`), which the paper has not yet

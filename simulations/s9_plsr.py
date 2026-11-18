@@ -1,7 +1,7 @@
 """Outcome 9: PLS regression (PLSR), as used by Suresh et al. (2026), against PLS correlation.
 
 PLSR extracts components one at a time and deflates X after each, so later
-components depend on within-group variation (Result 2); its first component
+components depend on within-group variation (Result 2a); its first component
 equals that of PLS correlation. We test the statistic such studies report,
 the R² of predicting the inherited annotations from the features with k
 components, and validate it out of sample.

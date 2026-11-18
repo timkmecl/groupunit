@@ -5,8 +5,9 @@
 Every test reassigns rows of the annotation table among groups, keeping each
 group's individuals and size together (§4.2). Reassigning annotation values
 among individuals breaks their constancy within groups. Such a test asks only
-whether individuals differ between groups, and it rejects almost always once
-groups differ at all (see [Simulations](simulations.md)).
+whether individuals differ between groups. In the paper's simulations it
+rejected a true null in 57–100% of data sets once heterogeneity matched the
+sampling error of a group mean (§6.2).
 
 With M groups there are M! reassignments, more than enough above about 7
 groups.
@@ -53,14 +54,14 @@ when the cells' null distributions differ:
   cells whose nulls differ. One example is selection statistics, such as each
   component's best |r| over many annotations. Another is components
   concentrated on different numbers of groups, which you can see from
-  `group_shares(...).m_eff`. Under max-T, the cell with the widest null sets
-  the bar for all of them.
+  `group_shares(...).m_eff`. Under max-T, the cell with the widest null
+  distribution sets the threshold for all of them.
 
 In the package's tests, with one cell being a best-of-30 statistic, max-T
 detected a real relation in the other cell 22% of the time and min-p 55%.
-Choose the correction before looking at the results, from the kind of family
-you have, not from which gives the smaller p-value. Min-p p-values are
-discrete with floor 1/(n_perm + 1), so large families need more permutations.
+Choose the correction in advance, from the kind of family. Min-p p-values
+are discrete with floor 1/(n_perm + 1), so large families need more
+permutations.
 
 `pls_test` and `cca_test` are not affected. They test each component against
 its own null and step down sequentially.
@@ -117,18 +118,21 @@ gu.pairing_ratio(Y, n, weights=np.ones(len(n)), tau2=vc.tau2, sigma2_w=vc.sigma2
 ```
 
 The ratio is the expected squared loading under the null for the observed
-assignment, divided by its average over reassignments. Above 1 a test with
-those weights leans liberal, below 1 conservative, and no range of the ratio
-is safe for every design: one atypical group's share of the profile spread
-shrinks like 1/M, so the same ratio does more harm with more groups (Result
-4c). In the paper's simulations, size-weighted PLS rejected a true null in
-3%, 5% and 22% of data sets at ratios of 1.1–1.2, 1.2–1.3 and 1.3–1.45 with 20
-groups, but in 12%, 38% and 68% with 50 groups (§4.3, Figure 6).
+assignment, divided by its average over reassignments (Result 4a). Above 1 a
+test with those weights leans liberal, below 1 conservative. No range of the
+ratio is safe for every design, because one atypical group's share of the
+profile spread shrinks like 1/M, so the same ratio does more harm with more
+groups (Result 4c). In the paper's simulations, size-weighted PLS rejected a
+true null in 3%, 5% and 22% of data sets at ratios of 1.1–1.2, 1.2–1.3 and
+1.3–1.45 with 20 groups, but in 12%, 38% and 68% with 50 groups (§4.3,
+Figure 6).
+
 `describe` reports the ratio and the group with the largest term
-(`pairing_terms`), and flags departures from 1 of more than 0.05; a ratio near
+(`pairing_terms`), and flags departures from 1 of more than 0.05. A ratio near
 1 is not a guarantee. To check the level of the test you actually run, use
 `size_check`, which simulates null data with your group sizes, annotation table
-and variance components:
+and variance components. Near the threshold, use 400 or more simulated data
+sets:
 
 ```python
 vc = gu.pooled_variance_components(X, groups)   # around the grand mean, so possible at any κ
@@ -139,14 +143,14 @@ check.rate, check.se                             # estimated size of the test fo
 ```
 
 The remedy is to weight groups so that every term is equally variable, and
-`pls_test` and `correlation_test` do this by default (`weights="exchangeable"`).
-They estimate τ² and σ²_w under the null, pooled over the features (or
-scores), and weight groups ∝ 1/√(τ² + σ²_w / n_m). With equal group sizes these
-are equal weights, so nothing changes. If the estimate of τ² is zero they are
-∝ √n_m, between equal and size weights: right if groups differ only by
-sampling error, and only a partial correction if they also differ beyond it,
-which is most likely to go unnoticed with few groups. Report the pairing ratio and its largest term as a
-description of the design.
+`pls_test` and `correlation_test` do this by default (`weights="exchangeable"`,
+Result 4d). They estimate τ² and σ²_w under the null, pooled over the features
+(or scores), and weight groups ∝ 1/√(τ² + σ²_w / n_m). With equal group sizes
+these are equal weights, so nothing changes. If the estimate of τ² is zero
+they are ∝ √n_m, between equal and size weights. That is right if groups
+differ only by sampling error, and only a partial correction if they also
+differ beyond it, which is most likely with few groups. Report the pairing
+ratio and its largest term as a description of the design.
 
 ```python
 gu.pls_test(X, groups, Y)                        # exchangeable weights (default)
@@ -164,14 +168,15 @@ and group shares that describe the individuals, fit `gu.pls(X, groups, Y)`
 separately, or pass `weights="size"` to `correlation_test` to get
 individual-level correlations.
 
-These weights change the statistic, not the hypothesis: under the null of no
-association, any weighting is a valid statistic, and these make the
-permutation distribution correct. In the paper's simulations they kept PLS
-correlation at about 8% or below at a nominal 5% in every design, including
-several atypical groups, profiles that grow with group size and heavy-tailed
-noise, and were more powerful than size weights; PLS regression exceeded
-that in one cell (11%). They are not the optimal weights for estimation
-(`optimal_weights`, the square of these).
+These weights do not change the null hypothesis, so a test can use them
+while estimates are reported with the weights of the chosen target. They are
+not the optimal weights for estimation (`optimal_weights`, the square of
+these).
+
+In the paper's simulations they kept PLS correlation at about 8% or below at
+a nominal 5% in every design, including several atypical groups, profiles
+that grow with group size and heavy-tailed noise. They were also more
+powerful than size weights. PLS regression exceeded 8% in one cell (11%).
 
 The scores must not bring the size weighting back in. Principal components
 computed over individuals line up with the largest groups' means, so those
@@ -186,13 +191,31 @@ for CCA it is a different method, reweighted PLS, so `cca_test` keeps testing
 the CCA that `gu.cca` fits and that studies report.
 
 Ordinary CCA weights groups by size internally, and `cca_test` does so by
-default; in the simulations it was less affected than PLS but still liberal
+default. In the simulations it was less affected than PLS but still liberal
 (up to 24%). `cca_test(..., weights="exchangeable")` fits row-weighted CCA, in
 which each individual of group m gets weight w_m / n_m. It held its level in
 every design but was often conservative and, in pairing designs, less powerful
 than reweighted PLS. When the ratio is far from 1, test with reweighted PLS;
 row-weighted CCA is a valid alternative when the annotations are few (κ around
 0.1), where it was as powerful.
+
+## One score: a mixed model
+
+For a single score chosen in advance, the standard remedy for nested data is
+a mixed model with a random group intercept,
+\(t_i = \alpha + \gamma^\top \tilde y_{m(i)} + u_m + e_i\). Because the annotations
+are constant within groups, its estimate of γ is the regression of the group
+means on the annotations with the optimal weights 1/(τ² + σ²_w / n_m), and its
+test has at most M − r − 1 denominator degrees of freedom (§4.6).
+
+When r is small relative to M, the paper recommends this model, tested with
+F(r, M − r − 1). Its default Wald χ² test was liberal in the simulations
+(0.15–0.35 whenever h ≥ 1 and κ ≥ 0.5), whereas the F test with
+between-groups degrees of freedom was close to nominal in most designs. The
+package does not fit mixed models, so use a mixed-model library and set the
+denominator degrees of freedom by hand. The model does not cover PLS or CCA,
+whose components were chosen using the annotations, and near saturation its
+residual degrees of freedom fall to zero.
 
 ## Other group-level variables
 
@@ -228,5 +251,6 @@ gu.leave_one_group_out(target, Y, model=gu.pca_regression(3))
 
 Splitting individuals instead of groups puts every held-out individual's group
 in the training set. Such a split measures recognition of known groups, not
-generalisation to new ones. With few groups, even correct estimates carry
-wide error bars.
+generalisation to new ones. In the paper's simulations without any relation it
+gave an out-of-sample R² of up to 0.22, while leaving groups out gave negative
+values. With few groups, even correct estimates have wide error bars.

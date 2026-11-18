@@ -29,7 +29,7 @@ attenuated by η (Result 1):
 
 $$ \operatorname{corr}(t, y) = \eta_t \cdot r_n(\bar t, \tilde y). $$
 
-The group-level correlation rests on M points. A score that mostly describes
+The group-level correlation is computed from M points. A score that mostly describes
 within-group variation, such as a principal component tracking report length,
 correlates weakly with every annotation even when its group means correlate
 strongly. `decompose_score` returns both factors.
@@ -44,8 +44,9 @@ between-group directions the annotations can express. The **annotation ratio**
   groups. CCA then gives identical results for *any* annotation table of full
   rank, including shuffled or random ones, and equals discriminant analysis
   of the group labels (Result 3c). It cannot respond to the annotation values.
-- **κ near 1.** The group-level R² of any score on the annotations has a null
-  mean of κ (Result 3b, `r2_null`), so CCA mostly maximises group separation.
+- **κ near 1.** The group-level R² of a score on the annotations has a null
+  mean of about κ (Result 3b, `r2_null`), and more with size weights and
+  unequal group sizes, so CCA mostly maximises group separation.
 - **κ ≪ 1, informative.** The annotations constrain which between-group
   patterns can be expressed. Reducing the annotations in advance
   (`reduce_annotations`) moves a design here.
@@ -58,12 +59,21 @@ comes from the features. Random group means therefore still produce
 structured loadings, concentrated on the leading eigenvectors of the **lens**
 \(\Lambda = \tilde Y^\top D^2 \tilde Y\) (Result 2b). The largest groups with the most
 unusual profiles set those eigenvectors. `lens` computes Λ and its participation
-ratio ν, the effective number of annotation directions. `lens_null` and
-`lens_congruence_null` give the loadings and congruences that random group
-means produce. Published loadings, and agreement between two analyses of the
-same groups, should be judged against this baseline.
+ratio ν, the number of annotation directions on which null loadings tend to
+concentrate. `lens_null` and `lens_congruence_null` give the loadings and
+congruences that random group means produce. Published loadings, and
+agreement between two analyses of the same groups, should be judged against
+this baseline.
 
-## Which groups carry a component
+PLS chooses the best of many feature directions, so its loadings concentrate
+on the leading direction of the lens more than a fixed score's do. Its null
+must refit PLS on random group means (`p=`). The right number of feature
+dimensions lies between 1 and the number of features and cannot be estimated
+reliably, so the null is run at both ends (§5). With equal group sizes,
+shuffling the observed group means among groups (`means=`) avoids the
+bracket.
+
+## Which groups a component depends on
 
 Each group contributes one term \(n_m \bar t_m \tilde y_m\) to a loading.
 Projected onto the loading, the terms give **group shares** that sum to one and
@@ -90,15 +100,18 @@ under the null. The annotation profile belongs to the group, so tests
 reassign annotation rows among groups, never among individuals (§4.2).
 Reassigning among individuals tests only whether groups differ.
 
-Exchangeability has a second requirement that is easy to miss. Under a
-weighted statistic, group m enters through a term of variance
-\(w_m^2 (\tau^2 + \sigma_w^2 / n_m)\). If atypical profiles sit on
-high-variance terms, as when a large group has an unusual profile and size
-weights are used, the observed assignment is atypical among reassignments.
-The test is then liberal. `pairing_ratio` measures this from the annotation
-table and group sizes alone. `exchangeable_weights`, the default weighting
-of `pls_test` and `correlation_test`, gives every term the
-same variance. See [Testing and validation](testing.md).
+With unequal group sizes, exchangeability also needs the annotation profiles
+to be unrelated to how variable each group's term is. Under a weighted
+statistic, group m enters through a term of variance
+\(w_m^2 (\tau^2 + \sigma_w^2 / n_m)\). If atypical profiles belong to groups
+with high-variance terms, as when a large group has an unusual profile and
+size weights are used, the observed assignment is atypical among
+reassignments, and the test is liberal (Result 4a). `pairing_ratio` measures
+this from the annotation table and group sizes alone. `exchangeable_weights`,
+the default weighting of `pls_test` and `correlation_test`, gives every term
+the same variance (Result 4d). This corrects PLS, but not correlation tests of
+scores computed over individuals, and a ratio near 1 does not guarantee the
+level, so check it with `size_check`. See [Testing and validation](testing.md).
 
 ## Typicality and pattern
 

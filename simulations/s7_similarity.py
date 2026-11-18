@@ -1,4 +1,4 @@
-"""Outcome 7: typicality and pattern in similarity comparisons (Result 4).
+"""Outcome 7: typicality and pattern in similarity comparisons (Results C1–C3).
 
 Group profiles are generated directly. In the "typicality" scenario the two
 tables share only how atypical each group is (deviations in independent
