@@ -18,6 +18,8 @@ suggests) and that of the pooled within-group covariance, each rounded to
 the nearest integer. Their nulls are drawn after the others, so the columns
 above reproduce earlier runs.
 """
+from dataclasses import replace
+
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -210,6 +212,11 @@ def cov_cells():
     return out + mixed_cells()
 
 
+def equal_cells():
+    """The sixteen designs with equal group sizes, where shuffling group means is exact."""
+    return [(replace(d, kish=None), extra) for d, extra in cov_cells()]
+
+
 def cov_replicate(d, rng, k_between, k_within):
     X, groups, Y, n, Sb, Sw = draw_mixed(d, k_between, k_within, rng, truth=True)
     vc = gu.pooled_variance_components(X, groups)
@@ -257,6 +264,8 @@ def main(reps=300, n_perm=None, seed=15):
     save(df, mixed_summarise(df), "s14_lens_mixed")
     df = run(cov_replicate, cov_cells(), reps, seed + 200)
     save(df, cov_summarise(df), "s14_lens_covariance")
+    df = run(cov_replicate, equal_cells(), reps, seed + 300)
+    save(df, cov_summarise(df), "s14_lens_equal")
 
 
 if __name__ == "__main__":

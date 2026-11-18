@@ -27,6 +27,7 @@ import s12_pairing
 import s13_size_check
 import s14_lens_refit
 import s15_cca_power
+import s16_mixed_df
 
 OUTCOMES = {
     "s1": (s1_false_positives, 500),
@@ -45,6 +46,7 @@ OUTCOMES = {
     "s13": (s13_size_check, 40),
     "s14": (s14_lens_refit, 300),
     "s15": (s15_cca_power, 300),
+    "s16": (s16_mixed_df, 1000),
 }
 N_PERM = {"s1p": 999, "s10": 499}     # outcomes that need more permutations than the default 199
 

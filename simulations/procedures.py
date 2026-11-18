@@ -168,10 +168,70 @@ def mixed_model(t, groups, Y):
     wald = float(b @ np.linalg.pinv(C) @ b)
     q = k - 1
     df2 = M - k
+    kr, satt = _small_sample_tests(Z, n, tau2, np.exp(log_s2), N, beta, q)
     return {"wald": stats.chi2.sf(wald, q),
             "F": stats.f.sf(wald / q, q, df2) if df2 > 0 else 1.0,
+            "KR": kr, "Satterthwaite": satt,
             "tau2 zero": tau2 <= 1e-8 * np.exp(log_s2),
             "tau2": tau2, "sigma2": np.exp(log_s2)}
+
+
+def _small_sample_tests(Z, n, tau2, s2, N, beta, q):
+    """Kenward-Roger and Satterthwaite F tests of the q annotation coefficients.
+
+    Works on the group-mean factor of the REML likelihood, V = diag(τ² + σ²/n_m), with
+    θ = (τ², σ²), ∂V/∂τ² = I and ∂V/∂σ² = diag(1/n). The covariance W of θ̂ is the inverse
+    expected REML information, including the within-group part (N − M)/(2σ⁴) for σ².
+    Kenward and Roger (1997): adjusted covariance Φ_A = Φ + 2Λ, scaled F against F(q, m).
+    Satterthwaite: the multi-df approximation of Fai and Cornelius (1996), as in lmerTest.
+    """
+    M, k = Z.shape
+    v = tau2 + s2 / n
+    Vi = 1 / v
+    Phi = np.linalg.inv(Z.T @ (Vi[:, None] * Z))
+    dV = [np.ones(M), 1 / n]                                   # diagonals of ∂V/∂θ
+    Pm = np.diag(Vi) - (Vi[:, None] * Z) @ Phi @ (Z.T * Vi)    # REML projection
+    info = np.array([[0.5 * np.trace(Pm * di @ (Pm * dj)) for dj in dV] for di in dV])
+    info[1, 1] += 0.5 * (N - M) / s2**2
+    W = np.linalg.pinv(info)
+    P = [-(Z.T @ ((Vi**2 * d)[:, None] * Z)) for d in dV]     # Zᵀ ∂V⁻¹/∂θ_i Z
+    Q = [[Z.T @ ((Vi**3 * di * dj)[:, None] * Z) for dj in dV] for di in dV]
+    L = np.eye(k)[:, 1:]                                       # the annotation coefficients
+
+    # Satterthwaite (Fai-Cornelius)
+    LPL = L.T @ Phi @ L
+    D, U = np.linalg.eigh(LPL)
+    E = 0.0
+    for j in range(q):
+        c = L @ U[:, j]
+        g = np.array([-(c @ Phi @ Pi @ Phi @ c) for Pi in P])  # ∂(cᵀΦc)/∂θ_i
+        nu = 2 * D[j] ** 2 / (g @ W @ g) if g @ W @ g > 0 else np.inf
+        E += nu / (nu - 2) if nu > 2 else 0.0
+    nu = 2 * E / (E - q) if E > q else np.inf
+    Fs = float(beta @ L @ np.linalg.inv(LPL) @ L.T @ beta) / q
+    satt = stats.f.sf(Fs, q, nu) if np.isfinite(nu) else stats.chi2.sf(Fs * q, q)
+
+    # Kenward-Roger
+    Lam = sum(W[i, j] * (Q[i][j] - P[i] @ Phi @ P[j]) for i in range(2) for j in range(2))
+    PhiA = Phi + 2 * Phi @ Lam @ Phi
+    Theta = L @ np.linalg.inv(L.T @ Phi @ L) @ L.T
+    A1 = sum(W[i, j] * np.trace(Theta @ Phi @ P[i] @ Phi) * np.trace(Theta @ Phi @ P[j] @ Phi)
+             for i in range(2) for j in range(2))
+    A2 = sum(W[i, j] * np.trace(Theta @ Phi @ P[i] @ Phi @ Theta @ Phi @ P[j] @ Phi)
+             for i in range(2) for j in range(2))
+    ell = q
+    B = (A1 + 6 * A2) / (2 * ell)
+    g = ((ell + 1) * A1 - (ell + 4) * A2) / ((ell + 2) * A2)
+    den = 3 * ell + 2 * (1 - g)
+    c1, c2, c3 = g / den, (ell - g) / den, (ell + 2 - g) / den
+    Estar = 1 / (1 - A2 / ell)
+    Vstar = 2 / ell * (1 + c1 * B) / ((1 - c2 * B) ** 2 * (1 - c3 * B))
+    rho = Vstar / (2 * Estar**2)
+    m = 4 + (ell + 2) / (ell * rho - 1)
+    lam = m / (Estar * (m - 2))
+    Fk = float(beta @ L @ np.linalg.inv(L.T @ PhiA @ L) @ L.T @ beta) / ell
+    kr = stats.f.sf(lam * Fk, ell, m) if m > 0 else np.nan
+    return kr, satt
 
 
 def ols_individuals(t, groups, Y):
