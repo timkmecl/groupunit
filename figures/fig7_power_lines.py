@@ -1,4 +1,4 @@
-"""Figure 8: power depends on the number of groups, not on the number of individuals.
+"""Figure 7, line version (not in the paper): power depends on the number of groups, not on the number of individuals.
 
 From simulation outcome 2 (second part): the population is fixed (τ² = 0.02,
 group-level R² of the population means 0.5, κ = 0.5, Kish 40%) and only the
@@ -11,7 +11,7 @@ Panels
   c  the same test with size weights: power barely grows with group size
 
     python simulations/run_all.py s2      # if missing
-    python figures/fig8_group_size.py
+    python figures/fig7_power_lines.py
 """
 import os
 
@@ -131,6 +131,6 @@ for M in SHADE:
 
 
 os.chdir(HERE)
-s.save("figure8_group_size.svg")
-save_png("figure8_group_size.svg")
+s.save("figure7_power_lines.svg")
+save_png("figure7_power_lines.svg")
 print(exch.pivot(index="M", columns="nbar", values="rate").round(2))

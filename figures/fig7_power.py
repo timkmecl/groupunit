@@ -1,6 +1,6 @@
-"""Figure 8, matrix version: power by number of groups and individuals per group.
+"""Figure 7: power by number of groups and individuals per group.
 
-An alternative to `fig8_group_size.py` with the same data (simulation outcome 2,
+The paper's version; `fig7_power_lines.py` shows the same data as lines (simulation outcome 2,
 second part: τ² = 0.02, population R² = 0.5, κ = 0.5, Kish 40%; 300 data sets
 per cell). Two matrices, rows the number of groups M and columns the mean
 group size n̄, with the power printed in each cell.
@@ -13,7 +13,7 @@ Panels
 Cells with power of at least 0.8 are outlined.
 
     python simulations/run_all.py s2      # if missing
-    python figures/fig8_group_size_matrix.py
+    python figures/fig7_power.py
 """
 import os
 
@@ -93,5 +93,5 @@ s.text(lx + 22, gy + 234, "≥ 0.8", 10.5, INK2)
 
 
 os.chdir(HERE)
-s.save("figure8_group_size_matrix.svg")
-save_png("figure8_group_size_matrix.svg")
+s.save("figure7_power.svg")
+save_png("figure7_power.svg")

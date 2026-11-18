@@ -1,4 +1,4 @@
-"""Figure 6: typicality versus pattern in a similarity comparison.
+"""Figure C1: typicality versus pattern in a similarity comparison.
 
 Toy data: M = 12 groups (A-L). Each group's features and annotations deviate from
 a common profile by an amount u_m (how atypical the group is) in directions that
@@ -17,7 +17,7 @@ Panels
   c  typicality: group effects a_m, features vs annotations
   d  pattern: standardised residual similarities, features vs annotations
 
-    python figures/fig6_typicality.py
+    python figures/figC1_typicality.py
 """
 import os
 
@@ -124,7 +124,7 @@ scatter(1100, "d", "Pattern", "standardised residuals, 66 pairs", EF[iu], EA[iu]
 
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-s.save("figure6_typicality.svg")
-save_png("figure6_typicality.svg")
+s.save("figureC1_typicality.svg")
+save_png("figureC1_typicality.svg")
 print(f"Mantel r={res.mantel.r:.3f} {fmt_p(res.mantel.p)}; typicality r={res.typicality.r:.3f} "
       f"{fmt_p(res.typicality.p)}; pattern r={res.pattern.r:.3f} {fmt_p(res.pattern.p)}")

@@ -8,6 +8,8 @@ Panels
   e  the loading against the contrast between the two dominant groups
 """
 import numpy as np
+
+import groupunit as gu
 from toy import *
 
 r = decompose(Y_RAW, T_RAW, N_REPORTS)
@@ -139,7 +141,7 @@ for j in range(Q):
 s.rect(d_x + 24, c_y + 276, 12, 12, ACCENT, 0.9)
 s.text(d_x + 42, c_y + 286, "all groups", 11.5, INK2)
 s.rect(d_x + 24, c_y + 296, 12, 12, ACCENT, 0.3, stroke=ACCENT)
-s.text(d_x + 42, c_y + 306, f"without Group C (r = {np.corrcoef(r['q'], r_lo['q'])[0,1]:.2f} with all groups; "
+s.text(d_x + 42, c_y + 306, f"without Group C (congruence {gu.congruence(r['q'], r_lo['q']):.2f} with all groups; "
        f"norm {np.linalg.norm(r_lo['q']) / np.linalg.norm(r['q']):.0%} of original)", 11.5, INK2)
 
 # ---------------------------------------------------------------- panel e

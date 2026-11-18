@@ -372,6 +372,6 @@
 <circle cx="1275.5" cy="129.9" r="3.2" fill="#D55E00" fill-opacity="1" stroke="#ffffff"/>
 <circle cx="1297.0" cy="122.9" r="3.2" fill="#D55E00" fill-opacity="1" stroke="#ffffff"/>
 <circle cx="1318.5" cy="116.4" r="3.2" fill="#D55E00" fill-opacity="1" stroke="#ffffff"/>
-<text x="922.9" y="169.4" font-size="11" fill="#D55E00" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">simulated, size weights</text>
+<text x="922.9" y="169.4" font-size="11" fill="#D55E00" text-anchor="start" font-weight="700" font-style="normal" font-family="Helvetica, Arial, sans-serif">first principal component, size weights</text>
 <text x="922.9" y="184.4" font-size="10.5" fill="#D55E00" text-anchor="start" font-weight="400" font-style="normal" font-family="Helvetica, Arial, sans-serif">(above κ, most at intermediate κ)</text>
 </svg>

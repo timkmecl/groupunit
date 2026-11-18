@@ -91,7 +91,7 @@ def test_pairing_terms_refuse_identical_profiles():
 
 def test_size_check_detects_a_liberal_design_and_its_remedy():
     """Size weights with the atypical profile on the largest group reject far too often;
-    exchangeable weights do not (compare Figure 7)."""
+    exchangeable weights do not (compare Figure 6)."""
     n, Y = _atypical_design()
     tau2, sigma2_w = 0.3, 1.0
 

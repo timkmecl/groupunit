@@ -157,7 +157,7 @@ for i, (r, obs, null, pval) in enumerate(res):
     s.text(cxm, qy - 8, ptxt, 10.5, INK2 if pval >= 0.05 else "#1d5d7f", anchor="middle",
            weight="400" if pval >= 0.05 else "700")
 s.text(qx + qw / 2, qy + qh + 54, "annotation ratio κ = r / (M − 1) (categories, not to scale)", 11.5, INK2, anchor="middle")
-s.text(qx - 44, qy + qh / 2, "ρ₁", 14, INK2, anchor="middle", style="italic", fam="Georgia, serif")
+s.text(qx - 44, qy + qh / 2, 'ρ<tspan font-size="10" dy="4">1</tspan>', 14, INK2, anchor="middle", style="italic", fam="Georgia, serif")
 ly2 = qy + qh + 78
 s.circle(qx + 8, ly2, 6, "#1d5d7f", 0.95)
 s.text(qx + 20, ly2 + 4, "real table", 11.5, INK2)

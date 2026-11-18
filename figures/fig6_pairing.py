@@ -1,4 +1,4 @@
-"""Figure 7: false-positive rate of group permutation tests against the pairing ratio.
+"""Figure 6: false-positive rate of group permutation tests against the pairing ratio.
 
 Pools every null data set of simulation outcome 5 (one group's profile 1.5-4
 times as far out as the others, on the largest, the smallest or a random group),
@@ -14,7 +14,7 @@ Colour is the weighting, line style and marker the test (a, b) or the number of
 groups (c); every line is also labelled directly.
 
     python simulations/run_all.py s5 && python simulations/s5_dominance.py 50   # if missing
-    python figures/fig7_pairing.py
+    python figures/fig6_pairing.py
 """
 import os
 
@@ -138,6 +138,6 @@ for M, faint in ((20, True), (50, False)):
 n_data = sum(len(d) for d in null.values())
 
 os.chdir(HERE)
-s.save("figure7_pairing.svg")
-save_png("figure7_pairing.svg")
+s.save("figure6_pairing.svg")
+save_png("figure6_pairing.svg")
 print(f"{n_data} null data sets; bins need at least {MIN_COUNT}")

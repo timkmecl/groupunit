@@ -177,7 +177,7 @@ for j, t in enumerate(["Result 3b: line, mean (= κ);", "band, 5th–95th percen
 s.path("M" + " L".join(f"{X_(r / D):.1f},{Y_(r2['size'][:, r - 1].mean()):.1f}" for r in range(1, D)), "#D55E00", 1.4)
 for r in range(1, D):
     s.circle(X_(r / D), Y_(r2["size"][:, r - 1].mean()), 3.2, "#D55E00", 1, stroke="#ffffff")
-s.text(X_(0.03), Y_(0.82), "simulated, size weights", 11, "#D55E00", weight="700")
+s.text(X_(0.03), Y_(0.82), "first principal component, size weights", 11, "#D55E00", weight="700")
 s.text(X_(0.03), Y_(0.82) + 15, "(above κ, most at intermediate κ)", 10.5, "#D55E00")
 
 os.chdir(HERE)

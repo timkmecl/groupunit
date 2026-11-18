@@ -2,7 +2,7 @@
 
 Group profiles are generated directly. In the "typicality" scenario the two
 tables share only how atypical each group is (deviations in independent
-directions, as in Figure 6): any pattern rejection is a false positive. In the
+directions, as in Figure C1): any pattern rejection is a false positive. In the
 "pattern" scenario they share which groups resemble which, through common
 latent coordinates, and no typicality: rejections are power.
 """
