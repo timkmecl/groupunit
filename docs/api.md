@@ -8,6 +8,12 @@ imported from their modules, for example
 `from groupunit.inference import p_value`. Modules are listed in the order of
 the paper.
 
+Two conventions hold throughout. In the tests (`correlation_test`, `pls_test`,
+`cca_test`, `estimator_test`, `permutation_test`, `compare_similarity`), every
+argument after `rng` is keyword-only. Every `weights` argument accepts
+`"size"` (the group sizes; `None` means the same) or one weight per group, and
+the tests also accept `"exchangeable"` (`group_weights`, `permutation_weights`).
+
 This page is generated from the docstrings when the site is built
 (`mkdocs serve`). Read as plain Markdown it shows only the directives.
 
@@ -15,7 +21,7 @@ This page is generated from the docstrings when the site is built
 
 ::: groupunit.core
     options:
-      members: [encode_groups, group_sizes, group_means, annotation_table, wcentre, weighted_corr, weighted_basis, annotation_rank, weighted_r2, scatter_matrices]
+      members: [encode_groups, group_sizes, group_means, group_weights, annotation_table, wcentre, weighted_corr, weighted_basis, annotation_rank, weighted_r2, scatter_matrices]
 
 ## Design
 

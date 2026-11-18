@@ -79,3 +79,43 @@ def test_exchangeable_weights_sum_to_one_with_equal_sizes():
     X, groups, Y = gu.simulate(np.full(8, 10), 3, q=2, rng=rng)
     w = permutation_weights("exchangeable", X, groups, np.bincount(groups))
     assert w.sum() == pytest.approx(1)
+
+
+def test_test_options_after_rng_are_keyword_only():
+    rng = np.random.default_rng(7)
+    X, groups, Y = gu.simulate(np.full(6, 5), 3, q=2, rng=rng)
+    with pytest.raises(TypeError):
+        gu.pls_test(X, groups, Y, 1, 9, 0, "size")
+    with pytest.raises(TypeError):
+        gu.cca_test(X, groups, Y, 1, 9, 0, "size")
+    with pytest.raises(TypeError):
+        gu.correlation_test(X[:, 0], groups, Y, 9, 0, "size")
+    # the options themselves still work by name, in any order
+    a = gu.cca_test(X, groups, Y, 1, 19, 0, strata=None, weights="size").p_value
+    b = gu.cca_test(X, groups, Y, 1, 19, 0, weights="size", strata=None).p_value
+    np.testing.assert_array_equal(a, b)
+
+
+def test_weights_share_one_vocabulary():
+    rng = np.random.default_rng(8)
+    n = np.array([3, 5, 8, 4, 6, 7])
+    X, groups, Y = gu.simulate(n, 4, q=2, rng=rng)
+    for fit in (gu.pls, gu.cca):
+        np.testing.assert_allclose(fit(X, groups, Y, weights="size").strength, fit(X, groups, Y).strength)
+        np.testing.assert_allclose(fit(X, groups, Y, weights=n).strength, fit(X, groups, Y).strength)
+    np.testing.assert_allclose(gu.lens(Y, n, weights="size").matrix, gu.lens(Y, n).matrix)
+    assert gu.pairing_ratio(Y, n, weights="size") == pytest.approx(gu.pairing_ratio(Y, n))
+    # None means size weights in the tests as well
+    np.testing.assert_allclose(gu.correlation_test(X[:, 0], groups, Y, 49, 0, weights=None).p_value,
+                               gu.correlation_test(X[:, 0], groups, Y, 49, 0, weights="size").p_value)
+    for bad in ("exchangeable", np.ones(5), -np.ones(6), np.zeros(6)):
+        with pytest.raises(ValueError):
+            gu.pls(X, groups, Y, weights=bad)
+
+
+def test_public_names_are_listed():
+    assert all(hasattr(gu, name) for name in gu.__all__)
+    assert "group_weights" in gu.__all__
+    from groupunit.methods import Components
+    assert isinstance(gu.pls_test(np.random.default_rng(9).standard_normal((30, 3)), np.repeat(np.arange(6), 5),
+                                  np.random.default_rng(10).standard_normal((6, 2)), n_perm=9, rng=0).fit, Components)

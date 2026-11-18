@@ -180,6 +180,11 @@ correlation tests of principal components stayed liberal in some designs (up
 to 15%). Prefer scores chosen in advance, or computed from group means with
 the same weights.
 
+Each test's default is the procedure the paper recommends for that method.
+For PLS and correlations that is the same method with exchangeable weights;
+for CCA it is a different method, reweighted PLS, so `cca_test` keeps testing
+the CCA that `gu.cca` fits and that studies report.
+
 Ordinary CCA weights groups by size internally, and `cca_test` does so by
 default; in the simulations it was less affected than PLS but still liberal
 (up to 24%). `cca_test(..., weights="exchangeable")` fits row-weighted CCA, in

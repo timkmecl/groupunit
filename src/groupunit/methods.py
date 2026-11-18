@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import annotation_table, check_groups, group_means, wcentre, weighted_basis
+from .core import annotation_table, check_groups, group_means, group_weights, wcentre, weighted_basis
 
 
 @dataclass(frozen=True)
@@ -55,14 +55,15 @@ def pls(X, groups, Y, n_components=None, weights=None):
     """PLS correlation (PLS-SVD) of individual features with group-level annotations.
 
     The weights are the singular vectors of ``XᵀY = X̄ᵀ D Ỹ`` (Result 2), so they
-    depend on the group means, the annotations and the group sizes only. Pass
-    ``weights`` (one per group, e.g. ``np.ones(M)``) to target the population of
-    groups instead of individuals (Section 4.1). The first component equals the
+    depend on the group means, the annotations and the group sizes only.
+    ``weights`` is ``"size"`` (or ``None``, the default) or one weight per
+    group; pass ``np.ones(M)`` to target the population of groups instead of
+    individuals (Section 4.1). The first component equals the
     first component of PLS regression.
     """
     Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
-    w = n.astype(float) if weights is None else np.asarray(weights, float)
+    w = group_weights(weights, n)
     Xbar = group_means(X, groups, len(Y))
     x_mean = w @ Xbar / w.sum()
     Xb, Yc = Xbar - x_mean, wcentre(Y, w)
@@ -107,8 +108,8 @@ def cca(X, groups, Y, n_components=None, weights=None):
     forms the N × q matrix. If the annotations have rank M - 1, the result is
     the same for every annotation table of that rank and equals `lda` (Result 3c).
 
-    Ordinary CCA weights groups by size. ``weights`` (one per group) gives
-    row-weighted CCA instead: each individual of group m is weighted by
+    Ordinary CCA weights groups by size (``weights="size"`` or ``None``, the
+    default). One positive weight per group gives row-weighted CCA instead: each individual of group m is weighted by
     w_m / n_m, so that group m carries total weight w_m in every mean,
     variance and covariance, on both sides. Feature and annotation scores are
     scaled to unit weighted variance; ``y_loadings`` are weighted covariances,
@@ -117,7 +118,7 @@ def cca(X, groups, Y, n_components=None, weights=None):
     Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     X = np.asarray(X, float)
-    w = n.astype(float) if weights is None else np.asarray(weights, float)
+    w = group_weights(weights, n)
     if w.shape != n.shape or np.any(w <= 0):
         raise ValueError(f"weights must be {len(n)} positive numbers, one per group")
     total = w.sum()

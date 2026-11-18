@@ -30,6 +30,19 @@
 
 ### Changed
 
+- In the tests (`correlation_test`, `pls_test`, `cca_test`, `estimator_test`,
+  `permutation_test`, `compare_similarity`) every argument after `rng` is
+  keyword-only. `pls_test` took `weights, strata` in that order and `cca_test`
+  `strata, weights`; a call that passed them by position now raises a
+  `TypeError` instead of silently swapping them. Calls that pass `n_perm` and
+  `rng` by position are unaffected.
+- One vocabulary for `weights`: `pls`, `cca`, `lens`, `lens_null`,
+  `lens_congruence_null`, `pairing_ratio` and `pairing_terms` accept `"size"`
+  as well as `None` and an array, and the tests accept `None` as size weights.
+  Arrays are checked (one finite, non-negative weight per group with a positive
+  sum). New `group_weights` resolves the argument.
+- `groupunit.__all__` lists the public functions. `SequentialTest.fit` is
+  typed as `Components`.
 - `pooled_variance_components` estimates all features at once and forms the
   regression's hat matrix once instead of once per feature, much faster
   with many features. Results are unchanged.

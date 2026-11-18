@@ -155,7 +155,7 @@ class SimilarityComparison:
                          for name, c in vars(self).items())
 
 
-def compare_similarity(S1, S2, n_perm=5000, rng=None, alternative="greater", strata=None,
+def compare_similarity(S1, S2, n_perm=5000, rng=None, *, alternative="greater", strata=None,
                        standardise=True):
     """Mantel test, and separate tests of shared typicality and shared pattern.
 

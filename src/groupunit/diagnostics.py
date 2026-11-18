@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import annotation_table, wcentre
+from .core import annotation_table, group_weights, wcentre
 
 
 def effective_number(w, axis=0):
@@ -207,10 +207,11 @@ def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
     By default group means are taken as independent with equal variance (K = I),
     which gives Λ = Ỹᵀ D² Ỹ for size weights. Pass ``tau2`` and ``sigma2_w``
     (see `groupunit.weights.variance_components`) to use K = τ²I + σ²_w D⁻¹.
-    ``weights`` are the group weights of the analysis (default: group sizes).
+    ``weights`` are the group weights of the analysis: ``"size"`` (or ``None``, the
+    default) for group sizes, or one weight per group.
     """
     n = np.asarray(n, float)
-    w = n if weights is None else np.asarray(weights, float)
+    w = group_weights(weights, n)
     Yc = wcentre(annotation_table(Y), w)
     k = _group_mean_cov(n, tau2, sigma2_w)
     WY = w[:, None] * Yc
@@ -247,7 +248,7 @@ def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=No
     """
     rng = np.random.default_rng(rng)
     n = np.asarray(n, float)
-    w = n if weights is None else np.asarray(weights, float)
+    w = group_weights(weights, n)
     Yc = wcentre(annotation_table(Y), w)
     sd = np.sqrt(_group_mean_cov(n, tau2, sigma2_w))
     if p is None:

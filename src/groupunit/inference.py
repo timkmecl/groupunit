@@ -23,9 +23,9 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import annotation_table, check_groups, group_means, wcentre, weighted_basis, weighted_corr
+from .core import annotation_table, check_groups, group_means, group_weights, wcentre, weighted_basis, weighted_corr
 from .diagnostics import _group_mean_cov
-from .methods import _cca_spaces, cca, pls
+from .methods import Components, _cca_spaces, cca, pls
 from .scores import between_share
 from .simulate import simulate
 from .weights import exchangeable_weights, pooled_variance_components
@@ -37,16 +37,12 @@ def permutation_weights(weights, values, groups, n):
     ``"exchangeable"`` (the default of the tests) estimates τ² and σ²_w from
     ``values`` (features or scores, pooled over columns, under the null) and
     returns weights ∝ 1/sqrt(τ² + σ²_w/n_m), so every group's term is equally
-    variable. With equal group sizes these are equal weights. ``"size"`` gives
-    group sizes, the weighting of an analysis over individuals. An array is
-    used as given.
+    variable. With equal group sizes these are equal weights, 1/M each.
+    ``"size"`` (or ``None``) gives group sizes, the weighting of an analysis
+    over individuals, and an array is used as given (`groupunit.core.group_weights`).
     """
-    if not isinstance(weights, str):
-        return np.asarray(weights, float)
-    if weights == "size":
-        return n.astype(float)
-    if weights != "exchangeable":
-        raise ValueError(f"weights must be 'exchangeable', 'size' or an array, not {weights!r}")
+    if not (isinstance(weights, str) and weights == "exchangeable"):
+        return group_weights(weights, n)
     # equal weights sum to one like `exchangeable_weights`, so fitted strengths keep one scale
     if np.all(n == n[0]):
         return np.full(len(n), 1 / len(n))
@@ -86,7 +82,7 @@ def _pairing_matrix(Y, n, weights, tau2, sigma2_w):
     n = np.asarray(n, float)
     Y = np.asarray(Y, float).reshape(len(n), -1)
     M = len(n)
-    w = n if weights is None else np.asarray(weights, float)
+    w = group_weights(weights, n)
     v = _group_mean_cov(n, tau2, sigma2_w)
     WC = w[:, None] * (np.eye(M) - np.outer(np.ones(M), w) / w.sum())   # W C
     # A 1 = 0, so the statistic does not depend on how Y is centred; unweighted centring
@@ -271,7 +267,7 @@ class PermutationResult:
     correction: str = "max-t"
 
 
-def permutation_test(statistic, Y, n_perm=5000, rng=None, strata=None, correction="max-t"):
+def permutation_test(statistic, Y, n_perm=5000, rng=None, *, strata=None, correction="max-t"):
     """Generic group-level permutation test.
 
     ``statistic(Y_perm)`` receives the annotation table with its rows
@@ -307,7 +303,7 @@ def paired_score_correlation(fitted, X, Y_individuals):
     return np.abs((x_scores * y_scores).sum(0) / np.sqrt((x_scores**2).sum(0) * (y_scores**2).sum(0)))
 
 
-def estimator_test(estimator, X, groups, Y, statistic=paired_score_correlation, n_perm=1000, rng=None,
+def estimator_test(estimator, X, groups, Y, statistic=paired_score_correlation, n_perm=1000, rng=None, *,
                    strata=None, correction="max-t"):
     """Group-level permutation test of a model fitted on individuals, refitted in every permutation.
 
@@ -336,7 +332,7 @@ def estimator_test(estimator, X, groups, Y, statistic=paired_score_correlation, 
         fitted = copy.deepcopy(estimator).fit(X, Y_individuals)
         return statistic(fitted, X, Y_individuals)
 
-    return permutation_test(refit, Y, n_perm, rng, strata, correction)
+    return permutation_test(refit, Y, n_perm, rng, strata=strata, correction=correction)
 
 
 @dataclass(frozen=True)
@@ -358,7 +354,7 @@ class CorrelationTest:
     correction: str = "max-t"
 
 
-def correlation_test(scores, groups, Y, n_perm=5000, rng=None, strata=None, weights="exchangeable",
+def correlation_test(scores, groups, Y, n_perm=5000, rng=None, *, weights="exchangeable", strata=None,
                      correction="max-t"):
     """Test correlations of scores built without the annotations (Result 1, Section 4.4).
 
@@ -386,7 +382,7 @@ def correlation_test(scores, groups, Y, n_perm=5000, rng=None, strata=None, weig
     scores = np.asarray(scores, float).reshape(len(groups), -1)
     tbar = group_means(scores - scores.mean(0), groups, len(Y))
     Y2 = Y.reshape(len(Y), -1)
-    if isinstance(weights, str) and weights == "size":
+    if weights is None or (isinstance(weights, str) and weights == "size"):
         eta = np.sqrt(np.atleast_1d(between_share(scores, groups)))
         r = eta[:, None] * weighted_corr(tbar, Y2, n).reshape(len(eta), -1)
 
@@ -402,7 +398,8 @@ def correlation_test(scores, groups, Y, n_perm=5000, rng=None, strata=None, weig
             with np.errstate(divide="ignore", invalid="ignore"):
                 return np.abs(wt.T @ Yp / scale)
 
-    result = permutation_test(lambda Yp: np.nan_to_num(statistic(Yp)), Y2, n_perm, rng, strata, correction)
+    result = permutation_test(lambda Yp: np.nan_to_num(statistic(Yp)), Y2, n_perm, rng,
+                              strata=strata, correction=correction)
     return CorrelationTest(r=r, p_value=result.p_value, p_fwer=result.p_fwer, correction=correction)
 
 
@@ -420,10 +417,10 @@ class SequentialTest:
 
     strength: np.ndarray
     p_value: np.ndarray
-    fit: object
+    fit: Components
 
 
-def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, weights="exchangeable", strata=None):
+def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, *, weights="exchangeable", strata=None):
     """Sequential group-level permutation test of PLS components (Section 4.4).
 
     PLS weights depend on the annotations, so the model is refitted in every
@@ -524,7 +521,7 @@ def size_check(test, n, Y, tau2, sigma2_w, p=1, n_sim=200, alpha=0.05, rng=None)
     return SizeCheck(rate, float(np.sqrt(rate * (1 - rate) / n_sim)), alpha, p_values)
 
 
-def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, strata=None, weights="size"):
+def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, *, weights="size", strata=None):
     """Sequential group-level permutation test of canonical correlations.
 
     Refits CCA in every permutation, removing the first c - 1 canonical

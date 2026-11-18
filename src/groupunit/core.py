@@ -69,6 +69,28 @@ def group_means(X, groups, M=None):
     return sums / n.reshape((-1,) + (1,) * (X.ndim - 1))
 
 
+def group_weights(weights, n):
+    """Resolve a ``weights`` argument to one weight per group, ``(M,)`` floats.
+
+    ``None`` or ``"size"`` gives the group sizes ``n``, the weighting of an
+    analysis over individuals (Section 4.1). An array is used as given and
+    must hold one finite, non-negative weight per group with a positive sum.
+    The tests also accept ``"exchangeable"``, which needs the data; see
+    `groupunit.inference.permutation_weights`.
+    """
+    n = np.asarray(n, float)
+    if weights is None or (isinstance(weights, str) and weights == "size"):
+        return n
+    if isinstance(weights, str):
+        raise ValueError(f"weights must be 'size', None or an array of {len(n)} group weights, not {weights!r}; "
+                         "for exchangeable weights use exchangeable_weights() or permutation_weights()")
+    w = np.asarray(weights, float)
+    if w.shape != n.shape or not np.all(np.isfinite(w)) or np.any(w < 0) or w.sum() <= 0:
+        raise ValueError(f"weights must be {len(n)} finite, non-negative numbers with a positive sum, "
+                         "one per group")
+    return w
+
+
 def annotation_table(Y):
     """The annotation table as an (M, q) float array; a single annotation (M,) becomes one column."""
     Y = np.asarray(Y, float)
