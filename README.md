@@ -6,7 +6,7 @@ drug experience reports and each drug's receptor profile, brain regions and
 parcel-level atlas maps, patients and characteristics of their hospital.
 
 It accompanies Kmecl, *The group is the unit: limits of correlation, PLS and
-CCA with group-level variables* (methods paper, Appendix D). The package
+CCA with group-level variables* (methods paper, Appendix F). The package
 computes the quantities the paper derives, and the diagnostics, tests and
 validation it recommends. Every test resamples groups, never individuals.
 
@@ -65,8 +65,8 @@ Markdown directly:
 | `methods`     | §3.2–3.3        | `pls`, `cca` (optionally row-weighted), `lda`, computed through the group means |
 | `diagnostics` | §5, Result 2b   | group shares, effective numbers, the lens and its null, `leave_out`        |
 | `weights`     | §4.1            | variance components, optimal and exchangeable weights, effective groups    |
-| `similarity`  | §3.4, Results 4a–4c | typicality and pattern, `similarity_decomposition`, `compare_similarity`, `distance_similarity` |
-| `inference`   | §4.2–4.5, Result 5 | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio`, `pairing_terms`, `size_check` |
+| `similarity`  | App. C, Results C1–C3 | typicality and pattern, `similarity_decomposition`, `compare_similarity`, `distance_similarity` |
+| `inference`   | §4.2–4.5, Result 4 | `correlation_test`, `pls_test`, `cca_test`, `estimator_test`, `permutation_test`, `pairing_ratio`, `pairing_terms`, `size_check` |
 | `validation`  | §4.5            | `leave_one_group_out`, `pca_regression`, scikit-learn models               |
 | `simulate`    | §6.1            | `simulate`, `lognormal_sizes`                                              |
 

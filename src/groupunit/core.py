@@ -69,6 +69,12 @@ def group_means(X, groups, M=None):
     return sums / n.reshape((-1,) + (1,) * (X.ndim - 1))
 
 
+def annotation_table(Y):
+    """The annotation table as an (M, q) float array; a single annotation (M,) becomes one column."""
+    Y = np.asarray(Y, float)
+    return Y.reshape(len(Y), -1)
+
+
 def wcentre(A, w):
     """Centre the rows of ``A`` (vector or matrix) on their ``w``-weighted mean."""
     A = np.asarray(A, float)

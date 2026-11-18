@@ -67,7 +67,7 @@ same groups, should be judged against this baseline.
 
 Each group contributes one term \(n_m \bar t_m \tilde y_m\) to a loading.
 Projected onto the loading, the terms give **group shares** that sum to one and
-equal the groups' Shapley values for the squared loading (§5, Appendix B.8,
+equal the groups' Shapley values for the squared loading (§5, Appendix B.7,
 `group_shares`). The **effective number of groups** behind a component is the
 inverse Simpson index of the absolute shares. A value of 2 or 3 means the
 component is a contrast between a few groups. `leave_out` recomputes the
@@ -104,7 +104,7 @@ same variance. See [Testing and validation](testing.md).
 
 Any similarity matrix between groups splits into each group's **typicality**
 (how similar it is to the set as a whole) and the **pattern** (which groups
-resemble each other beyond that), \(s_{ij} = \mu + a_i + a_j + e_{ij}\) (§3.4, Result 4a).
+resemble each other beyond that), \(s_{ij} = \mu + a_i + a_j + e_{ij}\) (Appendix C, Result C1).
 Two similarity matrices can correlate through shared typicality alone. The
 claim that similar annotations go with similar features concerns the
 pattern. See [Similarity designs](similarity.md).

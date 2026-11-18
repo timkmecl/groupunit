@@ -80,11 +80,15 @@ class LOGOResult:
 def leave_one_group_out(target, Y, weights=None, model=linear_model):
     """Predict each group's ``target`` from its annotations, fitting on the other groups.
 
-    ``target`` is group-level, (M,) or (M, k): for example group means of a
-    component or of features. ``weights`` default to equal (the population of
-    groups); pass group sizes to weight by individuals. ``model`` is either a
-    function ``model(Y_train, t_train, w_train, Y_test)`` returning the
-    prediction for the held-out group, or a scikit-learn style regressor (see
+    ``target`` is group-level, (M,) or (M, k): for example group means of
+    features, or of a score built without the annotations (a PCA or LDA
+    component). It is held fixed across folds, so it must not depend on the
+    annotations: the group means of a PLS or CCA component fitted on all groups
+    already used the held-out group's annotations, and validating them leaks.
+    ``weights`` default to equal (the population of groups); pass group sizes
+    to weight by individuals. ``model`` is either a function
+    ``model(Y_train, t_train, w_train, Y_test)`` returning the prediction for
+    the held-out group, or a scikit-learn style regressor (see
     `estimator_model`). Either way it must contain every data-dependent choice.
     """
     if hasattr(model, "fit") and hasattr(model, "predict"):

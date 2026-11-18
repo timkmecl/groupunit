@@ -1,5 +1,61 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- An undefined (NaN) observed statistic got the smallest possible p-value,
+  1/(n_perm + 1), and was reported as significant. `p_value` now returns NaN
+  for it and counts an undefined permuted statistic as at least as extreme
+  (conservative); `max_t_p_value` and `min_p_value` follow, and a NaN cell no
+  longer affects the family-wise p-values of the other cells.
+- `compare_similarity` with three groups returned a pattern correlation of
+  NaN with p = 1/(n_perm + 1). With three groups the typicality model fits
+  every pair exactly, so it now raises a `ValueError`; it also checks that
+  the two matrices have the same shape.
+- A single annotation passed as a vector (M,) was broadcast into an M × M
+  outer product by `contributions`, `leave_out`, `lens`, `lens_null`, `pls`,
+  `cca` and `pls_test`, which returned wrong results without an error, and
+  made `group_shares`, `size_check` and `describe` fail. A vector is now one
+  annotation column everywhere (`annotation_table`).
+- `leave_out` read a boolean mask as the indices 0 and 1. It now accepts a
+  mask, removes a group listed twice only once, rejects indices out of range,
+  and raises if no group is left.
+- `variance_components` returned NaN when every group has a single
+  individual; it now raises a `ValueError`. `describe` skips the variance
+  components in that case.
+- With equal group sizes, `permutation_weights("exchangeable", ...)` returned
+  weights summing to M instead of one, so `pls_test(...).strength` was M times
+  larger than with unequal sizes. P-values were not affected.
+
+### Changed
+
+- `pooled_variance_components` estimates all features at once and forms the
+  regression's hat matrix once instead of once per feature, much faster
+  with many features. Results are unchanged.
+- New `annotation_table(Y)` in `groupunit.core`: the annotation table as an
+  (M, q) array, with a vector as one column.
+- `describe` computes the pairing terms once.
+
+### Documentation
+
+- Docstrings, README and guide pages cite the current numbering of the paper:
+  the pairing ratio and its terms are Result 4 (4a–4d), the similarity
+  results are Results C1–C3 in Appendix C, the proofs of the shares and of
+  the variance components are Appendices B.7 and B.6, and the software is
+  described in Appendix F.
+- The testing and guide pages describe row-weighted CCA (`cca_test(...,
+  weights="exchangeable")`), which they had said did not exist, and quote the
+  current simulation results for size-weighted, exchangeable-weighted and CCA
+  tests.
+- `r2_null` states when the Beta null holds, as in Result 3b.
+- `leave_one_group_out` warns that the target must not depend on the
+  annotations: the group means of a PLS or CCA component fitted on all groups
+  leak the held-out group.
+- `lens_null` explains that the effective number of feature dimensions cannot
+  be estimated reliably and recommends running the null at `p=1` and at the
+  number of features.
+
 ## 0.2.0 (2026-11-10)
 
 - `pairing_terms`: the pairing ratio split exactly into one term per group,

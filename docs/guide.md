@@ -130,8 +130,9 @@ gu.pairing_ratio(Y3, n)                      # how unusual the design is; report
 ```
 
 `correlation_test` and `pls_test` weight groups so that their terms are
-exchangeable, which keeps them valid with unequal group sizes. CCA always
-weights groups by size; with a pairing ratio well above 1, prefer PLS.
+exchangeable, which keeps them valid with unequal group sizes. `cca_test`
+weights groups by size unless you pass `weights="exchangeable"` (row-weighted
+CCA); with a pairing ratio well above 1, prefer reweighted PLS.
 
 ## 8. Validate on new groups
 

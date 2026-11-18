@@ -1,4 +1,4 @@
-"""Comparison of group similarity matrices: typicality versus pattern (Results 4a-4c)."""
+"""Comparison of group similarity matrices: typicality versus pattern (Appendix C, Results C1-C3)."""
 from dataclasses import dataclass
 
 import numpy as np
@@ -42,7 +42,7 @@ def typicality_pattern(S):
 
 @dataclass(frozen=True)
 class SimilarityDecomposition:
-    """The Mantel correlation of two similarity matrices split into typicality and pattern (Result 4a).
+    """The Mantel correlation of two similarity matrices split into typicality and pattern (Result C1).
 
     Attributes
     ----------
@@ -65,7 +65,7 @@ class SimilarityDecomposition:
 
 
 def similarity_decomposition(S1, S2):
-    """What a Mantel correlation is made of: shared typicality and shared pattern (Result 4a).
+    """What a Mantel correlation is made of: shared typicality and shared pattern (Result C1).
 
     With s_ij = μ + a_i + a_j + e_ij fitted to each matrix (`typicality_pattern`),
 
@@ -171,9 +171,17 @@ def compare_similarity(S1, S2, n_perm=5000, rng=None, alternative="greater", str
     `distance_similarity`); for correlation or cosine similarities the pattern
     test stays somewhat liberal under shared typicality, so confirm a
     significant pattern with distances.
+
+    Needs at least four groups: with three, the additive model fits the
+    three pairs exactly and there is no pattern to test.
     """
     S1, S2 = np.asarray(S1, float), np.asarray(S2, float)
+    if S1.shape != S2.shape:
+        raise ValueError(f"the matrices differ in shape: {S1.shape} and {S2.shape}")
     M = len(S1)
+    if M < 4:
+        raise ValueError(f"need at least four groups to test the pattern; with {M} the typicality "
+                         "model fits every pair exactly")
     iu = np.triu_indices(M, 1)
     d1, d2 = typicality_pattern(S1), typicality_pattern(S2)
     E1, E2 = d1.pattern, d2.pattern

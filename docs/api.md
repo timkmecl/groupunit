@@ -15,7 +15,7 @@ This page is generated from the docstrings when the site is built
 
 ::: groupunit.core
     options:
-      members: [encode_groups, group_sizes, group_means, wcentre, weighted_corr, weighted_basis, annotation_rank, weighted_r2, scatter_matrices]
+      members: [encode_groups, group_sizes, group_means, annotation_table, wcentre, weighted_corr, weighted_basis, annotation_rank, weighted_r2, scatter_matrices]
 
 ## Design
 

@@ -6,6 +6,7 @@ notation and array conventions shared by all modules.
 """
 from .core import (
     annotation_rank,
+    annotation_table,
     encode_groups,
     group_means,
     group_sizes,

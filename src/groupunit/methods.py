@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import check_groups, group_means, wcentre, weighted_basis
+from .core import annotation_table, check_groups, group_means, wcentre, weighted_basis
 
 
 @dataclass(frozen=True)
@@ -60,7 +60,7 @@ def pls(X, groups, Y, n_components=None, weights=None):
     groups instead of individuals (Section 4.1). The first component equals the
     first component of PLS regression.
     """
-    Y = np.asarray(Y, float)
+    Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     w = n.astype(float) if weights is None else np.asarray(weights, float)
     Xbar = group_means(X, groups, len(Y))
@@ -114,7 +114,7 @@ def cca(X, groups, Y, n_components=None, weights=None):
     scaled to unit weighted variance; ``y_loadings`` are weighted covariances,
     Ỹᵀ W t̄ / Σw.
     """
-    Y = np.asarray(Y, float)
+    Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     X = np.asarray(X, float)
     w = n.astype(float) if weights is None else np.asarray(weights, float)

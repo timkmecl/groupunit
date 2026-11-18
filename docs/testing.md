@@ -120,10 +120,10 @@ The ratio is the expected squared loading under the null for the observed
 assignment, divided by its average over reassignments. Above 1 a test with
 those weights leans liberal, below 1 conservative, and no range of the ratio
 is safe for every design: one atypical group's share of the profile spread
-shrinks like 1/M, so the same ratio does more harm with more groups. In the
-paper's simulations, size-weighted PLS rejected a true null in 32–35% of data
-sets (20 groups) and 57–64% (50 groups) when a profile only 1.5 times as far
-out as the others sat on the largest group, with ratios of about 1.3–1.4.
+shrinks like 1/M, so the same ratio does more harm with more groups (Result
+4c). In the paper's simulations, size-weighted PLS rejected a true null in
+3%, 5% and 22% of data sets at ratios of 1.1–1.2, 1.2–1.3 and 1.3–1.45 with 20
+groups, but in 12%, 38% and 68% with 50 groups (§4.3, Figure 6).
 `describe` reports the ratio and the group with the largest term
 (`pairing_terms`), and flags departures from 1 of more than 0.05; a ratio near
 1 is not a guarantee. To check the level of the test you actually run, use
@@ -142,7 +142,10 @@ The remedy is to weight groups so that every term is equally variable, and
 `pls_test` and `correlation_test` do this by default (`weights="exchangeable"`).
 They estimate τ² and σ²_w under the null, pooled over the features (or
 scores), and weight groups ∝ 1/√(τ² + σ²_w / n_m). With equal group sizes these
-are equal weights, so nothing changes. Report the pairing ratio as a
+are equal weights, so nothing changes. If the estimate of τ² is zero they are
+∝ √n_m, between equal and size weights: right if groups differ only by
+sampling error, and only a partial correction if they also differ beyond it,
+which is most likely to go unnoticed with few groups. Report the pairing ratio and its largest term as a
 description of the design.
 
 ```python
@@ -163,19 +166,28 @@ individual-level correlations.
 
 These weights change the statistic, not the hypothesis: under the null of no
 association, any weighting is a valid statistic, and these make the
-permutation distribution correct. In the simulations they held the nominal
-rate in every configuration and were also more powerful than size weights.
-They are not the optimal weights for estimation (`optimal_weights`, the
-square of these).
+permutation distribution correct. In the paper's simulations they kept PLS
+correlation at about 8% or below at a nominal 5% in every design, including
+several atypical groups, profiles that grow with group size and heavy-tailed
+noise, and were more powerful than size weights; PLS regression exceeded
+that in one cell (11%). They are not the optimal weights for estimation
+(`optimal_weights`, the square of these).
 
 The scores must not bring the size weighting back in. Principal components
 computed over individuals line up with the largest groups' means, so those
 groups' terms come out extreme. In the simulations, exchangeable-weight
-correlations of such components were still at 11% for the most extreme
-pairing, against 3.5% for fixed projections. Prefer scores chosen in advance,
-or computed from group means with the same weights. CCA weights groups by
-size internally and has no such option. When the ratio is far from 1, test
-with PLS or correlations instead.
+correlation tests of principal components stayed liberal in some designs (up
+to 15%). Prefer scores chosen in advance, or computed from group means with
+the same weights.
+
+Ordinary CCA weights groups by size internally, and `cca_test` does so by
+default; in the simulations it was less affected than PLS but still liberal
+(up to 24%). `cca_test(..., weights="exchangeable")` fits row-weighted CCA, in
+which each individual of group m gets weight w_m / n_m. It held its level in
+every design but was often conservative and, in pairing designs, less powerful
+than reweighted PLS. When the ratio is far from 1, test with reweighted PLS;
+row-weighted CCA is a valid alternative when the annotations are few (κ around
+0.1), where it was as powerful.
 
 ## Other group-level variables
 

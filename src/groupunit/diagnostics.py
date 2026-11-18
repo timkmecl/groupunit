@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import wcentre
+from .core import annotation_table, wcentre
 
 
 def effective_number(w, axis=0):
@@ -48,11 +48,12 @@ def contributions(tbar, Y, w):
     """Group × annotation contribution matrix with entries w_m t̄_m ỹ_mj (the identity, Section 2.2).
 
     Column sums are the (unnormalised) annotation loadings of the component.
+    Returns (M, q); a single annotation (M,) is treated as one column.
     """
     tbar = wcentre(np.asarray(tbar, float), w)
     if tbar.ndim != 1:
         raise ValueError("contributions takes the group means of a single component")
-    return (np.asarray(w, float) * tbar)[:, None] * wcentre(Y, w)
+    return (np.asarray(w, float) * tbar)[:, None] * wcentre(annotation_table(Y), w)
 
 
 @dataclass(frozen=True)
@@ -84,7 +85,7 @@ class GroupShares:
 
 
 def group_shares(tbar, Y, w):
-    """Group shares of the annotation loading of one or more components (Section 5, Appendix B.8).
+    """Group shares of the annotation loading of one or more components (Section 5, Appendix B.7).
 
     ``tbar`` holds each group's mean score, (M,) or (M, k); ``w`` are the group
     weights used by the analysis (group sizes for analyses of individuals).
@@ -93,7 +94,7 @@ def group_shares(tbar, Y, w):
     w = np.asarray(w, float)
     tbar = np.asarray(tbar, float)
     T = wcentre(tbar.reshape(len(tbar), -1), w)
-    Yc = wcentre(Y, w)
+    Yc = wcentre(annotation_table(Y), w)
     wT = w[:, None] * T
     loading = Yc.T @ wT
     unit = loading / np.linalg.norm(loading, axis=0)
@@ -125,7 +126,7 @@ class LeaveOut:
 
 
 def leave_out(tbar, Y, w, drop):
-    """A component's loading without groups ``drop``, the component held fixed (Section 5, Appendix B.8).
+    """A component's loading without groups ``drop``, the component held fixed (Section 5, Appendix B.7).
 
     The other groups' means are kept unchanged, and the loading is the one the
     data without the dropped groups would give, re-centred over the remaining
@@ -137,15 +138,27 @@ def leave_out(tbar, Y, w, drop):
     from it, and the loading reverses if the group's share exceeds (W − w_m) / W.
     For several groups S, ℓ₋S = ℓ − Σ_S u_m − (Σ_S w_m t̄_m)(Σ_S w_m ỹ_m) / (W − W_S).
     To refit instead, rerun the method without those groups. Choose ``drop``
-    with `GroupShares.top`.
+    with `GroupShares.top`. ``drop`` is a group index, an array of indices
+    or a boolean mask over groups.
     """
     w = np.asarray(w, float)
     t = wcentre(np.asarray(tbar, float), w)
-    Yc = wcentre(Y, w)
+    Yc = wcentre(annotation_table(Y), w)
     terms = (w * t)[:, None] * Yc
     full = terms.sum(0)
-    S = np.atleast_1d(np.asarray(drop, int))
+    drop = np.atleast_1d(np.asarray(drop))
+    if drop.dtype == bool:
+        if drop.shape != w.shape:
+            raise ValueError(f"a boolean drop mask needs one entry per group ({len(w)})")
+        S = np.flatnonzero(drop)
+    else:
+        S = drop.astype(int)
+        if S.size and (S.min() < -len(w) or S.max() >= len(w)):
+            raise IndexError(f"drop indices out of range for {len(w)} groups")
+        S = np.unique(S % len(w))           # each group is removed once, however it is listed
     W_rest = w.sum() - w[S].sum()
+    if W_rest <= 0:
+        raise ValueError("dropping these groups leaves no weight; the loading is undefined")
     rest = full - terms[S].sum(0) - (w[S] @ t[S]) * (w[S] @ Yc[S]) / W_rest
     return LeaveOut(
         dropped=S,
@@ -198,7 +211,7 @@ def lens(Y, n, weights=None, tau2=None, sigma2_w=None):
     """
     n = np.asarray(n, float)
     w = n if weights is None else np.asarray(weights, float)
-    Yc = wcentre(Y, w)
+    Yc = wcentre(annotation_table(Y), w)
     k = _group_mean_cov(n, tau2, sigma2_w)
     WY = w[:, None] * Yc
     L = WY.T @ (k[:, None] * WY)
@@ -235,7 +248,7 @@ def lens_null(Y, n, n_draws=5000, weights=None, tau2=None, sigma2_w=None, rng=No
     rng = np.random.default_rng(rng)
     n = np.asarray(n, float)
     w = n if weights is None else np.asarray(weights, float)
-    Yc = wcentre(Y, w)
+    Yc = wcentre(annotation_table(Y), w)
     sd = np.sqrt(_group_mean_cov(n, tau2, sigma2_w))
     if p is None:
         T = wcentre(rng.standard_normal((len(n), n_draws)) * sd[:, None], w)

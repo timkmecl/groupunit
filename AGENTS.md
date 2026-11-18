@@ -5,7 +5,7 @@ Guidance for coding agents working on this repository.
 ## What this is
 
 `groupunit` is the companion package to the methods paper *The group is the unit:
-limits of correlation, PLS and CCA with group-level variables* (Kmecl; Appendix D).
+limits of correlation, PLS and CCA with group-level variables* (Kmecl; Appendix F).
 It analyses individual-level features `X` against annotations `Y` that exist only
 per group. The paper's argument is that the group, not the individual, is the unit
 of evidence, and the code must never contradict it:

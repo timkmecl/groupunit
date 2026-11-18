@@ -23,7 +23,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .core import check_groups, group_means, wcentre, weighted_basis, weighted_corr
+from .core import annotation_table, check_groups, group_means, wcentre, weighted_basis, weighted_corr
+from .diagnostics import _group_mean_cov
 from .methods import _cca_spaces, cca, pls
 from .scores import between_share
 from .simulate import simulate
@@ -46,11 +47,12 @@ def permutation_weights(weights, values, groups, n):
         return n.astype(float)
     if weights != "exchangeable":
         raise ValueError(f"weights must be 'exchangeable', 'size' or an array, not {weights!r}")
+    # equal weights sum to one like `exchangeable_weights`, so fitted strengths keep one scale
     if np.all(n == n[0]):
-        return np.ones(len(n))
+        return np.full(len(n), 1 / len(n))
     vc = pooled_variance_components(values, groups)
     if not np.all(vc.tau2 + vc.sigma2_w / n > 0):
-        return np.ones(len(n))      # no variation to standardise: every term is already alike
+        return np.full(len(n), 1 / len(n))      # no variation to standardise: every term is already alike
     return exchangeable_weights(n, vc.tau2, vc.sigma2_w)
 
 
@@ -68,7 +70,7 @@ def pairing_ratio(Y, n, weights=None, tau2=None, sigma2_w=None):
     liberal. Below 1, they are conservative. No range of the ratio is safe for
     every design: one atypical group's share of the profile spread shrinks
     like 1/M, so the same ratio implies a more variable term, and a more
-    liberal test, when there are more groups (Result 5d). Use the ratio as a
+    liberal test, when there are more groups (Result 4c). Use the ratio as a
     warning and `size_check` to check a test's level. Without variance components, group
     means are taken as equally variable. Weights from
     `groupunit.weights.exchangeable_weights` give a ratio close to 1.
@@ -85,12 +87,7 @@ def _pairing_matrix(Y, n, weights, tau2, sigma2_w):
     Y = np.asarray(Y, float).reshape(len(n), -1)
     M = len(n)
     w = n if weights is None else np.asarray(weights, float)
-    if tau2 is None and sigma2_w is None:
-        v = np.ones_like(n)
-    elif tau2 is None or sigma2_w is None:
-        raise ValueError("give both tau2 and sigma2_w, or neither")
-    else:
-        v = tau2 + sigma2_w / n
+    v = _group_mean_cov(n, tau2, sigma2_w)
     WC = w[:, None] * (np.eye(M) - np.outer(np.ones(M), w) / w.sum())   # W C
     # A 1 = 0, so the statistic does not depend on how Y is centred; unweighted centring
     # makes the permutation average a function of Σ‖y_m‖² alone
@@ -99,7 +96,7 @@ def _pairing_matrix(Y, n, weights, tau2, sigma2_w):
 
 @dataclass(frozen=True)
 class PairingTerms:
-    """The pairing ratio split into one term per group (Result 5d).
+    """The pairing ratio split into one term per group (Result 4c).
 
     Attributes
     ----------
@@ -123,7 +120,7 @@ class PairingTerms:
 
 
 def pairing_terms(Y, n, weights=None, tau2=None, sigma2_w=None):
-    """Which groups make a group permutation test liberal or conservative (Result 5d).
+    """Which groups make a group permutation test liberal or conservative (Result 4c).
 
     Splits the excess of the `pairing_ratio` over 1 into one term per group,
 
@@ -183,11 +180,17 @@ def p_value(observed, null):
 
     A small tolerance counts exact ties as ties: under saturation every
     permutation reproduces the observed statistic up to rounding.
+
+    An undefined (NaN) observed statistic gets a NaN p-value; an undefined
+    statistic under a permutation counts as at least as extreme as the
+    observed one, which keeps the test conservative.
     """
     observed = np.asarray(observed, float)
     null = np.asarray(null, float)
     tol = 1e-10 * np.maximum(1.0, np.abs(observed))
-    return (1 + (null >= observed - tol).sum(0)) / (1 + len(null))
+    extreme = (null >= observed - tol) | np.isnan(null)
+    p = (1 + extreme.sum(0)) / (1 + len(null))
+    return np.where(np.isnan(observed), np.nan, p)[()]      # [()] keeps a scalar a scalar
 
 
 def max_t_p_value(observed, null):
@@ -213,13 +216,19 @@ def min_p_value(observed, null):
     cell with a wide null does not take the power of the others. The observed
     data count as one of the n_perm + 1 equally likely assignments, as in
     `p_value`. P-values are discrete with floor 1 / (n_perm + 1), so large
-    families need many permutations.
+    families need many permutations. NaN is treated as in `p_value`: an
+    undefined permuted statistic counts as extreme, and an undefined observed
+    cell gets a NaN p-value and does not affect the other cells.
     """
     observed = np.asarray(observed, float)
     null = np.asarray(null, float)
-    values = np.concatenate([observed.reshape(1, -1), null.reshape(len(null), -1)])   # (n_perm + 1, cells)
+    # undefined permuted statistics count as extreme (conservative); undefined observed cells
+    # rank last so that they leave the family-wise p-values of the other cells unchanged
+    null = np.where(np.isnan(null), np.inf, null)
+    values = np.concatenate([np.nan_to_num(observed, nan=-np.inf).reshape(1, -1),
+                             null.reshape(len(null), -1)])   # (n_perm + 1, cells)
     B1 = len(values)
-    tol = 1e-10 * np.maximum(1.0, np.abs(values))
+    tol = 1e-10 * np.maximum(1.0, np.abs(np.where(np.isfinite(values), values, 0.0)))
     # p-value of every assignment (observed and permuted) against its own cell's distribution
     ranks = np.empty_like(values)
     for j in range(values.shape[1]):
@@ -228,6 +237,7 @@ def min_p_value(observed, null):
     p_all = ranks / B1
     min_p = p_all.min(1)
     family = (min_p[None, :] <= p_all[0][:, None] + 1e-12).sum(1) / B1
+    family = np.where(np.isnan(observed.reshape(-1)), np.nan, family)
     return family.reshape(observed.shape)
 
 
@@ -429,7 +439,7 @@ def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, weights="ex
     ``weights="size"`` tests the size-weighted fit, which is liberal when
     large groups carry atypical profiles (`pairing_ratio` well above 1).
     """
-    Y = np.asarray(Y, float)
+    Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     w = permutation_weights(weights, X, groups, n)
     fit = pls(X, groups, Y, n_components, w)
@@ -450,7 +460,7 @@ def pls_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, weights="ex
 
 @dataclass(frozen=True)
 class SizeCheck:
-    """Estimated size of a test for one design (Result 5, Section 4.3).
+    """Estimated size of a test for one design (Section 4.3).
 
     Attributes
     ----------
@@ -471,7 +481,7 @@ def size_check(test, n, Y, tau2, sigma2_w, p=1, n_sim=200, alpha=0.05, rng=None)
 
     The pairing ratio compares averages, while a test's level depends on the
     tails of its null distribution, so a ratio near 1 does not guarantee the
-    level (Result 5a). This checks the level directly for the design at hand.
+    level (Section 4.3). This checks the level directly for the design at hand.
     It keeps the group sizes ``n`` and the annotation table ``Y`` as observed,
     draws features with no relation to the annotations,
 
@@ -503,6 +513,7 @@ def size_check(test, n, Y, tau2, sigma2_w, p=1, n_sim=200, alpha=0.05, rng=None)
     Y = np.asarray(Y, float)
     if Y.shape[0] != len(n):
         raise ValueError(f"Y has {Y.shape[0]} rows but there are {len(n)} groups")
+    Y = annotation_table(Y)
     if tau2 < 0 or sigma2_w < 0 or tau2 + sigma2_w == 0:
         raise ValueError("tau2 and sigma2_w must be non-negative and not both zero")
     p_values = np.empty(n_sim)
@@ -525,11 +536,14 @@ def cca_test(X, groups, Y, n_components=None, n_perm=5000, rng=None, strata=None
     like size-weighted PLS it is liberal when large groups carry atypical
     profiles (`pairing_ratio` well above 1). ``weights="exchangeable"`` or an
     array fits and tests row-weighted CCA instead (see `groupunit.cca`), in
-    which group m carries total weight w_m. Canonical correlations are
-    ratios, so whether exchangeable weights restore the level as they do for
-    PLS is an empirical question; check the design with `size_check`.
+    which group m carries total weight w_m. In the paper's simulations
+    (Section 4.3, Appendix D) row-weighted CCA with exchangeable weights held
+    its level in every design but was often conservative and, in pairing
+    designs, less powerful than `pls_test`; prefer reweighted PLS when the
+    pairing ratio is far from 1, and row-weighted CCA when the annotations are
+    few. Check the design at hand with `size_check`.
     """
-    Y = np.asarray(Y, float)
+    Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     X = np.asarray(X, float)
     w = permutation_weights(weights, X, groups, n)

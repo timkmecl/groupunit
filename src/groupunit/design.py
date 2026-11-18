@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 import numpy as np
 from scipy import stats
 
-from .core import annotation_rank, check_groups, group_means, wcentre
+from .core import annotation_rank, annotation_table, check_groups, group_means, wcentre
 from .diagnostics import effective_number
 from .inference import pairing_terms
 from .scores import feature_between_share
@@ -31,7 +31,7 @@ class DesignSummary:
         group means taken as equally variable otherwise. Above 1, size-weighted
         permutation tests lean liberal; below 1, conservative. No range of the
         ratio is safe for every design: the same ratio does more harm with more
-        groups (Result 5d), so check a test's level with
+        groups (Result 4c), so check a test's level with
         `groupunit.inference.size_check`.
     pairing_group : the group with the largest term of the ratio
         (`groupunit.inference.pairing_terms`), the one most responsible for
@@ -71,7 +71,7 @@ class DesignSummary:
         lines.append(f"pairing ratio of sizes with annotation profiles = {self.pairing_ratio:.2f} "
                      f"(largest term: group {self.pairing_group})")
         # no fixed range of the ratio is safe: the same ratio does more harm with more groups
-        # (Result 5d), so the summary never declares a design safe and points to size_check
+        # (Result 4c), so the summary never declares a design safe and points to size_check
         if self.pairing_ratio > PAIRING_TOLERANCE[1]:
             lines.append("UNUSUAL PAIRING: large groups carry atypical profiles, so size-weighted group "
                          "permutation tests (weights='size', cca_test, estimator_test) lean liberal here, "
@@ -105,21 +105,23 @@ def single_group_annotations(Y, atol=1e-12):
 
 
 def describe(groups, Y, X=None, annotation_names=None):
-    """Summarise a design: N, M, q, r, kappa, effective groups and flagged annotations (Box 1, items 1-4)."""
-    Y = np.asarray(Y, float)
+    """Summarise a design: N, M, q, r, kappa, effective groups and flagged annotations (Box 1, items 2-4)."""
+    Y = annotation_table(Y)
     groups, n = check_groups(groups, len(Y))
     M, q = Y.shape
     r = annotation_rank(Y, n)
     max_components = r
     share = None
-    terms = pairing_terms(Y, n)
+    tau2 = sigma2_w = None              # group means taken as equally variable without features
     if X is not None:
         X = np.asarray(X, float)
         Xbar = group_means(X - X.mean(0), groups, M)
         max_components = min(r, annotation_rank(Xbar, n))
         share = feature_between_share(X, groups)
-        vc = pooled_variance_components(X, groups)
-        terms = pairing_terms(Y, n, tau2=vc.tau2, sigma2_w=vc.sigma2_w)
+        if len(groups) > M:             # σ²_w needs at least one group with two individuals
+            vc = pooled_variance_components(X, groups)
+            tau2, sigma2_w = vc.tau2, vc.sigma2_w
+    terms = pairing_terms(Y, n, tau2=tau2, sigma2_w=sigma2_w)
     return DesignSummary(
         N=len(groups), M=M, q=q, r=r, kappa=r / (M - 1),
         kish_groups=effective_number(n),
@@ -138,11 +140,15 @@ def r2_null(r, M):
     Beta(r/2, (M-1-r)/2), with mean r/(M-1). Returns a frozen ``scipy.stats``
     distribution. At r = M - 1 the distribution collapses to 1 for every score.
 
-    It assumes the weighted group means point in a random direction, which
-    `groupunit.weights.optimal_weights` achieve. With size weights and unequal
-    group sizes the largest groups dominate both the score and the
-    annotations, and the null R² is larger, about r / M_eff for small r
-    (Kish's number); treat this distribution as a lower bound there.
+    It assumes that the weighted group means point in a uniformly random
+    direction. For the size-weighted R²_n of a score fixed in advance, this
+    holds when sampling error dominates (τ² ≪ σ²_w / n̄) or group sizes are
+    equal, because √n_m t̄_m then has the same variance in every group; for
+    R²_w with `groupunit.weights.optimal_weights` it holds whatever the sizes.
+    Under heterogeneity, with size weights and unequal groups, the largest
+    groups dominate both the score's means and the annotations, and the null
+    mean exceeds κ by an amount that depends on the design; treat this
+    distribution as a lower bound there.
     """
     if not 0 < r < M - 1:
         raise ValueError(f"need 0 < r < M - 1; at r = M - 1 every score has R² = 1 (r={r}, M={M})")
@@ -157,7 +163,7 @@ def reduce_annotations(Y, w, k, standardise=False):
     share of the weighted annotation variance each one holds. Inside a
     permutation test or cross-validation, call this on the training groups only.
     """
-    Y = np.asarray(Y, float)
+    Y = annotation_table(Y)
     w = np.asarray(w, float)
     Yc = wcentre(Y, w)
     if standardise:

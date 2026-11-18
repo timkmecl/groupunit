@@ -1,4 +1,4 @@
-"""Weighting groups: variance components, optimal weights and effective numbers of groups (Section 4.1, Appendix B.7).
+"""Weighting groups: variance components, optimal weights and effective numbers of groups (Sections 2.3 and 4.1, Appendix B.6).
 
 A group mean deviates from what the annotations predict through sampling
 error, with variance σ²_w / n_m, and through group-level heterogeneity, with
@@ -26,14 +26,30 @@ def variance_components(t, groups, Y=None):
     σ²_w is the pooled within-group variance. τ² is a moment estimate from the
     residuals of an equally weighted regression of the group means on the
     annotations ``Y`` (on an intercept alone if ``Y`` is None), with the expected
-    sampling-error part removed; it is truncated at zero.
+    sampling-error part removed; it is truncated at zero. σ²_w needs at least
+    one group with two or more individuals.
     """
     t = np.asarray(t, float)
+    if t.ndim != 1:
+        raise ValueError("variance_components takes a single score vector; see pooled_variance_components")
+    sigma2_w, tau2 = _variance_components(t[:, None], groups, Y)
+    return VarianceComponents(sigma2_w=float(sigma2_w[0]), tau2=float(tau2[0]))
+
+
+def _variance_components(T, groups, Y=None):
+    """σ²_w and τ² (truncated at zero) of every column of ``T`` (N, k), as two (k,) arrays.
+
+    The regression on the annotations is the same for every column, so its
+    hat matrix is formed once.
+    """
     M = None if Y is None else len(Y)
     groups, n = check_groups(groups, M)
     M = len(n)
-    tbar = group_means(t, groups, M)
-    sigma2_w = float(((t - tbar[groups]) ** 2).sum() / (len(t) - M))
+    if len(groups) <= M:
+        raise ValueError("every group has a single individual; the within-group variance "
+                         "σ²_w cannot be estimated")
+    tbar = group_means(T, groups, M)
+    sigma2_w = ((T - tbar[groups]) ** 2).sum(0) / (len(groups) - M)
 
     Z = np.ones((M, 1)) if Y is None else np.column_stack([np.ones(M), np.asarray(Y, float)])
     H = Z @ np.linalg.pinv(Z)
@@ -44,8 +60,8 @@ def variance_components(t, groups, Y=None):
     resid = tbar - H @ tbar
     # E[RSS] = Σ (1 - h_mm)(τ² + σ²_w / n_m), with Σ (1 - h_mm) = df
     leverage_free = 1 - np.diag(H)
-    tau2 = (resid @ resid - sigma2_w * (leverage_free / n).sum()) / df
-    return VarianceComponents(sigma2_w=sigma2_w, tau2=float(max(tau2, 0.0)))
+    tau2 = ((resid**2).sum(0) - sigma2_w * (leverage_free / n).sum()) / df
+    return sigma2_w, np.maximum(tau2, 0.0)
 
 
 def optimal_weights(n, tau2, sigma2_w):
@@ -74,9 +90,8 @@ def pooled_variance_components(X, groups):
     is what the null hypothesis of no association implies.
     """
     X = np.asarray(X, float).reshape(len(groups), -1)
-    parts = [variance_components(col, groups) for col in X.T]
-    return VarianceComponents(sigma2_w=float(np.mean([c.sigma2_w for c in parts])),
-                              tau2=float(np.mean([c.tau2 for c in parts])))
+    sigma2_w, tau2 = _variance_components(X, groups)
+    return VarianceComponents(sigma2_w=float(sigma2_w.mean()), tau2=float(tau2.mean()))
 
 
 def effective_groups(w, n=None, tau2=None, sigma2_w=None):

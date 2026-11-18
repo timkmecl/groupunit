@@ -35,6 +35,7 @@ def simulate(n, p, Y=None, q=None, beta=0.0, tau2=1.0, sigma2_w=1.0, rng=None):
             raise ValueError("give either Y or q")
         Y = rng.standard_normal((M, q))
     Y = np.asarray(Y, float)
+    Y = Y.reshape(len(Y), -1)       # a single annotation (M,) is one column
     B = np.asarray(beta, float)
     if B.ndim == 0:
         B = B * rng.standard_normal((Y.shape[1], p))
